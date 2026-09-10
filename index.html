@@ -1,0 +1,1158 @@
+<title>INT182 Exam 1 Whiteboard</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Mali:wght@400;700&display=swap">
+<style>
+  :root{
+    --wall:#c8ccd4; --frame:#ecedf1; --bg:#eef0f4; --grid-line:#dde1ea;
+    --surface:#ffffff; --surface-2:#e8ecf3;
+    --ink:#161c2a; --ink-soft:#4f5871; --ink-faint:#7f889e;
+    --line:#d0d5e0; --line-strong:#adb5c6;
+    --accent:#1f6f5c; --accent-ink:#ffffff; --accent-soft:#d6ece5;
+    --amber:#a1701c; --amber-soft:#f4e8cd;
+    --red:#b03f36; --red-soft:#f8dfdc;
+    --green:#337a52; --green-soft:#d8efe3;
+    --violet:#6a4bbd; --violet-soft:#e7e0f9;
+    --rose:#bd3a6b; --rose-soft:#f8dce7;
+    --blue:#2d5bd7; --blue-soft:#dde5fb;
+    --note-yellow:#fbeead; --note-blue:#d3e7f3;
+    --shadow:0 1px 2px rgba(22,28,42,.06), 0 8px 24px rgba(22,28,42,.07);
+    --font-sans:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+    --font-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+    --font-marker:"Mali","IBM Plex Sans Thai","IBM Plex Sans",sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --wall:#05070b; --frame:#222834; --bg:#0e121a; --grid-line:#171d27;
+      --surface:#151b26; --surface-2:#1b2231;
+      --ink:#e9ecf3; --ink-soft:#a4adc2; --ink-faint:#727c94;
+      --line:#2a3142; --line-strong:#3d4557;
+      --accent:#5fcfae; --accent-ink:#06231b; --accent-soft:#13332b;
+      --amber:#e0ad57; --amber-soft:#3a3018;
+      --red:#e58a7e; --red-soft:#3c231f;
+      --green:#79cca0; --green-soft:#17331f;
+      --violet:#ad95ef; --violet-soft:#2a2444;
+      --rose:#ef8bb0; --rose-soft:#3a2030;
+      --blue:#7ea6ff; --blue-soft:#1c2740;
+      --note-yellow:#3c331c; --note-blue:#1c2f3c;
+      --shadow:0 1px 2px rgba(0,0,0,.45), 0 10px 28px rgba(0,0,0,.4);
+    }
+  }
+  :root[data-theme="dark"]{
+    --wall:#05070b; --frame:#222834; --bg:#0e121a; --grid-line:#171d27;
+    --surface:#151b26; --surface-2:#1b2231;
+    --ink:#e9ecf3; --ink-soft:#a4adc2; --ink-faint:#727c94;
+    --line:#2a3142; --line-strong:#3d4557;
+    --accent:#5fcfae; --accent-ink:#06231b; --accent-soft:#13332b;
+    --amber:#e0ad57; --amber-soft:#3a3018;
+    --red:#e58a7e; --red-soft:#3c231f;
+    --green:#79cca0; --green-soft:#17331f;
+    --violet:#ad95ef; --violet-soft:#2a2444;
+    --rose:#ef8bb0; --rose-soft:#3a2030;
+    --blue:#7ea6ff; --blue-soft:#1c2740;
+    --note-yellow:#3c331c; --note-blue:#1c2f3c;
+    --shadow:0 1px 2px rgba(0,0,0,.45), 0 10px 28px rgba(0,0,0,.4);
+  }
+  html.lang-th{ --font-sans:"IBM Plex Sans Thai","IBM Plex Sans","Segoe UI",system-ui,sans-serif; }
+
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--wall); color:var(--ink); font-family:var(--font-sans); -webkit-font-smoothing:antialiased;}
+  h1,h2,h3,h4{text-wrap:balance; margin:0;}
+
+  .board-frame{
+    position:relative; max-width:1180px; margin:28px auto;
+    border:10px solid var(--frame); border-radius:16px; overflow:hidden;
+    background:
+      linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0/100% 28px,
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0/28px 100%,
+      var(--bg);
+    box-shadow:0 30px 70px -30px rgba(0,0,0,.4), 0 0 0 1px rgba(0,0,0,.05) inset;
+  }
+  @media (max-width:600px){ .board-frame{border-width:6px; border-radius:10px; margin:14px auto;} }
+  .marker-tray{height:28px; background:var(--frame); display:flex; align-items:center; gap:12px; padding:0 26px; box-shadow:inset 0 3px 6px rgba(0,0,0,.15);}
+  .marker-tray .cap{width:24px; height:8px; border-radius:3px 3px 1px 1px; opacity:.85;}
+  .wrap{max-width:1100px; margin:0 auto; padding:40px 24px 56px; position:relative;}
+
+  /* masthead */
+  .masthead{padding:12px 0 30px; border-bottom:2px solid var(--line-strong); margin-bottom:34px; position:relative;}
+  .eyebrow{font-family:var(--font-mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); font-weight:600; margin-bottom:10px;}
+  .masthead h1{font-family:var(--font-marker); font-size:clamp(27px,4vw,39px); font-weight:700; line-height:1.2;}
+  .masthead p{margin:12px 0 0; max-width:66ch; color:var(--ink-soft); font-size:15.5px; line-height:1.6;}
+  .board-tools{position:absolute; top:4px; right:0; display:flex; gap:8px; align-items:center;}
+  .lang-toggle, .theme-toggle{
+    cursor:pointer; border:1.5px solid var(--line-strong); background:var(--surface);
+    border-radius:999px; padding:4px; font-family:var(--font-mono); font-size:11.5px; font-weight:700;
+    display:inline-flex; gap:2px; color:var(--ink-soft); box-shadow:var(--shadow); transform:rotate(-2deg);
+  }
+  .lang-toggle span, .theme-toggle span{padding:4px 10px; border-radius:999px; line-height:1; transition:background .15s,color .15s;}
+  .lang-toggle .lt-en{background:var(--accent); color:var(--accent-ink);}
+  .lang-toggle.is-th .lt-en{background:none; color:var(--ink-soft);}
+  .lang-toggle.is-th .lt-th{background:var(--accent); color:var(--accent-ink);}
+  .lang-toggle .lt-sep{color:var(--ink-faint); padding:4px 0;}
+  .theme-toggle .tt-on{background:var(--accent); color:var(--accent-ink);}
+  @media (max-width:600px){ .board-tools{position:static; margin-bottom:14px;} .lang-toggle,.theme-toggle{transform:none;} }
+
+  .roadmap{display:flex; flex-wrap:wrap; align-items:center; gap:0; margin-top:26px;}
+  .rchip{font-family:var(--font-mono); font-size:12px; font-weight:600; padding:7px 12px; border:1.5px solid var(--line-strong); border-radius:7px; background:var(--surface); color:var(--ink-soft); white-space:nowrap;}
+  .rchip.on{background:var(--accent); border-color:var(--accent); color:var(--accent-ink);}
+  .rchip.exam{background:var(--amber-soft); border-color:var(--amber); color:var(--amber);}
+  .rchip.out{background:var(--red-soft); border-color:var(--red); color:var(--red); text-decoration:line-through;}
+  .rchip.faint{opacity:.5; font-weight:500;}
+  .rjoin{width:18px; height:1.5px; background:var(--line-strong); flex:0 0 18px;}
+
+  .scope{
+    margin-top:22px; background:var(--amber-soft); border-left:3px solid var(--amber);
+    border-radius:0 10px 10px 0; padding:13px 16px; font-size:13.6px; line-height:1.7; color:var(--ink);
+  }
+  .scope b{color:var(--amber);}
+  .scope code{font-family:var(--font-mono); font-size:.94em;}
+
+  /* generic blocks */
+  .panel{background:var(--surface); border:1px solid var(--line); border-radius:11px; padding:18px 20px 16px; box-shadow:var(--shadow); margin-bottom:34px;}
+  .panel > h3{font-family:var(--font-marker); font-size:17.5px; margin-bottom:3px;}
+  .panel > p.lede{font-size:12.8px; color:var(--ink-soft); margin:0 0 15px; line-height:1.65;}
+  .panel.hot{border:2px solid var(--red);}
+  .panel.hot > h3{color:var(--red);}
+  .panel.key{border:2px solid var(--accent);}
+  .panel.key > h3{color:var(--accent);}
+
+  .tbl-wrap{overflow-x:auto;}
+  table.g{width:100%; border-collapse:collapse; font-size:12.9px;}
+  table.g td, table.g th{padding:8px 12px 8px 0; border-top:1px solid var(--line); vertical-align:top; line-height:1.68; text-align:left;}
+  table.g tr:first-child td, table.g thead th{border-top:none;}
+  table.g thead th{font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-faint); font-weight:700; padding-bottom:7px;}
+  table.g td:first-child{color:var(--ink); font-weight:600; width:1%; white-space:nowrap; padding-right:16px;}
+  table.g td.wide:first-child{white-space:normal; width:auto;}
+  table.g td:last-child{color:var(--ink-soft); padding-right:0;}
+  table.g code, .panel code, .card code, .fact code{font-family:var(--font-mono); font-size:.93em; background:var(--surface-2); padding:1px 5px; border-radius:4px;}
+  .yes{color:var(--green); font-weight:700;}
+  .no{color:var(--red); font-weight:700;}
+  .maybe{color:var(--amber); font-weight:700;}
+
+  /* bands */
+  .band{margin-bottom:52px;}
+  .band-head{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:18px;}
+  .wk-pill{font-family:var(--font-mono); font-weight:700; font-size:14px; background:var(--ink); color:var(--bg); border-radius:6px; padding:4px 10px; flex:0 0 auto;}
+  .band-head h2{font-family:var(--font-marker); font-size:23px; font-weight:700;}
+  .band-date{font-family:var(--font-mono); font-size:12.5px; color:var(--ink-faint); margin-left:auto;}
+  .band-tag{font-size:13px; color:var(--ink-soft); background:var(--surface-2); border:1px solid var(--line); border-radius:999px; padding:3px 12px; width:100%; margin-top:2px; line-height:1.6;}
+
+  figure.diagram{
+    position:relative; transform:rotate(-0.25deg); margin:22px 0; background:var(--surface);
+    border:1px solid var(--line); border-radius:12px; padding:18px 18px 14px; box-shadow:var(--shadow); overflow-x:auto;
+  }
+  figure.diagram::before{content:""; position:absolute; top:-7px; left:50%; width:14px; height:14px; margin-left:-7px; border-radius:50%; background:radial-gradient(circle at 35% 30%, #fff, var(--rose) 62%); box-shadow:0 2px 3px rgba(0,0,0,.35);}
+  figure.diagram svg{display:block; width:100%; height:auto; min-width:520px;}
+  figure.diagram figcaption{font-size:13px; color:var(--ink-soft); margin-top:10px; padding-top:10px; border-top:1px dashed var(--line); line-height:1.68;}
+  svg text{font-family:var(--font-sans);}
+  svg text:not([fill]), svg tspan:not([fill]){fill:currentColor;}
+  svg .mono{font-family:var(--font-mono);}
+  svg .lbl{font-size:11.5px; fill:var(--ink-soft);}
+  svg .strong{font-weight:600;}
+
+  .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  @media (max-width:860px){.cards{grid-template-columns:1fr;}}
+  .cards.two{grid-template-columns:repeat(2,1fr);}
+  @media (max-width:760px){.cards.two{grid-template-columns:1fr;}}
+  .card{position:relative; background:var(--note-yellow); border:1px solid var(--line); border-radius:6px; padding:18px 18px 16px; box-shadow:var(--shadow); transform:rotate(-0.6deg); min-width:0;}
+  .cards .card:nth-child(2){background:var(--note-blue); transform:rotate(0.5deg);}
+  .cards .card:nth-child(3){transform:rotate(-0.3deg);}
+  .card::before{content:""; position:absolute; top:-9px; left:50%; width:48px; height:18px; margin-left:-24px; background:rgba(255,255,255,.4); border:1px solid rgba(255,255,255,.55); transform:rotate(-3deg); box-shadow:0 1px 2px rgba(0,0,0,.15);}
+  .card h3{font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); font-weight:600; margin-bottom:12px;}
+  .card ul{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:9px;}
+  .card li{font-size:13.4px; line-height:1.64; padding-left:15px; position:relative;}
+  .card li::before{content:"–"; position:absolute; left:0; color:var(--ink-faint);}
+  .card code{background:rgba(0,0,0,.07);}
+  .card.watch{background:var(--red-soft);}
+  .card.watch li::before{content:"!"; color:var(--red); font-weight:700; font-family:var(--font-mono);}
+  .card.watch h3{color:var(--red);}
+  .card.watch code{background:rgba(0,0,0,.09);}
+
+  .sub-h{margin:30px 0 13px; font-size:12px; letter-spacing:.11em; text-transform:uppercase; color:var(--ink-faint); font-weight:700; display:flex; align-items:center; gap:9px;}
+  .sub-h::after{content:""; flex:1; height:1px; background:var(--line);}
+
+  .fact-grid{display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));}
+  .fact{background:var(--surface); border:1px solid var(--line); border-radius:11px; padding:14px 15px 13px; box-shadow:var(--shadow); min-width:0;}
+  .fact > h3{margin:0 0 6px; font-size:14px; color:var(--ink); display:flex; align-items:center; gap:7px;}
+  .fact > h3::before{content:""; width:9px; height:9px; border-radius:2px; background:var(--accent); flex:none;}
+  .fact.v > h3::before{background:var(--violet);}
+  .fact.a > h3::before{background:var(--amber);}
+  .fact.r > h3::before{background:var(--rose);}
+  .fact.g > h3::before{background:var(--green);}
+  .fact.b > h3::before{background:var(--blue);}
+  .fact p{margin:0 0 9px; font-size:12.9px; line-height:1.72; color:var(--ink-soft);}
+  .fact p:last-child{margin-bottom:0;}
+  .fact b{color:var(--ink);}
+  .fnote{margin-top:10px; padding-top:9px; border-top:1px dashed var(--line); font-size:12.2px; color:var(--ink-soft); line-height:1.72;}
+  .fnote b{color:var(--rose);}
+
+  .traps{display:grid; gap:11px; grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr)); margin-top:6px;}
+  .trap{background:var(--red-soft); border-left:3px solid var(--red); border-radius:0 9px 9px 0; padding:11px 13px; font-size:12.8px; line-height:1.7; color:var(--ink); min-width:0;}
+  .trap b{display:block; color:var(--red); font-size:13px; margin-bottom:3px;}
+  .trap.ok{background:var(--green-soft); border-left-color:var(--green);}
+  .trap.ok b{color:var(--green);}
+
+  /* cram */
+  .cram{background:var(--surface); border:2px solid var(--accent); border-radius:12px; padding:20px 22px 18px; box-shadow:var(--shadow); margin-bottom:42px;}
+  .cram h3{font-family:var(--font-marker); font-size:18px; margin-bottom:3px; color:var(--accent);}
+  .cram > p{font-size:12.8px; color:var(--ink-soft); margin:0 0 16px; line-height:1.65;}
+  .cram-list{margin:0; padding:0; list-style:none; counter-reset:cram; columns:2; column-gap:26px;}
+  @media (max-width:760px){ .cram-list{columns:1;} }
+  .cram-list li{break-inside:avoid; margin:0 0 11px; padding-left:26px; position:relative; font-size:12.9px; line-height:1.7; color:var(--ink-soft);}
+  .cram-list li::before{counter-increment:cram; content:counter(cram); position:absolute; left:0; top:1px; width:19px; height:19px; border-radius:5px; background:var(--accent-soft); color:var(--accent); font-family:var(--font-mono); font-size:10.5px; font-weight:700; display:grid; place-items:center;}
+  .cram-list b{color:var(--ink);}
+
+  /* ask-list */
+  .ask{display:grid; gap:9px;}
+  .askrow{display:grid; grid-template-columns:auto 1fr; gap:10px; align-items:start; background:var(--surface); border:1px solid var(--line); border-radius:9px; padding:11px 13px;}
+  .askrow .qm{flex:none; width:20px; height:20px; border-radius:5px; background:var(--rose-soft); color:var(--rose); font-family:var(--font-mono); font-size:11px; font-weight:700; display:grid; place-items:center; margin-top:1px;}
+  .askrow .qt{font-size:13.2px; line-height:1.65; color:var(--ink);}
+  .askrow .qa{display:block; margin-top:5px; font-size:12.4px; line-height:1.7; color:var(--ink-soft);}
+  .askrow .qa b{color:var(--ink);}
+
+  /* mcq */
+  .mcq-wrap{display:grid; gap:9px;}
+  .mcq{background:var(--surface); border:1px solid var(--line); border-radius:9px; overflow:hidden;}
+  .mcq > summary{cursor:pointer; list-style:none; padding:12px 14px; font-size:13.2px; line-height:1.65; color:var(--ink); display:flex; flex-direction:column; align-items:stretch;}
+  .mcq > summary::-webkit-details-marker{display:none;}
+  .mcq > summary::before{content:attr(data-n); flex:none; min-width:20px; height:20px; padding:0 4px; border-radius:5px; background:var(--violet-soft); color:var(--violet); font-family:var(--font-mono); font-size:11px; font-weight:700; display:grid; place-items:center; margin-bottom:8px; align-self:flex-start;}
+  .mcq[open] > summary::before{background:var(--green-soft); color:var(--green);}
+  .mcq > summary .qtext{display:block; margin-bottom:10px;}
+  .mcq > summary .tap{display:block; margin-top:2px; font-family:var(--font-mono); font-size:11px; color:var(--accent); font-weight:600;}
+  .mcq[open] > summary .tap{color:var(--ink-faint);}
+  .opts{margin:0; padding:0; list-style:none; counter-reset:opt;}
+  .opts li{font-size:12.7px; line-height:1.6; padding:6px 10px; margin-bottom:5px; border:1px solid var(--line); border-radius:7px; color:var(--ink-soft); display:flex; gap:8px; align-items:baseline;}
+  .opts li::before{content:counter(opt, lower-alpha) ")"; counter-increment:opt; font-family:var(--font-mono); font-size:11px; color:var(--ink-faint); flex:none;}
+  .mcq[open] .right{background:var(--green-soft); border-color:var(--green); color:var(--ink); font-weight:600;}
+  .mcq[open] .right::before{content:"\2713"; color:var(--green); font-weight:700;}
+  .mcq .why{margin:9px 14px 13px; padding-top:9px; border-top:1px dashed var(--line); font-size:12.4px; line-height:1.74; color:var(--ink-soft);}
+  .mcq .why b{color:var(--ink);}
+  .mcq-tools{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;}
+  .mcq-tools button{cursor:pointer; border:1.5px solid var(--line-strong); background:var(--surface); color:var(--ink-soft); border-radius:7px; padding:6px 12px; font-family:var(--font-mono); font-size:11.5px; font-weight:600;}
+  .mcq-tools button:hover{background:var(--surface-2); color:var(--ink);}
+
+  .hide{display:none !important;}
+
+  @media print{
+    :root{ --wall:#fff; --frame:#fff; --bg:#fff; --grid-line:#fff; --surface:#fff; --surface-2:#f3f4f7;
+      --ink:#111; --ink-soft:#333; --ink-faint:#666; --line:#bbb; --line-strong:#888; --shadow:none; }
+    body{background:#fff;}
+    .board-frame{border:none; box-shadow:none; background:#fff; margin:0; max-width:none;}
+    .marker-tray, .board-tools, .mcq-tools{display:none !important;}
+    .wrap{padding:0; max-width:none;}
+    figure.diagram{transform:none; break-inside:avoid; box-shadow:none;}
+    figure.diagram::before, .card::before{display:none;}
+    .card{transform:none; box-shadow:none; break-inside:avoid;}
+    .fact, .trap, .mcq, .cram, .panel, .askrow{break-inside:avoid; box-shadow:none;}
+    details{display:block;} details > summary{list-style:none;}
+    .opts, .mcq .why{display:block !important;}
+    .mcq .right{background:#e6f4ec !important; border-color:#337a52 !important; font-weight:700;}
+    .mcq .tap{display:none !important;}
+    a[href]::after{content:"";}
+  }
+</style>
+<div class="board-frame">
+<div class="wrap">
+  <header class="masthead">
+    <div class="board-tools">
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Light or dark theme">
+        <span class="tt-light tt-on">☀</span><span class="tt-dark">☾</span>
+      </button>
+      <button id="langToggle" class="lang-toggle" type="button" aria-pressed="false" aria-label="Switch language">
+        <span class="lt-en">EN</span><span class="lt-sep">/</span><span class="lt-th">TH</span>
+      </button>
+    </div>
+    <div class="eyebrow">INT182 Data Science &amp; AI · 2026</div>
+    <h1 data-th="ไวท์บอร์ดทวนสอบ 1 — Exam 1">Exam 1 Whiteboard</h1>
+    <p data-th="วิชานี้เดินจาก “data science คืออะไร” ไปสู่ “เอาข้อมูลมาสร้างโมเดลที่ทำนายอะไรได้จริง” · สอบ 1 คลุม 5 slide sets · ทั้งหมดเป็น<strong>ปรนัย 50 ข้อ</strong> ไม่มีภาคปฏิบัติ · หน้านี้สรุปเนื้อหาทั้งห้าเซต แล้วปิดท้ายด้วย<strong>รายการที่อาจารย์พูดเองในคาบว่าจะถาม</strong>">This course walks from "what is data science" to "how do you turn data into a model that actually predicts something". Exam 1 covers five slide sets and is <strong>50 multiple-choice questions</strong> — there is no practical half. This board covers all five, and closes with <strong>the list of things the lecturer said in class he will ask</strong>.</p>
+    <div class="roadmap">
+      <span class="rchip on" data-th="Intro to DS &amp; AI">Intro to DS &amp; AI</span><span class="rjoin"></span>
+      <span class="rchip on" data-th="EDA &amp; Model Fitting">EDA &amp; Model Fitting</span><span class="rjoin"></span>
+      <span class="rchip on">Association Rules</span><span class="rjoin"></span>
+      <span class="rchip on">Decision Trees</span><span class="rjoin"></span>
+      <span class="rchip on">K-means</span><span class="rjoin"></span>
+      <span class="rchip exam" data-th="EXAM 1 · ศุกร์ 11 ก.ย.">EXAM 1 · Fri 11 Sep</span><span class="rjoin"></span>
+      <span class="rchip out">Classification &amp; Metrics</span>
+    </div>
+    <div class="scope">
+      <b data-th="ขอบเขตและสิ่งที่ต้องรู้ก่อนเข้าห้อง:">Scope, and what to know before you walk in:</b>
+      <span data-th=" ปรนัย <b>50 ข้อ · 4 ช้อยส์ · เลือกคำตอบเดียว</b> · ฝนด้วย<b>ดินสอ 2B</b> · <b>3 ชั่วโมง</b> · closed book · ไม่ต้องใช้เครื่องคิดเลข · ครอบคลุม <b>5 slide sets</b> · <b>Classification and Metrics ไม่ออก</b> — อาจารย์ดึงออกจาก class material แล้วเพราะยังไม่ได้สอน จะสอนหลังสอบ · <b>สูตรที่ออกมีแค่ Support (กับ Confidence)</b> — entropy, information gain, correlation, p-value, R² <b>ไม่ต้องจำสูตร</b>"> <b>50 questions · four options · single select</b>. Filled in with a <b>2B pencil</b>. <b>Three hours</b>, closed book, no calculator needed. It covers <b>five slide sets</b>, and <b>Classification and Metrics is not on it</b> — the lecturer pulled it out of the class material because it has not been taught yet, and will teach it after the exam. <b>The only formulas examined are Support (and Confidence)</b> — entropy, information gain, correlation, p-value and R² <b>need not be memorised</b>.</span>
+    </div>
+  </header>
+
+  <div class="panel key">
+    <h3 data-th="รายละเอียดห้องสอบ">The paper itself</h3>
+    <p class="lede" data-th="ทั้งหมดนี้อาจารย์แจ้งปากเปล่าในคาบวันที่ 4 ก.ย. — ยังไม่ใช่ประกาศทางการ ให้เช็คซ้ำอีกรอบ">All of this was announced verbally on 4 Sep — it is not the official notice, so check it again.</p>
+    <div class="tbl-wrap">
+      <table class="g">
+        <tr><td data-th="วันสอบ">Date</td><td data-th="<b>วันศุกร์</b> · อาจารย์บอกว่า “ตอนเย็น” แต่ตัวเองก็ไม่มั่นใจ — <b>ไปเช็คประกาศและห้องสอบอีกครั้ง</b>"><b>Friday.</b> He said "in the evening" but was unsure himself — <b>check the announcement and the room again</b>.</td></tr>
+        <tr><td data-th="จำนวนข้อ">Questions</td><td data-th="<b>50 ข้อ</b> · คะแนนเท่ากันทุกข้อ · น้ำหนักรวมอาจถูกเกลี่ยอีกที เพราะมีเนื้อหาที่ยังไม่ได้สอน"><b>50</b>, each worth the same. The overall weighting may still be adjusted, because some material has not been taught.</td></tr>
+        <tr><td data-th="รูปแบบ">Format</td><td data-th="<b>ปรนัยทั้งหมด</b> · <b>single select</b> เลือกได้คำตอบเดียว · ช้อยส์ <b>a / b / c / d</b>"><b>All multiple choice</b>, <b>single select</b>, options <b>a / b / c / d</b>.</td></tr>
+        <tr><td data-th="การตอบ">Answering</td><td data-th="<b>ฝนกระดาษคำตอบ</b> (เป็นแผ่น ไม่ใช่สมุด) · เตรียม<b>ดินสอ 2B</b> มาเอง — อาจารย์เองก็จำไม่ได้ว่า 2B หรือ HB ให้เอา 2B ไว้ก่อน"><b>A bubble sheet</b> (a sheet, not a booklet). Bring your own <b>2B pencil</b> — he could not remember whether it was 2B or HB, so take 2B.</td></tr>
+        <tr><td data-th="เวลา">Time</td><td data-th="<b>3 ชั่วโมง</b> — เฉลี่ยเกือบ 4 นาที/ข้อ · อาจารย์คาดว่าจริงๆ ใช้แค่ <b>1–2 นาที/ข้อ</b> จึงเหลือเวลาเยอะ"><b>Three hours</b> — nearly four minutes a question. He expects <b>one to two minutes</b> each, so there is time to spare.</td></tr>
+        <tr><td data-th="ออกก่อนได้">Leaving early</td><td data-th="ออกได้หลังผ่านไป 1 ชั่วโมง แต่อาจารย์แนะนำให้อยู่อย่างน้อย <b>2 ชั่วโมง</b> ทำไปทวนไป">Allowed after one hour, but he suggests staying at least <b>two</b> and re-reading.</td></tr>
+        <tr><td data-th="เครื่องคิดเลข">Calculator</td><td data-th="<b>ไม่ต้องใช้</b> — ไม่ได้ห้ามพกเข้าห้อง แต่ต้องปิดและไม่ได้ใช้"><b>Not needed.</b> Not banned from the room, but it must be switched off and unused.</td></tr>
+        <tr><td data-th="หนังสือ / โน้ต">Books / notes</td><td data-th="<b>ไม่ได้เลย</b> — closed book"><b>None</b> — closed book.</td></tr>
+        <tr><td data-th="สอบกี่ครั้ง">Exams this term</td><td data-th="<b>2 ครั้งเท่านั้น</b> — ครั้งนี้กับครั้งสุดท้าย ทั้งคู่เป็นข้อสอบข้อเขียน"><b>Two only</b> — this one and the final. Both written papers.</td></tr>
+        <tr><td data-th="ความยาก">Difficulty</td><td data-th="อาจารย์ให้ <b>อ.ชา (กฤษฎา)</b> ช่วยรีวิว ผลคือ “มีบางข้อยาก” · ที่ยากเพราะ<b>ช้อยส์ใกล้เคียงกัน</b> ถ้าแค่เคยได้ยินผ่านๆ จะเลือกไม่ถูก · มีข้อที่ต้อง<b>ประยุกต์</b> ไม่ใช่ท่องตรงจากสไลด์ · อาจารย์หวังว่าส่วนมากจะได้ <b>40+ จาก 50</b>">He had <b>Dr Cha (Kritsada)</b> review it; the verdict was "some questions are hard". They are hard because <b>the options sit close together</b> — hearing something in passing is not enough. Some questions need <b>applying</b> rather than reciting. He hopes most people score <b>40+ out of 50</b>.</td></tr>
+      </table>
+    </div>
+    <p class="fnote" data-th="<b>ระวัง</b> — transcript เพี้ยนหนักตรงช่วงที่พูดถึง “หนึ่งเล่ม” ที่เอาเข้าห้องสอบได้ “เผื่อไว้ดูคำศัพท์ในคำถาม” และบอกว่าผู้คุมสอบจะเปิดตรวจว่ามีเขียนอะไรลงไปหรือเปล่า · ตีความได้ว่าน่าจะเป็น<b>พจนานุกรม</b> แต่ประโยคเพี้ยนเกินกว่าจะฟันธง — <b>ถามอาจารย์หรือดูประกาศก่อนเข้าห้อง</b>"><b>Careful</b> — the transcript is badly mangled around a passage about "one volume" that may be brought in "in case you need to look up vocabulary in the questions", with invigilators checking whether anything is written inside. That reads like a <b>dictionary</b> being permitted, but the sentences are too corrupted to be sure — <b>ask the lecturer or check the notice before you go in</b>.</p>
+  </div>
+
+  <div class="panel hot">
+    <h3 data-th="สูตรไหนออก สูตรไหนไม่ออก">Which formulas are examined, and which are not</h3>
+    <p class="lede" data-th="อาจารย์พูดชัดมากตรงนี้ และเป็นข้อมูลที่ประหยัดเวลาอ่านได้เยอะที่สุดในทั้งคาบ">He was unusually explicit about this, and it is the single biggest saving on revision time.</p>
+    <div class="tbl-wrap">
+      <table class="g">
+        <thead><tr><th data-th="สูตร">Formula</th><th data-th="ออก?">On it?</th><th data-th="อาจารย์พูดว่า">What he said</th></tr></thead>
+        <tr><td><code>Support</code></td><td><span class="yes" data-th="ออก">YES</span></td><td data-th="น่าจะ 1 ข้อ · “ถ้าออกก็คือหนึ่งอัน” · <code>Support(X) = ความถี่ที่มี X ÷ transaction ทั้งหมด</code>">Probably one question. "If it comes up, it's one." <code>Support(X) = transactions containing X ÷ total transactions</code></td></tr>
+        <tr><td><code>Confidence</code></td><td><span class="yes" data-th="ต้องจำ">MEMORISE</span></td><td data-th="“support กับ confidence ที่จะต้องจำ” · <code>Confidence(X→Y) = Support(X,Y) ÷ Support(X)</code>">"Support and confidence are the ones you have to remember." <code>Confidence(X→Y) = Support(X,Y) ÷ Support(X)</code></td></tr>
+        <tr><td><code>Lift</code></td><td><span class="maybe" data-th="concept">CONCEPT</span></td><td data-th="ตอนสอนคาบนี้บอกว่า “ยังไม่ต้องจำ ณ ตอนนี้” แต่คาบ 4 สอนเต็ม — ให้รู้ว่า <b>&gt;1 สัมพันธ์กันจริง · =1 เป็นอิสระ · &lt;1 สัมพันธ์เชิงลบ</b>">He said "no need to memorise it right now", though class 4 covered it fully. Know that <b>&gt;1 is a real association, =1 is independence, &lt;1 is a negative association</b>.</td></tr>
+        <tr><td><code>Entropy</code></td><td><span class="no" data-th="ไม่ออก">NO</span></td><td data-th="“entropy ไม่ออก มันซับซ้อนเกินไป … ไม่เอาที่เป็น log pᵢ พวกนี้ <b>แค่ให้เอาแค่ concept พอ</b>”">"Entropy isn't on it, it's too complicated … none of that log pᵢ business. <b>The concept is enough.</b>"</td></tr>
+        <tr><td><code>Information Gain</code></td><td><span class="no" data-th="ไม่ถามสูตร">NOT THE FORMULA</span></td><td data-th="ต้องรู้ว่ามันคืออะไรและใช้ทำอะไร แต่ไม่ต้องคำนวณ">You must know what it is and what it does, but not compute it.</td></tr>
+        <tr><td><code>Correlation</code></td><td><span class="no" data-th="ไม่ถามสูตร">NOT THE FORMULA</span></td><td data-th="“ไม่ต้องจำสูตร แค่รู้ว่ามันบวกมันลบความหมายคืออะไร แค่นั้นพอ” · รู้ว่าอยู่ระหว่าง <b>−1 ถึง 1</b>">"No need to memorise the formula, just know what positive and negative mean." Know that it runs <b>−1 to 1</b>.</td></tr>
+        <tr><td><code>p-value</code></td><td><span class="no" data-th="ไม่ถาม">NO</span></td><td data-th="“ต้องเข้าใจ stat ก่อนถึงจะอธิบายได้”">"You'd need statistics before you could explain it."</td></tr>
+        <tr><td><code>R²</code></td><td><span class="no" data-th="ไม่ถาม">NO</span></td><td data-th="ไม่ถาม — แต่<b>ดาว significance ถาม</b>">Not asked — but <b>the significance stars are</b>.</td></tr>
+        <tr><td data-th="Polynomial regression">Polynomial</td><td><span class="no" data-th="ไม่ออก">NO</span></td><td data-th="“แม้โพลิโนเมียลไม่ออก” — ออกแค่ <b>linear</b>">"Polynomial isn't on it" — only <b>linear</b> is.</td></tr>
+        <tr><td data-th="ชื่อ algorithm (ID3)">Algorithm names (ID3)</td><td><span class="no" data-th="ไม่ต้องจำ">NO</span></td><td data-th="“อันนี้เป็นชื่ออัลกอริทึม เขาไม่ต้องจำ”">"This is the algorithm's name, you don't need to remember it."</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="cram">
+    <h3 data-th="ยี่สิบนาทีสุดท้าย">The last twenty minutes</h3>
+    <p data-th="ถ้าเหลือเวลาอ่านรอบเดียว ให้อ่านตรงนี้ · ทุกข้อคือสิ่งที่เขียนเป็นข้อสอบได้ตรงๆ เรียงตามลำดับสไลด์ ไม่มีคำอธิบายยาว เพราะรายละเอียดอยู่ข้างล่างแล้ว">If there is time for one pass only, make it this one. Every line can be written as a question directly, in slide order, with no elaboration — the detail is all below.</p>
+    <ol class="cram-list">
+      <li data-th="<b>“Data is the new oil”</b> — Clive Humby, <b>2006</b> · ข้อมูลมีค่า แต่ดิบๆ ใช้ไม่ได้ ต้องกลั่นก่อน"><b>"Data is the new oil"</b> — Clive Humby, <b>2006</b>. Valuable, but useless unrefined.</li>
+      <li data-th="<b>“AI is the new electricity”</b> — Andrew Ng, <b>2016</b> · AI จะพลิกอุตสาหกรรมแบบที่ไฟฟ้าเคยทำ"><b>"AI is the new electricity"</b> — Andrew Ng, <b>2016</b>. AI will transform industry the way electricity did.</li>
+      <li data-th="<b>Data science</b> — Peter Naur, <b>1974</b> · <b>Data scientist</b> — DJ Patil และ Jeff Hammerbacher, <b>2008</b>"><b>Data science</b> — Peter Naur, <b>1974</b>. <b>Data scientist</b> — DJ Patil and Jeff Hammerbacher, <b>2008</b>.</li>
+      <li data-th="<b>5 V's</b> Volume · Velocity · Variety · Veracity · <b>Value (สำคัญที่สุด)</b> · +2 = Variability, Visualization"><b>5 V's:</b> Volume · Velocity · Variety · Veracity · <b>Value (the most important)</b>. Plus 2: Variability, Visualization.</li>
+      <li data-th="<b>Jack of all trades, master of some</b> — data scientist ต้องมี <b>statistics + computing + domain knowledge</b>"><b>A jack of all trades and a master of some</b> — a data scientist needs <b>statistics + computing + domain knowledge</b>.</li>
+      <li data-th="<b>4 A's</b> — Architecture, Acquisition, Analysis, Archiving"><b>The 4 A's</b> — Architecture, Acquisition, Analysis, Archiving.</li>
+      <li data-th="<b>KDD</b> = Knowledge Discovery in Databases คือกระบวนการทั้งหมด · <b>data mining เป็นขั้นหนึ่งอยู่ข้างใน</b>"><b>KDD</b> = Knowledge Discovery in Databases, the whole process. <b>Data mining is one step inside it.</b></li>
+      <li data-th="<b>Data warehouse ต้องมี time stamp</b> ถึงจะเปรียบเทียบย้อนหลังได้"><b>A data warehouse must carry time stamps</b>, or historical comparison is impossible.</li>
+      <li data-th="<b>Insight</b> = ความเข้าใจลึกที่ได้จากการวิเคราะห์ · <b>Actionable</b> = เอาไปลงมือทำต่อได้ (ถ้าทำ X แล้ว Y จะดีขึ้น)"><b>Insight</b> = deep understanding from analysis. <b>Actionable</b> = you can act on it (do X and Y improves).</li>
+      <li data-th="ขั้นที่<b>ใช้เวลานานสุด = data preparation</b> · ขั้นที่<b>สำคัญที่สุด = EDA</b>">The <b>longest step is data preparation</b>; the <b>most important step is EDA</b>.</li>
+      <li data-th="<b>AI ⊃ ML ⊃ DL</b> · ส่วน <b>DS</b> ยืมทั้งหมดมาใช้กับข้อมูลจริงเพื่อลงมือทำ"><b>AI ⊃ ML ⊃ DL.</b> <b>DS</b> borrows all of it and applies it to real data in order to act.</li>
+      <li data-th="<b>EDA เป็น non-parametric</b> — ไม่ตั้งสมมติฐานเรื่อง distribution · ประกอบด้วย visualization + statistical summary + hypothesis testing · เป็น <b>iterative</b>"><b>EDA is non-parametric</b> — it assumes nothing about the distribution. It is visualization + statistical summary + hypothesis testing, done <b>iteratively</b>.</li>
+      <li data-th="<b>กับดัก:</b> <b>box plot เป็น EDA</b> แต่ <b>linear regression ไม่ใช่ EDA</b> — มันคือ data modeling"><b>The trap:</b> <b>a box plot is EDA</b>, but <b>linear regression is not</b> — it is data modeling.</li>
+      <li data-th="<b>Univariate</b> 1 ตัวแปร (box plot) · <b>Bivariate</b> 2 (scatter plot) · <b>Multivariate</b> 3+"><b>Univariate</b> = 1 variable (box plot) · <b>Bivariate</b> = 2 (scatter plot) · <b>Multivariate</b> = 3+.</li>
+      <li data-th="ลำดับซ้อนกัน: <b>Modeling ⊃ Data modeling ⊃ (Data fitting, Model fitting)</b>">The nesting: <b>Modeling ⊃ Data modeling ⊃ (Data fitting, Model fitting)</b>.</li>
+      <li data-th="<b>Parameter</b> algorithm หามาเอง (weights, coefficients) · <b>Hyperparameter</b> <b>คนตั้งเอง</b> (k, learning rate, จำนวน layer, epochs)"><b>Parameters</b> the algorithm finds itself (weights, coefficients). <b>Hyperparameters</b> <b>a person sets</b> (k, learning rate, layers, epochs).</li>
+      <li data-th="<b>Underfitting</b> โมเดลง่ายเกินไป · <b>Overfitting</b> ซับซ้อนเกินจน<b>เรียน noise ไปด้วย</b> · ตัวแก้คือ <b>validation</b>"><b>Underfitting</b> = too simple. <b>Overfitting</b> = so complex it <b>learns the noise</b>. The fix is <b>validation</b>.</li>
+      <li data-th="<b>Predictive</b> ทำนายค่าของตัวแปรหนึ่งจากตัวที่เหลือ · <b>Descriptive</b> หาความสัมพันธ์เพื่อเข้าใจโครงสร้างข้อมูล"><b>Predictive</b> predicts one variable from the rest. <b>Descriptive</b> finds relationships to understand the structure.</li>
+      <li data-th="<b>Nominal</b> แค่แยกประเภท (เบอร์เสื้อนักกีฬาเป็น nominal!) · <b>Ordinal</b> มีลำดับ · <b>Interval ไม่มีศูนย์จริง</b> (°C, ปี ค.ศ., pH) · <b>Ratio มีศูนย์จริง</b> (น้ำหนัก, Kelvin)"><b>Nominal</b> identifies only (an athlete's shirt number is nominal!). <b>Ordinal</b> has order. <b>Interval has no true zero</b> (°C, AD year, pH). <b>Ratio has one</b> (weight, Kelvin).</li>
+      <li data-th="<b>50 °C ไม่ได้ร้อนเป็นสองเท่าของ 25 °C</b> แต่ <b>100 K เป็นสองเท่าของ 50 K</b> เพราะมี true zero ร่วมกัน"><b>50 °C is not twice as hot as 25 °C</b>, but <b>100 K is twice 50 K</b>, because they share a true zero.</li>
+      <li data-th="<b>Mean</b> ถูกดึงโดย outlier · <b>Median = Q2</b> · <b>Mode = ยอดของ histogram</b> · <b>อย่าใช้ตัวเดียว</b>"><b>The mean</b> is pulled by outliers. <b>The median is Q2.</b> <b>The mode is the peak of a histogram.</b> <b>Never use just one.</b></li>
+      <li data-th="<b>Mean ถูกดึงไปทางหาง</b>เสมอ · median อยู่ระหว่าง mode กับ mean · normal distribution ทั้งสามตกจุดเดียวกัน"><b>The mean is always pulled towards the tail</b>; the median sits between the mode and the mean. In a normal distribution all three coincide.</li>
+      <li data-th="<b>Five-number summary</b> min, Q1, Q2, Q3, max · <b>IQR = Q3 − Q1</b> · <b>รั้ว = Q1 − 1.5×IQR และ Q3 + 1.5×IQR</b>"><b>Five-number summary:</b> min, Q1, Q2, Q3, max. <b>IQR = Q3 − Q1.</b> <b>Fences at Q1 − 1.5×IQR and Q3 + 1.5×IQR.</b></li>
+      <li data-th="<b>หนวดต้องจบที่จุดข้อมูลจริง</b>ที่ยังอยู่ในรั้ว ไม่ใช่ลากไปถึงรั้ว → <b>หนวดสองข้างยาวไม่เท่ากันได้</b> · นอกรั้ว = <b>outlier</b>"><b>A whisker must end on a real data point</b> inside the fence, not at the fence → <b>the two whiskers need not be equal</b>. Outside the fence = <b>outlier</b>.</li>
+      <li data-th="แต่ละช่วงของ box plot มีข้อมูล <b>25%</b> · <b>Q2 อยู่ในกล่องแต่ไม่จำเป็นต้องอยู่ตรงกลาง</b>">Each section of a box plot holds <b>25%</b> of the data. <b>Q2 is inside the box but need not be centred.</b></li>
+      <li data-th="<b>Correlation −1 ถึง 1</b> · 0 = ไม่มี · <b>Pearson</b> สำหรับตัวเลขและเชิงเส้น · <b>Spearman</b> สำหรับ ordinal · <b>correlation ≠ causation</b>"><b>Correlation runs −1 to 1</b>, 0 = none. <b>Pearson</b> for numeric and linear, <b>Spearman</b> for ordinal. <b>Correlation is not causation.</b></li>
+      <li data-th="<b>y ต้องเป็นตัวเลขเสมอ</b> ส่วน x ผสม numeric กับ categorical ได้"><b>y must always be numeric</b>; x may mix numeric and categorical.</li>
+      <li data-th="<b>ดาว</b> มาจาก t-test · ยิ่งมากยิ่งดี · <b>ไม่มีดาว = ตัวแปรนั้นไม่สำคัญพอจะใช้ทำนาย</b>"><b>The stars</b> come from the t-test; more is better. <b>No stars = that variable is not important enough to predict with.</b></li>
+      <li data-th="<b>Support = ความถี่ ÷ ทั้งหมด</b> · <b>Confidence(X→Y) = Support(X,Y) ÷ Support(X)</b> · <b>confidence ไม่สมมาตร</b>"><b>Support = frequency ÷ total.</b> <b>Confidence(X→Y) = Support(X,Y) ÷ Support(X).</b> <b>Confidence is not symmetric.</b></li>
+      <li data-th="<b>Apriori property</b> — itemset ที่ frequent → subset ทุกตัว frequent · itemset ที่ infrequent → superset ทุกตัว infrequent"><b>The Apriori property</b> — a frequent itemset has all-frequent subsets; an infrequent itemset has all-infrequent supersets.</li>
+      <li data-th="<b>3-itemset สร้างได้ 6 rules</b> · <b>1-itemset สร้าง rule ไม่ได้</b> ต้องมีอย่างน้อย 2 items"><b>A 3-itemset gives 6 rules.</b> <b>A 1-itemset gives none</b> — you need at least 2 items.</li>
+      <li data-th="<b>Decision Tree = supervised</b> · ทำได้ทั้ง <b>classification และ regression</b> · เป็น <b>rule-based</b> เหมือน association rules"><b>Decision Tree = supervised</b>, does <b>both classification and regression</b>, and is <b>rule-based</b> like association rules.</li>
+      <li data-th="<b>Entropy 0 = pure</b> · <b>1 = mess สูงสุด (50/50)</b> · คำพ้อง: disorder, messy, impure, randomness, uncertainty"><b>Entropy 0 = pure</b>, <b>1 = maximum mess (50/50)</b>. Synonyms: disorder, messy, impure, randomness, uncertainty.</li>
+      <li data-th="<b>IG = Entropy(parent) − Weighted Entropy(children)</b> · <b>เลือกตัวที่ IG สูงสุดเป็น root</b> · ต้นไม้เตี้ยดีกว่าสูง"><b>IG = Entropy(parent) − Weighted Entropy(children).</b> <b>The highest IG becomes the root.</b> Short trees beat tall ones.</li>
+      <li data-th="<b>PlayTennis</b> 9 Yes / 5 No จาก 14 → entropy ≈ <b>0.94</b> → <b>IG(Outlook) = 0.247 สูงสุด</b> → Outlook เป็น root"><b>PlayTennis:</b> 9 Yes / 5 No of 14 → entropy ≈ <b>0.94</b> → <b>IG(Outlook) = 0.247, the highest</b> → Outlook is the root.</li>
+      <li data-th="<b>ห้ามใช้ attribute ซ้ำ</b>ในเส้นทางเดียวกัน"><b>Never reuse an attribute</b> on the same path.</li>
+      <li data-th="<b>K-means = unsupervised</b> เพราะ<b>ไม่ใช้ label</b> · <b>K เป็น hyperparameter</b> ที่ user เลือกเอง"><b>K-means = unsupervised</b>, because <b>no label is used</b>. <b>K is a hyperparameter</b> the user chooses.</li>
+      <li data-th="<b>K-means เป็น non-deterministic</b> — รันซ้ำกับข้อมูลเดิมได้ผลต่างกัน เพราะ<b>สุ่ม centroid เริ่มต้น</b>"><b>K-means is non-deterministic</b> — repeat runs on the same data differ, because the <b>starting centroids are random</b>.</li>
+      <li data-th="<b>Euclidean distance</b> = พีทาโกรัส · <b>WCSS</b> = within-cluster sum of squares · <b>Elbow method</b> เลือก k ที่กราฟเริ่มราบ"><b>Euclidean distance</b> = Pythagoras. <b>WCSS</b> = within-cluster sum of squares. <b>The elbow method</b> picks the k where the curve levels off.</li>
+      <li data-th="<b>K-means ใช้กับ categorical ไม่ได้</b> → <b>K-modes</b> (นับ mismatch) · ผสม → <b>K-prototypes</b>"><b>K-means cannot take categorical data</b> → <b>K-modes</b> (count mismatches) · mixed → <b>K-prototypes</b>.</li>
+      <li data-th="<b>Hard clustering</b> 1 จุด 1 กลุ่ม (K-means) · <b>Soft / fuzzy</b> 1 จุดหลายกลุ่มตาม % (<b>Fuzzy C-means</b>)"><b>Hard clustering</b> = one point, one cluster (K-means). <b>Soft/fuzzy</b> = one point across several by weight (<b>Fuzzy C-means</b>).</li>
+      <li data-th="<b>Normalize เฉพาะ feature ห้ามแตะ target</b> · ไม่ normalize → โมเดล<b>ลำเอียง</b> ไปหา feature ที่ค่าเยอะ = <b>data bias</b>"><b>Normalize the features only, never the target.</b> Skipping it makes the model <b>lean</b> towards large-valued features — that is <b>data bias</b>.</li>
+      <li data-th="Orange: ลำดับ widget <b>File → Data Table → Edit Domain → Select Columns → Preprocess → Scatter Plot → Linear Regression</b> · missing data ใน imports-85 เขียนเป็น <code>?</code>">Orange widget order: <b>File → Data Table → Edit Domain → Select Columns → Preprocess → Scatter Plot → Linear Regression</b>. Missing data in imports-85 is written <code>?</code>.</li>
+    </ol>
+  </div>
+  <!-- ============ SET 1 : INTRO ============ -->
+  <section class="band">
+    <div class="band-head">
+      <span class="wk-pill">SET 1</span>
+      <h2 data-th="Intro to Data Science, Engineering and AI">Intro to Data Science, Engineering and AI</h2>
+      <span class="band-date" data-th="คาบ 1–2">Classes 1–2</span>
+      <span class="band-tag" data-th="เซตที่วางศัพท์ทั้งหมดของวิชา · ใครทำอะไร, big data คืออะไร, AI/ML/DL/DS ซ้อนกันยังไง, KDD กับ data mining ต่างกันตรงไหน · อาจารย์บอกว่าเซตนี้ <b>“ก็ออกหลายข้ออยู่”</b>">The set that lays down the whole vocabulary: who does what, what big data is, how AI/ML/DL/DS nest, and where KDD and data mining differ. He said this set "has quite a few questions on it".</span>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <h3 data-th="คนและบทบาท">People and roles</h3>
+        <ul>
+          <li data-th="<b>Data science</b> — คำนี้ <b>Peter Naur</b> เสนอปี <b>1974</b> เป็นชื่อทางเลือกของ computer science"><b>Data science</b> — the term was proposed by <b>Peter Naur</b> in <b>1974</b> as an alternative name for computer science.</li>
+          <li data-th="<b>Data scientist</b> — <b>DJ Patil</b> และ <b>Jeff Hammerbacher</b> ตั้งขึ้นปี <b>2008</b>"><b>Data scientist</b> — coined by <b>DJ Patil</b> and <b>Jeff Hammerbacher</b> in <b>2008</b>.</li>
+          <li data-th="<b>“A jack of all trades and a master of some”</b> — เหมือนเป็ด ทำได้หลายอย่าง เก่งบางอย่าง · skill ที่ต้องมี: <b>statistics + computing + domain knowledge</b>"><b>"A jack of all trades and a master of some"</b> — like a duck, does many things and is expert at a few. The skills: <b>statistics + computing + domain knowledge</b>.</li>
+          <li data-th="<b>4 A's</b> ของบทบาท data scientist — <b>Architecture, Acquisition, Analysis, Archiving</b>"><b>The 4 A's</b> of the role — <b>Architecture, Acquisition, Analysis, Archiving</b>.</li>
+          <li data-th="<b>Data engineering</b> ทำต้นน้ำ — โครงสร้างพื้นฐาน การเก็บและจัดเก็บข้อมูล <b>ETL</b> (Extract, Transform, Load)"><b>Data engineering</b> is upstream — infrastructure, collecting and storing, <b>ETL</b> (Extract, Transform, Load).</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 data-th="สองประโยคที่ต้องจำ">The two quotes</h3>
+        <ul>
+          <li data-th="<b>“Data is the new oil”</b> — <b>Clive Humby, 2006</b> · ข้อมูลมีค่า แต่ดิบๆ ใช้ไม่ได้ ต้องแยกส่วนและวิเคราะห์ก่อน เหมือนน้ำมันดิบที่ต้องกลั่น"><b>"Data is the new oil"</b> — <b>Clive Humby, 2006</b>. Valuable, but useless unrefined: it must be broken down and analysed, like crude oil.</li>
+          <li data-th="<b>“AI is the new electricity”</b> — <b>Andrew Ng, 2016</b> · AI จะพลิกอุตสาหกรรมแบบที่ไฟฟ้าเคยทำ และทุกคนเข้าถึงได้"><b>"AI is the new electricity"</b> — <b>Andrew Ng, 2016</b>. AI will transform industry the way electricity once did, and everyone can reach it.</li>
+          <li data-th="<b>Democratize AI</b> — Jensen Huang (NVIDIA) พูดถึงบ่อย · ทุกคนต้องเข้าถึง AI ได้ ไม่จำกัดแค่ชนชั้นสูง"><b>Democratize AI</b> — a phrase Jensen Huang of NVIDIA uses often: everyone should be able to reach AI, not just an elite.</li>
+          <li data-th="<b>AI winter</b> — ช่วงที่กิจกรรมและเงินลงทุนใน AI เงียบลง คือขาลงของวงจรความคาดหวัง · ตอนนี้เราอยู่ขาขึ้น"><b>AI winter</b> — a stretch where activity and investment go quiet, the downward part of the hype cycle. We are on the way up right now.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 data-th="Big Data">Big Data</h3>
+        <ul>
+          <li data-th="<b>5 V's</b> — <b>Volume</b> ปริมาณ · <b>Velocity</b> ความเร็วที่ไหลเข้ามา · <b>Variety</b> ความหลากหลายของชนิดและแหล่ง · <b>Veracity</b> คุณภาพและความน่าเชื่อถือ · <b>Value</b> คุณค่าต่อการตัดสินใจ"><b>The 5 V's</b> — <b>Volume</b> · <b>Velocity</b>, the speed it arrives · <b>Variety</b> of types and sources · <b>Veracity</b>, quality and trustworthiness · <b>Value</b> for decision-making.</li>
+          <li data-th="<b>สไลด์ระบุว่า Value สำคัญที่สุด</b> ในห้า"><b>The slide names Value the most important</b> of the five.</li>
+          <li data-th="<b>+2 V</b> — <b>Variability</b> ความหมายที่เปลี่ยนตามบริบท · <b>Visualization</b>"><b>Plus 2</b> — <b>Variability</b>, meaning that shifts with context, and <b>Visualization</b>.</li>
+          <li data-th="<b>Structured</b> มีโครงสร้างชัด เช่นตารางใน relational database · <b>Unstructured</b> ไม่มีโครงสร้าง เช่น text, image, audio, video"><b>Structured</b> has a clear shape, like tables in a relational database. <b>Unstructured</b> has none — text, images, audio, video.</li>
+          <li data-th="ตัวเลขที่ยกไว้อ้างได้: ปี <b>2025</b> โลกผลิตข้อมูลใหม่ราว <b>400 quintillion bytes ต่อวัน</b> (quintillion = 10¹⁸)">A figure worth citing: in <b>2025</b> the world produced roughly <b>400 quintillion bytes</b> of new data per day (a quintillion is 10¹⁸).</li>
+        </ul>
+      </div>
+    </div>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 880 250" role="img" aria-label="How the terms nest: AI is the broadest set, machine learning sits inside it, deep learning inside that, while data science overlaps all of them and adds the pipeline of real data.">
+        <ellipse cx="330" cy="125" rx="300" ry="105" fill="none" stroke="var(--blue)" stroke-width="1.6"/>
+        <text x="330" y="40" text-anchor="middle" class="strong" font-size="13" fill="var(--blue)">Artificial Intelligence</text>
+        <ellipse cx="330" cy="140" rx="215" ry="76" fill="none" stroke="var(--violet)" stroke-width="1.6"/>
+        <text x="330" y="86" text-anchor="middle" class="strong" font-size="12.5" fill="var(--violet)">Machine Learning</text>
+        <ellipse cx="330" cy="155" rx="128" ry="48" fill="none" stroke="var(--rose)" stroke-width="1.6"/>
+        <text x="330" y="130" text-anchor="middle" class="strong" font-size="12" fill="var(--rose)">Deep Learning</text>
+        <text x="330" y="150" text-anchor="middle" class="lbl" font-size="10.5">mimics the brain,</text>
+        <text x="330" y="165" text-anchor="middle" class="lbl" font-size="10.5">artificial neural networks</text>
+        <rect x="660" y="62" width="200" height="126" rx="10" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6"/>
+        <text x="760" y="88" text-anchor="middle" class="strong" font-size="13" fill="var(--accent)">Data Science</text>
+        <text x="760" y="112" text-anchor="middle" class="lbl" font-size="10.5">borrows all of it</text>
+        <text x="760" y="129" text-anchor="middle" class="lbl" font-size="10.5">and applies it to</text>
+        <text x="760" y="146" text-anchor="middle" class="lbl" font-size="10.5">real data, in order</text>
+        <text x="760" y="163" text-anchor="middle" class="lbl" font-size="10.5">to take action</text>
+        <path d="M655,125 H636" fill="none" stroke="var(--line-strong)" stroke-width="1.5" stroke-dasharray="4 4"/>
+      </svg>
+      <figcaption data-th="<b>AI ⊃ ML ⊃ DL</b> · ส่วน <b>DS ไม่ใช่เซตย่อย</b> — มันยืมทุกอย่างมาใช้กับข้อมูลจริงเพื่อลงมือทำ · <b>DS vs ML:</b> ML สนใจอัลกอริทึม ส่วน DS สนใจทั้ง pipeline ตั้งแต่ได้ข้อมูลมาจนถึงเอาไปใช้"><b>AI ⊃ ML ⊃ DL.</b> <b>DS is not a subset</b> — it borrows all of it and applies it to real data in order to act. <b>DS vs ML:</b> ML is about the algorithms; DS is about the whole pipeline from getting the data to using it.</figcaption>
+    </figure>
+
+    <div class="fact-grid">
+      <div class="fact b">
+        <h3 data-th="Pipeline และ life cycle">Pipeline and life cycle</h3>
+        <p data-th="Data science ในทางปฏิบัติคือ <b>ทั้ง pipeline</b> ไม่ใช่แค่ขั้นสร้างโมเดล">In practice data science is <b>the whole pipeline</b>, not just the modelling step.</p>
+        <p data-th="สองข้อที่ถามได้ตรงๆ: ขั้นที่<b>ใช้เวลานานที่สุดคือ data preparation</b> · ขั้นที่<b>สำคัญที่สุดคือ EDA</b>">Two facts that can be asked directly: the <b>longest step is data preparation</b>, and the <b>most important step is EDA</b>.</p>
+        <p class="fnote" data-th="<b>data lifecycle</b> เทียบได้กับ <b>SDLC</b> — อาจารย์บอกว่า “ผมถามตัวนี้ด้วย”"><b>The data lifecycle</b> parallels the <b>SDLC</b> — he said "I ask about this one".</p>
+      </div>
+      <div class="fact g">
+        <h3 data-th="KDD กับ Data mining">KDD and data mining</h3>
+        <p data-th="<b>KDD = Knowledge Discovery in Databases</b> — คือ<b>กระบวนการทั้งหมด</b>ของการค้นหาความรู้จากฐานข้อมูล"><b>KDD = Knowledge Discovery in Databases</b> — the <b>whole process</b> of discovering knowledge from databases.</p>
+        <p data-th="<b>Data mining เป็นขั้นตอนหนึ่งอยู่ข้างใน KDD</b> — คือการดึงข้อมูลและ pattern ที่ยังไม่เคยรู้ออกมาจากฐานข้อมูลขนาดใหญ่"><b>Data mining is one step inside KDD</b> — pulling previously unknown information and patterns out of large databases.</p>
+        <p class="fnote" data-th="<b>data warehouse ต้องแบ่งตามช่วงเวลา</b> เพราะนั่นคือสิ่งที่ทำให้เปรียบเทียบย้อนหลังได้"><b>A data warehouse is divided by time period</b>, which is what makes historical comparison possible.</p>
+      </div>
+      <div class="fact a">
+        <h3 data-th="Insight → Actionable">Insight → actionable</h3>
+        <p data-th="<b>Data product</b> = ผลลัพธ์ของงาน data science เช่น recommender system, ตัวโมเดล หรือ dataset ที่ใช้เทรน"><b>A data product</b> is the output of a data science activity — a recommender system, a model, or the dataset used to train it.</p>
+        <p data-th="<b>Insight</b> = ความเข้าใจลึกที่ได้มาจากการวิเคราะห์ข้อมูล"><b>An insight</b> is a deep understanding arrived at by analysing data.</p>
+        <p data-th="<b>Actionable</b> = คุณสมบัติของ insight ที่ทำให้ลงมือทำต่อได้ — <b>ถ้าทำ X แล้ว Y จะดีขึ้น</b>"><b>Actionable</b> is the property that lets you act on it — <b>do X, and Y improves</b>.</p>
+      </div>
+      <div class="fact v">
+        <h3 data-th="Bias สามชนิด">Three kinds of bias</h3>
+        <p data-th="<b>Bias คือ error</b> ที่เข้ามาโดยอาจไม่ตั้งใจ บางทีมาจากความเคยชินโดยไม่รู้ตัว"><b>Bias is error</b> that creeps in, sometimes unintentionally, out of unnoticed habit.</p>
+        <p data-th="<b>Data bias</b> — ตัวข้อมูลเอง เช่น <b>scale ที่ไม่เท่ากัน</b> ทำให้โมเดลให้น้ำหนักผิด · <b>Human bias</b> — อคติของคน · <b>Algorithmic bias</b> — เกิดจากการ train"><b>Data bias</b> — in the data itself, e.g. <b>unequal scales</b> making the model weight things wrongly. <b>Human bias</b>. <b>Algorithmic bias</b> — arising from training.</p>
+        <p class="fnote" data-th="อาจารย์บอกว่าจะถาม <b>“bias มีอะไรบ้าง”</b> และ <b>“ทำยังไงถ้าต้องการลดปัญหาเรื่อง bias”</b>">He said he asks <b>"what kinds of bias are there"</b> and <b>"what do you do to reduce bias"</b>.</p>
+      </div>
+      <div class="fact r">
+        <h3 data-th="เครื่องมือของวิชานี้">This course's tools</h3>
+        <p data-th="<b>Orange Data Mining</b> (orangedatamining.com) — visual programming ลาก <b>widget</b> มาต่อกัน · ไฟล์ workspace นามสกุล <code>.ows</code>"><b>Orange Data Mining</b> (orangedatamining.com) — visual programming, dragging <b>widgets</b> and wiring them. A workspace file is <code>.ows</code>.</p>
+        <p data-th="<b>RStudio</b> (posit.co) · dataset จาก <b>UCI</b> และ <b>Kaggle</b>"><b>RStudio</b> (posit.co). Datasets from <b>UCI</b> and <b>Kaggle</b>.</p>
+        <p class="fnote" data-th="อาจารย์บอกว่า <b>“มีข้อหนึ่งถามออเรนจ์ น่าจะง่ายเลย คุณได้สักทีนึง หนึ่งแต้มเลย”</b>">He said <b>"there's one question on Orange — should be easy, a free mark"</b>.</p>
+      </div>
+      <div class="fact">
+        <h3 data-th="คำที่ปนกันบ่อย">Words that get mixed up</h3>
+        <p data-th="<b>Feature engineering</b> = ใช้ domain knowledge <b>สร้าง</b>ตัวแปรใหม่ออกมาจากข้อมูลดิบ · <b>Feature selection</b> = <b>เลือก</b>เฉพาะตัวที่สำคัญจริงๆ"><b>Feature engineering</b> = using domain knowledge to <b>extract</b> new variables from raw data. <b>Feature selection</b> = <b>choosing</b> only the subset that genuinely matters.</p>
+        <p data-th="<b>Instance</b> = ข้อมูลหนึ่งแถว เรียกได้อีกว่า data point, row, record, observation"><b>An instance</b> is one row of data — also called a data point, row, record or observation.</p>
+        <p data-th="<b>Data imputation</b> = เติมค่าแทนข้อมูลที่หายไป เช่นใช้ mean หรือค่าที่พบบ่อยที่สุด"><b>Data imputation</b> = substituting a value for missing data, for instance the mean or the most frequent value.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SET 2 : EDA ============ -->
+  <section class="band">
+    <div class="band-head">
+      <span class="wk-pill">SET 2</span>
+      <h2 data-th="EDA และ Model Fitting">EDA and Model Fitting</h2>
+      <span class="band-date" data-th="คาบ 3">Class 3</span>
+      <span class="band-tag" data-th="เซตที่มีคำนิยามให้สับสนเยอะที่สุด และเป็นเซตที่อาจารย์ระบุชื่อหัวข้อที่จะถามมากที่สุด — <b>box plot, scatter plot, EDA, predictive vs descriptive, parameter vs hyperparameter, OLTP/OLAP, ชนิดข้อมูล</b>">The set with the most confusable definitions — and the one he named the most topics from: <b>box plot, scatter plot, EDA, predictive vs descriptive, parameter vs hyperparameter, OLTP/OLAP, data types</b>.</span>
+    </div>
+
+    <div class="fact-grid">
+      <div class="fact">
+        <h3 data-th="EDA คืออะไร">What EDA is</h3>
+        <p data-th="<b>Exploratory Data Analysis</b> = เทคนิควิเคราะห์ข้อมูลเพื่อ<b>ทำความเข้าใจข้อมูล</b> ด้วยการสรุปคุณลักษณะหลักของมัน มักผ่าน statistical graphics และ visualization"><b>Exploratory Data Analysis</b> = a technique for <b>understanding your data</b> by summarizing its main characteristics, usually through statistical graphics and visualization.</p>
+        <p data-th="<b>EDA เป็น non-parametric</b> — <b>ไม่ตั้งสมมติฐาน</b>ใดๆ เกี่ยวกับ distribution ของข้อมูล"><b>EDA is non-parametric</b> — it makes <b>no assumptions</b> about the underlying distribution.</p>
+        <p data-th="ประกอบด้วย <b>data visualization + statistical summary + hypothesis testing</b> · เป็นกระบวนการ <b>iterative</b> ไม่ใช่ทำครั้งเดียวจบ">It takes in <b>data visualization + statistical summaries + hypothesis testing</b>, and is <b>iterative</b> — not done once and finished.</p>
+        <p class="fnote" data-th="<b>กับดักที่อาจออกสอบ:</b> <b>box plot เป็น EDA</b> แต่ <b>linear regression ไม่ใช่ EDA</b> — มันคือ <b>data modeling</b> · สไลด์เขียนไว้ตรงๆ"><b>The trap that could show up:</b> <b>a box plot is EDA</b>, but <b>linear regression is not</b> — it is <b>data modeling</b>. The slide says so outright.</p>
+      </div>
+      <div class="fact b">
+        <h3 data-th="กี่ตัวแปรพร้อมกัน">How many variables at once</h3>
+        <p data-th="<b>Univariate</b> = 1 ตัวแปร — <b>box plot</b> (มีแกนเดียว)"><b>Univariate</b> = 1 variable — a <b>box plot</b> (one axis).</p>
+        <p data-th="<b>Bivariate</b> = 2 ตัวแปร — <b>scatter plot</b> (แกน x และ y)"><b>Bivariate</b> = 2 — a <b>scatter plot</b> (x and y).</p>
+        <p data-th="<b>Multivariate</b> = 3 ขึ้นไป — เช่นทำนาย price จาก horsepower + engine size + brand"><b>Multivariate</b> = 3 or more — predicting price from horsepower + engine size + brand.</p>
+      </div>
+      <div class="fact v">
+        <h3 data-th="สี่คำที่สับสนกันมากที่สุด">The four confusable words</h3>
+        <p data-th="<b>Modeling</b> (กว้างสุด) — สร้าง<b>ตัวแทนอย่างง่าย</b>ของระบบหรือกระบวนการ ด้วยสมการ, simulation หรือแบบจำลองจริง"><b>Modeling</b> (broadest) — creating a <b>simplified representation</b> of a system or process: equations, simulations, or a physical model.</p>
+        <p data-th="<b>Data modeling</b> — สร้าง<b>ตัวแทนเชิงแนวคิด</b>ของข้อมูล เพื่อเข้าใจ สื่อสาร และสร้างระบบ · รวมถึง <b>ERD, DFD, UML</b>"><b>Data modeling</b> — a <b>conceptual representation</b> of data, to understand it, communicate it and build systems on it. Includes <b>ERD, DFD, UML</b>.</p>
+        <p data-th="<b>Data fitting</b> — หา<b>ฟังก์ชันคณิตศาสตร์</b>ที่อธิบายข้อมูลที่มีอยู่ได้ดีที่สุด · เทคนิค: <b>least squares regression, polynomial fitting, spline interpolation</b>"><b>Data fitting</b> — finding the <b>mathematical function</b> that best describes the existing data. Techniques: <b>least squares regression, polynomial fitting, spline interpolation</b>.</p>
+        <p data-th="<b>Model fitting</b> — เน้นที่<b>ตัวโมเดล</b> ปรับ parameter ของโมเดลที่เลือกไว้แล้ว · เน้น <b>generalization</b> คือทำงานกับข้อมูลใหม่ได้ · เทคนิค: <b>gradient descent, maximum likelihood</b>"><b>Model fitting</b> — focused on <b>the model itself</b>, tuning the parameters of a pre-selected model. The emphasis is <b>generalization</b> — working on unseen data. Techniques: <b>gradient descent, maximum likelihood</b>.</p>
+        <p class="fnote" data-th="ซ้อนกันแบบนี้: <b>Modeling ⊃ Data modeling ⊃ (Data fitting, Model fitting)</b>">The nesting: <b>Modeling ⊃ Data modeling ⊃ (Data fitting, Model fitting)</b>.</p>
+      </div>
+      <div class="fact a">
+        <h3 data-th="Parameter vs Hyperparameter">Parameter vs hyperparameter</h3>
+        <p data-th="<b>Model parameter</b> — <b>algorithm ประมาณค่ามาเองจากข้อมูล</b> · ตัวอย่าง: <b>weights, coefficients</b>"><b>A model parameter</b> is <b>estimated from the data by the algorithm itself</b> — <b>weights, coefficients</b>.</p>
+        <p data-th="<b>Model hyperparameter</b> — <b>คนตั้งเอง</b> ใช้ในกระบวนการหา parameter · ตัวอย่าง: <b>k ใน KNN, k ใน K-means, learning rate, จำนวน layer, จำนวน epochs, loss function</b>"><b>A model hyperparameter</b> is <b>set manually by a person</b>, used in the process of estimating the parameters — <b>k in KNN, k in K-means, learning rate, number of layers, epochs, the loss function</b>.</p>
+        <p class="fnote" data-th="ที่มาของคำว่า <b>open weight model</b> ที่ได้ยินบ่อยใน generative AI ก็คือ weights นี่แหละ — เส้นตรงหนึ่งเส้นเก็บแค่ slope กับ y-intercept ก็พอ ส่วนโมเดลสมัยใหม่มีเป็น<b>พันล้านถึงล้านล้าน</b> parameter">This is where <b>open weight model</b>, heard so often around generative AI, comes from. A straight line needs only a slope and an intercept; a modern model holds <b>billions or trillions</b> of parameters.</p>
+      </div>
+      <div class="fact g">
+        <h3 data-th="Underfitting vs Overfitting">Underfitting vs overfitting</h3>
+        <p data-th="<b>Underfitting</b> — โมเดล<b>ง่ายเกินไป</b>จนจับ pattern ที่ซ่อนอยู่ไม่ได้ · หรือข้อมูลน้อยเกินไป หรือ train น้อยเกินไป"><b>Underfitting</b> — the model is <b>too simple</b> to capture the underlying patterns, or there is too little data or too little training.</p>
+        <p data-th="<b>Overfitting</b> — โมเดล<b>ซับซ้อนเกินไป</b> จน<b>เรียน noise ไปด้วย</b> · ทำได้ดีมากกับ training data แต่แย่กับข้อมูลใหม่"><b>Overfitting</b> — the model is <b>too complex</b> and <b>learns the noise as well</b>: excellent on training data, poor on new data.</p>
+        <p data-th="<b>Noise</b> คือส่วนของข้อมูลที่หลุดเข้ามาโดยไม่มีประโยชน์ แต่โมเดลดันไปเรียนมัน · <b>ตัวแก้ overfitting คือ validation</b>"><b>Noise</b> is the part of the data that arrives unwanted and serves no purpose, but which the model learns anyway. <b>The fix for overfitting is validation.</b></p>
+        <p class="fnote" data-th="อุปมา<b>ตัดเสื้อ</b>ของอาจารย์: overfitting = ตัดฟิตเป๊ะกับคนเดียว ใส่คนอื่นไม่ได้ <b>ไม่ general</b> · underfitting = <b>หลวมเกินไป</b>">His <b>tailoring</b> analogy: overfitting is a suit cut exactly for one person that fits nobody else — <b>not general</b>. Underfitting is a suit that is <b>too loose</b>.</p>
+      </div>
+      <div class="fact r">
+        <h3 data-th="Predictive vs Descriptive">Predictive vs descriptive</h3>
+        <p data-th="โมเดลที่ออกมาจากขั้น <b>data mining</b> แบ่งเป็นสองชนิด">The models produced by the <b>data mining</b> step fall into two types.</p>
+        <p data-th="<b>Predictive model</b> — ทำนายค่าของตัวแปรหนึ่งจากตัวที่เหลือ · ตัวที่จะทำนายคือ <b>dependent / target variable</b> ตัวที่ใช้ทำนายคือ <b>independent / predictor variables</b>"><b>Predictive</b> — predict one variable's value from the rest. The one predicted is the <b>dependent or target variable</b>; the rest are <b>independent or predictor variables</b>.</p>
+        <p data-th="<b>Descriptive model</b> — หาความสัมพันธ์ระหว่างตัวแปร<b>เพื่อเข้าใจโครงสร้างของข้อมูล</b> ไม่ได้ทำนาย"><b>Descriptive</b> — identify the relationships between variables in order to learn about the <b>structure of the data</b>. It does not predict.</p>
+        <p class="fnote" data-th="ตัวอย่าง: “รถยี่ห้อนี้ sedan แรงม้าเท่านี้ สีดำ ราคาประมาณเท่าไหร่” = <b>predictive</b> · ส่วน descriptive แค่บอกว่าเจออะไร · <b>clustering และ association rules เป็น descriptive</b> ส่วน <b>classification และ regression เป็น predictive</b>">Example: "this make, a sedan, this much horsepower, black — roughly what price?" is <b>predictive</b>; a descriptive model simply reports what it found. <b>Clustering and association rules are descriptive; classification and regression are predictive.</b></p>
+      </div>
+    </div>
+
+    <div class="sub-h" data-th="ชนิดข้อมูลและมาตรวัด — อาจารย์บอกว่า “อันนี้สำคัญ เพราะเราพูดกันบ่อย”">Types of data and scales of measurement — "this one matters, we talk about it constantly"</div>
+
+    <div class="tbl-wrap">
+      <table class="g">
+        <thead><tr><th data-th="มาตรวัด">Scale</th><th data-th="คุณสมบัติ">Property</th><th data-th="ตัวอย่าง">Examples</th></tr></thead>
+        <tr><td><b>Nominal</b></td><td data-th="แยกประเภทได้อย่างเดียว · ใส่ตัวเลขได้แต่เอาไปเทียบทางคณิตศาสตร์ไม่ได้">Identifies a category only. You can assign numbers, but they cannot be compared mathematically.</td><td data-th="เพศ, กรุ๊ปเลือด, เชื้อชาติ, สีตา, รหัสไปรษณีย์, พรรคการเมือง, ยี่ห้อสินค้า">Gender, blood type, race, eye colour, zip code, political party, product brand</td></tr>
+        <tr><td><b>Ordinal</b></td><td data-th="<b>มีลำดับ</b> · เทียบได้ แต่ไม่ตรงไปตรงมา">Has an <b>order</b>. Comparable, but not straightforwardly.</td><td data-th="โรงแรม 1–5 ดาว, ระดับการศึกษา, เกรด A B C D F, ระดับความพึงพอใจ, ฐานะทางเศรษฐกิจ">Hotel stars 1–5, education level, grades A–F, satisfaction rating, socio-economic status</td></tr>
+        <tr><td><b>Interval</b></td><td data-th="<b>ไม่มีศูนย์จริง</b> · ผลต่างมีความหมาย และผลต่างเท่ากันแปลว่าระยะเท่ากัน"><b>No true zero.</b> Differences are meaningful, and equal differences mean equal distances.</td><td data-th="อุณหภูมิ °C และ °F, pH, คะแนน TOEFL (310–677), ปี ค.ศ. / พ.ศ.">Temperature in °C and °F, pH, TOEFL score (310–677), AD/BE year</td></tr>
+        <tr><td><b>Ratio</b></td><td data-th="<b>มีศูนย์จริง</b> จึงพูดว่า “เป็นกี่เท่า” ได้"><b>Has a true zero</b>, so ratios of "how many times" are meaningful.</td><td data-th="น้ำหนัก, ความยาว, ชีพจร, ปริมาณยา, ความเข้มข้น, อุณหภูมิ <b>Kelvin</b> (0 K = ไม่มีความร้อนเลย = −273.15 °C)">Weight, length, pulse, dose, concentration, temperature in <b>Kelvin</b> (0 K = no heat at all = −273.15 °C)</td></tr>
+      </table>
+    </div>
+
+    <div class="traps" style="margin-top:14px;">
+      <div class="trap">
+        <b data-th="ศูนย์จริงคืออะไร">What a true zero is</b>
+        <span data-th="ศูนย์จริงแปลว่า<b>ค่าศูนย์คือการไม่มีปริมาณนั้นเลยจริงๆ</b> — 0 กิโลกรัม = ไม่มีน้ำหนัก · 0 บาท = ไม่มีเงิน · <b>0 Kelvin = ไม่มีพลังงานความร้อน</b> · แต่ <b>0 °C ไม่ใช่</b> เพราะยังมีความร้อนอยู่ มันเป็นตัวเลขที่มนุษย์ตกลงกัน">A true zero means <b>zero really is the complete absence of the quantity</b> — 0 kg is no weight, 0 baht is no money, <b>0 K is no thermal energy</b>. But <b>0 °C is not</b>, because heat is still present; it is a number human beings agreed on.</span>
+      </div>
+      <div class="trap">
+        <b data-th="ผลที่ตามมา">The consequence</b>
+        <span data-th="<b>50 °C ไม่ได้ร้อนเป็นสองเท่าของ 25 °C</b> แต่ <b>100 K เป็นสองเท่าของ 50 K</b> · ปี ค.ศ. ก็ไม่มีศูนย์จริง ปี 2000 จึงไม่ใช่ “สองเท่า” ของปี 1000 · คะแนน TOEFL ก็ไม่มี เพราะตอบผิดหมดก็ยังได้คะแนนพื้นฐาน"><b>50 °C is not twice as hot as 25 °C</b>, but <b>100 K is twice 50 K</b>. AD years have no true zero either, so the year 2000 is not "twice" the year 1000. Nor does a TOEFL score — answering everything wrong still leaves a baseline.</span>
+      </div>
+      <div class="trap">
+        <b data-th="เบอร์เสื้อนักกีฬา">An athlete's shirt number</b>
+        <span data-th="เลข 8, 10, 23 บนเสื้อ — เป็นตัวเลขก็จริง แต่มันเป็นแค่<b>สัญลักษณ์</b> ไม่ได้บอกว่าใครเก่งกว่า จึงเป็น <b>nominal ไม่ใช่ numerical</b> · <b>เห็นตัวเลขไม่พอ ต้องดูจุดประสงค์และบริบทด้วย</b>">8, 10, 23 on a shirt are numbers, but they are only <b>symbols</b> and say nothing about who is better — so they are <b>nominal, not numerical</b>. <b>Seeing digits is not enough; consider the purpose and context.</b></span>
+      </div>
+    </div>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 900 290" role="img" aria-label="The anatomy of a box plot: the box runs from Q1 to Q3 with the median Q2 inside it, whiskers end at the furthest real data points still inside the fences, the fences sit at Q1 minus 1.5 times the IQR and Q3 plus 1.5 times the IQR, and any point beyond a fence is an outlier.">
+        <path d="M100,60 V240" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-dasharray="5 4"/>
+        <path d="M740,60 V240" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-dasharray="5 4"/>
+        <text x="100" y="50" text-anchor="middle" class="mono" font-size="11" fill="var(--red)">Q1 − 1.5×IQR</text>
+        <text x="740" y="50" text-anchor="middle" class="mono" font-size="11" fill="var(--red)">Q3 + 1.5×IQR</text>
+        <text x="420" y="50" text-anchor="middle" class="lbl" font-size="11" fill="var(--red)">the fences</text>
+        <path d="M200,150 H340" fill="none" stroke="var(--ink-soft)" stroke-width="1.5"/>
+        <path d="M500,150 H690" fill="none" stroke="var(--ink-soft)" stroke-width="1.5"/>
+        <path d="M200,128 V172" fill="none" stroke="var(--ink-soft)" stroke-width="1.5"/>
+        <path d="M690,128 V172" fill="none" stroke="var(--ink-soft)" stroke-width="1.5"/>
+        <rect x="340" y="112" width="160" height="76" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6"/>
+        <path d="M404,112 V188" fill="none" stroke="var(--accent)" stroke-width="2.6"/>
+        <circle cx="52" cy="150" r="5" fill="var(--red)"/>
+        <circle cx="812" cy="150" r="5" fill="var(--red)"/>
+        <circle cx="856" cy="150" r="5" fill="var(--red)"/>
+        <text x="52" y="178" text-anchor="middle" class="lbl" font-size="10.5" fill="var(--red)">outlier</text>
+        <text x="834" y="178" text-anchor="middle" class="lbl" font-size="10.5" fill="var(--red)">outliers</text>
+        <text x="340" y="104" text-anchor="middle" class="mono" font-size="11" fill="var(--accent)">Q1</text>
+        <text x="404" y="104" text-anchor="middle" class="mono" font-size="11" fill="var(--accent)">Q2</text>
+        <text x="500" y="104" text-anchor="middle" class="mono" font-size="11" fill="var(--accent)">Q3</text>
+        <text x="404" y="92" text-anchor="middle" class="lbl" font-size="10">= median</text>
+        <text x="200" y="196" text-anchor="middle" class="mono" font-size="11">min</text>
+        <text x="690" y="196" text-anchor="middle" class="mono" font-size="11">max</text>
+        <path d="M340,222 H500" fill="none" stroke="var(--violet)" stroke-width="1.5"/>
+        <path d="M340,216 V228 M500,216 V228" fill="none" stroke="var(--violet)" stroke-width="1.5"/>
+        <text x="420" y="244" text-anchor="middle" class="mono" font-size="11" fill="var(--violet)">IQR = Q3 − Q1</text>
+        <text x="270" y="216" text-anchor="middle" class="lbl" font-size="10">25%</text>
+        <text x="372" y="216" text-anchor="middle" class="lbl" font-size="10">25%</text>
+        <text x="452" y="216" text-anchor="middle" class="lbl" font-size="10">25%</text>
+        <text x="595" y="216" text-anchor="middle" class="lbl" font-size="10">25%</text>
+        <text x="200" y="272" text-anchor="middle" class="lbl" font-size="10.5">whisker ends on a</text>
+        <text x="200" y="286" text-anchor="middle" class="lbl" font-size="10.5">real data point</text>
+        <text x="690" y="272" text-anchor="middle" class="lbl" font-size="10.5">so the two whiskers</text>
+        <text x="690" y="286" text-anchor="middle" class="lbl" font-size="10.5">need not be equal</text>
+      </svg>
+      <figcaption data-th="<b>Five-number summary</b> = min, Q1, Q2, Q3, max · <b>min กับ max นับเฉพาะจุดที่อยู่ในรั้ว ไม่นับ outlier</b> · แต่ละช่วงมีข้อมูล <b>25%</b> · <b>Q2 อยู่ในกล่องแต่ไม่จำเป็นต้องอยู่ตรงกลาง</b> เพราะข้อมูลอาจเบ้ · ค่า <b>1.5</b> ใน Orange เป็น default ที่ปรับได้ · วาดตั้งหรือนอนไม่ต่างกัน"><b>The five-number summary</b> is min, Q1, Q2, Q3, max. <b>min and max count only points inside the fences — never outliers.</b> Each section holds <b>25%</b> of the data. <b>Q2 is inside the box but need not be centred</b>, because the data may be skewed. The <b>1.5</b> is a default in Orange and can be adjusted. Drawing it vertically or horizontally makes no difference.</figcaption>
+    </figure>
+
+    <div class="fact-grid">
+      <div class="fact a">
+        <h3 data-th="box plot บอกอะไร — อาจารย์ถามตรงๆ">What a box plot is for — asked directly</h3>
+        <p data-th="<b>dispersion</b> (การกระจายตัว) · <b>skewness</b> ถ้ามี · <b>quartiles</b> · <b>outliers</b> ถ้ามี · และ<b>ใช้เปรียบเทียบระหว่างกลุ่มได้</b>"><b>Dispersion</b> (spread) · <b>skewness</b>, if any · the <b>quartiles</b> · the <b>outliers</b>, if any · and it <b>compares groups side by side</b>.</p>
+        <p class="fnote" data-th="ข้อได้เปรียบเหนือ histogram: เห็น distribution โดยไม่ต้องพล็อตทั้งหมด และ<b>เทียบหลายกลุ่มพร้อมกันได้ในภาพเดียว</b>">Its advantage over a histogram: you see the distribution without plotting everything, and <b>several groups fit side by side in one picture</b>.</p>
+      </div>
+      <div class="fact a">
+        <h3 data-th="scatter plot บอกอะไร — อาจารย์ถามตรงๆ">What a scatter plot is for — asked directly</h3>
+        <p data-th="พล็อต <b>2 ตัวแปร</b> เทียบกัน (bivariate) เพื่อดู<b>ความสัมพันธ์</b>ระหว่างกัน — มีแนวโน้มไปทางเดียวกัน สวนทางกัน หรือไม่สัมพันธ์กันเลย">It plots <b>two variables</b> against each other (bivariate) to reveal the <b>relationship</b> between them — moving together, moving oppositely, or not related at all.</p>
+        <p data-th="อาจารย์ถามด้วยว่า <b>“ทำไมเราต้องพล็อตด้วย”</b> — เพราะอ่านตารางตัวเลขล้วนแล้วมองไม่เห็น pattern แต่พอพล็อตปุ๊บเห็นทันที">He also asks <b>"why do we plot at all?"</b> — because you cannot see a pattern in a table of numbers, but you see it at once in a plot.</p>
+      </div>
+      <div class="fact">
+        <h3 data-th="สามค่ากลาง">The three measures of centre</h3>
+        <p data-th="<b>Mean</b> — ค่าเฉลี่ยที่รู้จักกัน · <b>คิดทุก data point</b> แต่<b>ถูกดึงโดย outlier</b>"><b>Mean</b> — the familiar average. It <b>takes every data point into account</b> but is <b>pulled by outliers</b>.</p>
+        <p data-th="<b>Median</b> — ค่าตรงกลางหลังเรียงลำดับ = <b>Q2</b>"><b>Median</b> — the middle value once sorted = <b>Q2</b>.</p>
+        <p data-th="<b>Mode</b> — ค่าที่พบบ่อยที่สุด = <b>ยอดของ histogram</b> (เพราะแกน y ของ histogram คือ frequency)"><b>Mode</b> — the most common value = <b>the peak of a histogram</b> (its y axis is frequency).</p>
+        <p class="fnote" data-th="สไลด์ย้ำว่า<b>ไม่มีตัวไหนดีที่สุด แต่ใช้ตัวเดียวเป็นความคิดที่แย่</b>">The slide stresses that <b>no single one is best, but using just one is a bad idea</b>.</p>
+      </div>
+      <div class="fact g">
+        <h3 data-th="รูปร่างของ distribution">The shape of a distribution</h3>
+        <p data-th="<b>Normal distribution</b> — สมมาตร รูประฆังคว่ำ · <b>mean, median, mode ตกจุดเดียวกัน</b>"><b>Normal</b> — symmetric, bell-shaped. <b>Mean, median and mode all land on the same point.</b></p>
+        <p data-th="<b>Positive skew</b> — มีค่าสุดโต่งทางขวา ดึงค่าไปทางขวา · <b>Negative skew</b> — ดึงไปทางซ้าย"><b>Positive skew</b> — extreme values on the right drag the values right. <b>Negative skew</b> — dragged left.</p>
+        <p data-th="<b>mean ถูกดึงไปทางหางเสมอ</b> ส่วน median อยู่ระหว่าง mode กับ mean · เช่นคนส่วนใหญ่สูง 1.7–1.8 ม. คนสูงเกิน 2 ม. ไม่กี่คนก็ดึงค่าเฉลี่ยไปทางขวา"><b>The mean is always pulled towards the tail</b>, with the median between the mode and the mean. Most people are 1.7–1.8 m tall, so a few over 2 m drag the average right.</p>
+      </div>
+      <div class="fact b">
+        <h3 data-th="Correlation">Correlation</h3>
+        <p data-th="<b>อยู่ระหว่าง −1 ถึง 1</b> · <b>0 = ไม่มี correlation</b> · <b>บวก</b> = ไปทางเดียวกัน · <b>ลบ</b> = สวนทางกัน"><b>Runs from −1 to 1.</b> <b>0 = no correlation.</b> <b>Positive</b> = same direction; <b>negative</b> = opposite.</p>
+        <p data-th="<b>Pearson</b> สำหรับข้อมูลตัวเลขและความสัมพันธ์เชิงเส้น · <b>Spearman</b> สำหรับ ordinal · วิชานี้ใช้ Pearson"><b>Pearson</b> for numeric, linear relationships. <b>Spearman</b> for ordinal. This course uses Pearson.</p>
+        <p class="fnote" data-th="<b>correlation ไม่ได้แปลว่า causation</b> — ประโยคนี้ถามได้ตรงๆ · และ<b>ไม่ต้องจำสูตร</b>"><b>Correlation does not mean causation</b> — a sentence that can be asked as-is. And <b>the formula is not examined</b>.</p>
+      </div>
+      <div class="fact v">
+        <h3 data-th="Linear regression และการอ่านผล">Linear regression and reading the output</h3>
+        <p data-th="เลือก<b>เส้นที่ผลรวมของ error ยกกำลังสองน้อยที่สุด</b> ด้วยวิธี <b>least squares</b> · จากเส้นเป็นร้อยเป็นพันเส้นที่ลากผ่านข้อมูลได้ <b>มีเส้นเดียวที่ดีที่สุด</b>">Choose the line with the <b>smallest total squared error</b>, by <b>least squares</b>. Of the hundreds of lines that could pass through the data, <b>one is best</b>.</p>
+        <p data-th="<b>regression แปลไทยว่า “ถดถอย”</b> — ถดถอยของ error ที่ค่อยๆ ลดลงจนน้อยที่สุด"><b>"Regression" translates as "receding"</b> — the error recedes until it is as small as it goes.</p>
+        <p data-th="<b>ข้อจำกัด: y ต้องเป็นตัวเลขเสมอ</b> ส่วน x ผสม numeric กับ categorical ได้"><b>The constraint: y must always be numeric</b>, while x may mix numeric and categorical.</p>
+        <p data-th="<b>ดาว</b> มาจาก <b>t-test</b> · ยิ่งมากยิ่งดี (p &lt; 0.05 ถือว่า significant) · <b>ไม่มีดาวเลย = ตัวแปรนั้นไม่สำคัญพอจะเอามาทำนาย</b>"><b>The stars</b> come from the <b>t-test</b>; more is better (p &lt; 0.05 counts as significant). <b>No stars at all = that variable is not important enough to predict with.</b></p>
+        <p class="fnote" data-th="ผลจากคาบเรียน: <code>Price = −4562.175 + 172.206 × Horsepower</code> โดยมี <b>r = 0.81</b>">The result from class: <code>Price = −4562.175 + 172.206 × Horsepower</code>, with <b>r = 0.81</b>.</p>
+      </div>
+    </div>
+  </section>
+  <!-- ============ SET 3 : ASSOCIATION RULES ============ -->
+  <section class="band">
+    <div class="band-head">
+      <span class="wk-pill">SET 3</span>
+      <h2 data-th="Association Rules — Market Basket Analysis">Association Rules — Market Basket Analysis</h2>
+      <span class="band-date" data-th="คาบ 4 + ทวนต้นคาบ 5">Class 4 + the class 5 refill</span>
+      <span class="band-tag" data-th="เซตเดียวที่มี<b>สูตรออกสอบ</b> · เป็น <b>unsupervised</b> และ <b>descriptive</b> · เป็น <b>rule-based</b> เหมือน decision tree">The only set with <b>a formula on the paper</b>. It is <b>unsupervised</b> and <b>descriptive</b>, and <b>rule-based</b> like a decision tree.</span>
+    </div>
+
+    <div class="panel">
+      <h3 data-th="สามสูตร">The three formulas</h3>
+      <p class="lede" data-th="อาจารย์ย้ำว่า <b>ต้องเขียน support กับ confidence ได้เอง ข้อสอบไม่ให้สูตรมา</b> ส่วน lift อ่านผ่านๆ พอ">He stressed that <b>you must be able to write support and confidence yourself — the paper will not supply them</b>. Lift can just be read through.</p>
+      <div class="tbl-wrap">
+        <table class="g">
+          <tr><td><b>Support(X)</b></td><td data-th="<code>= จำนวน transaction ที่มี X ÷ transaction ทั้งหมด</code> · ตอบว่า “ของชิ้นนี้ (หรือชุดนี้) เกิดขึ้นบ่อยแค่ไหน”"><code>= transactions containing X ÷ total transactions</code>. It answers "how often does this item, or this set, occur?"</td></tr>
+          <tr><td><b>Confidence(X→Y)</b></td><td data-th="<code>= Support(X,Y) ÷ Support(X)</code> · มาจาก conditional probability · ตอบว่า “เมื่อมี X ในตะกร้าแล้ว เรามั่นใจแค่ไหนว่าจะมี Y ด้วย”"><code>= Support(X,Y) ÷ Support(X)</code>, from conditional probability. It answers "given X is in the basket, how confident are we that Y is too?"</td></tr>
+          <tr><td><b>Lift(X→Y)</b></td><td data-th="<code>= Confidence(X→Y) ÷ Support(Y)</code> = <code>Support(X,Y) ÷ [Support(X) × Support(Y)]</code>"><code>= Confidence(X→Y) ÷ Support(Y)</code> = <code>Support(X,Y) ÷ [Support(X) × Support(Y)]</code></td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <h3 data-th="ศัพท์">Vocabulary</h3>
+        <ul>
+          <li data-th="<b>Association rule</b> = กฎรูป <b>if–then</b> เขียนเป็น <code>X → Y</code> ที่ดึงมาจาก transaction data · เรียกอีกชื่อว่า <b>association mining</b>"><b>An association rule</b> is an <b>if–then</b> rule written <code>X → Y</code>, derived from transaction data. Also called <b>association mining</b>.</li>
+          <li data-th="<b>X</b> ทางซ้าย = <b>antecedent</b> (เงื่อนไข) · <b>Y</b> ทางขวา = <b>consequent</b> (ผล) · เครื่องหมาย <b>comma แปลว่า “และ”</b>"><b>X</b> on the left is the <b>antecedent</b>; <b>Y</b> on the right is the <b>consequent</b>. A <b>comma means "and"</b>.</li>
+          <li data-th="<b>MBA = Market Basket Analysis</b> — หาว่าอะไรถูกซื้อไปด้วยกัน · ตัวอย่างในตำนานคือ <b>beer &amp; diapers</b>"><b>MBA = Market Basket Analysis</b> — finding what gets bought together. The classic example is <b>beer &amp; diapers</b>.</li>
+          <li data-th="<b>Transactional data</b> บันทึกเหตุการณ์เดียว ควรมี timestamp — แต่ <b>MBA ไม่สนใจจำนวนและลำดับ</b>"><b>Transactional data</b> records one event and should carry a timestamp — but <b>MBA ignores quantities and order</b>.</li>
+          <li data-th="<b>Itemset</b> เป็นเซต จึง<b>ไม่มีตัวซ้ำและไม่มีลำดับ</b>"><b>An itemset</b> is a set, so it has <b>no duplicates and no order</b>.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 data-th="Apriori">Apriori</h3>
+        <ul>
+          <li data-th="<b>ส่วนที่ 1:</b> ถ้า itemset หนึ่ง <b>frequent</b> → <b>subset ทุกตัวของมัน frequent</b>"><b>Part 1:</b> if an itemset is <b>frequent</b> → <b>all of its subsets are frequent</b>.</li>
+          <li data-th="<b>ส่วนที่ 2:</b> ถ้า itemset หนึ่ง <b>infrequent</b> → <b>superset ทุกตัวของมัน infrequent</b> (contrapositive ของข้อ 1)"><b>Part 2:</b> if an itemset is <b>infrequent</b> → <b>all of its supersets are infrequent</b> (the contrapositive of part 1).</li>
+          <li data-th="<b>ทำไมต้อง prune:</b> power set มีขนาด <b>2ⁿ</b> — สินค้าหลักพันชิ้นก็คำนวณไม่ไหว จึงต้องตัด infrequent itemset ทิ้งทันที"><b>Why pruning matters:</b> the power set has size <b>2ⁿ</b>. With thousands of products that is uncomputable, so infrequent itemsets are cut immediately.</li>
+          <li data-th="<b>ขั้นตอน:</b> 1-itemsets → ตัด → 2-itemsets → ตัด → 3-itemsets → ตัด → หยุดเมื่อไม่เหลืออะไรรอด"><b>The steps:</b> 1-itemsets → discard → 2-itemsets → discard → 3-itemsets → discard → stop when nothing survives.</li>
+          <li data-th="ในทางปฏิบัติ <b>3–4 itemsets กำลังดี</b> · เกิน 5 แล้ว pattern หายากและเลิกมีประโยชน์">In practice <b>3–4 itemsets is about right</b>; past 5 the patterns get hard to find and stop being useful.</li>
+        </ul>
+      </div>
+      <div class="card watch">
+        <h3 data-th="ระวังไว้">Watch out</h3>
+        <ul>
+          <li data-th="<b>1-itemset สร้าง rule ไม่ได้</b> — ต้องมีอย่างน้อย <b>2 items</b> เพราะแต่ละข้างของลูกศรต้องมีอย่างน้อย 1 ตัว antecedent ว่างหรือ consequent ว่างไม่ได้"><b>A 1-itemset cannot make a rule</b> — you need at least <b>2 items</b>, since each side of the arrow needs at least one. Neither side may be empty.</li>
+          <li data-th="<b>confidence ไม่สมมาตร</b> — <code>Confidence(X→Y) ≠ Confidence(Y→X)</code> เพราะตัวเศษเท่ากันแต่<b>ตัวส่วนต่างกัน</b>"><b>Confidence is not symmetric</b> — <code>Confidence(X→Y) ≠ Confidence(Y→X)</code>, because the numerators match but <b>the denominators do not</b>.</li>
+          <li data-th="<b>กับดัก confidence สูง:</b> ตัวอย่างในสไลด์ได้ confidence <b>100%</b> แต่ <b>lift = 1 พอดี</b> เพราะนมอยู่ในทุก transaction อยู่แล้ว → <b>ต้องดู lift ด้วยเสมอ</b>"><b>The high-confidence trap:</b> a slide example reaches <b>100% confidence</b> but a <b>lift of exactly 1</b>, because milk is in every transaction anyway → <b>always check lift too</b>.</li>
+          <li data-th="<b>อ่าน lift:</b> <b>&gt; 1</b> สัมพันธ์กันจริง · <b>= 1</b> เป็นอิสระต่อกัน · <b>&lt; 1</b> สัมพันธ์เชิงลบ · <b>สไลด์หน้า 6 พิมพ์ผิดตรงนี้</b>"><b>Reading lift:</b> <b>&gt; 1</b> a real association · <b>= 1</b> independent · <b>&lt; 1</b> a negative association. <b>Slide 6 mistypes this.</b></li>
+          <li data-th="<b>3-itemset สร้างได้ 6 rules</b> — 3 กฎที่ consequent มีตัวเดียว และ 3 กฎที่ consequent มีสองตัว · <b>ทุก item ต้องปรากฏ ห้ามขาด</b>"><b>A 3-itemset gives 6 rules</b> — three with a one-item consequent and three with a two-item consequent. <b>Every item must appear; none may be missing.</b></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3 data-th="สองตัวอย่างที่ทำในคาบ">The two worked examples</h3>
+      <div class="tbl-wrap">
+        <table class="g">
+          <tr><td data-th="ตัวอย่างในสไลด์">The slide example</td><td data-th="min support <b>50%</b>, min confidence <b>75%</b> → strong rules ที่รอดคือ <b>{Bread}→{Milk}</b> และ <b>{Eggs}→{Milk}</b> ทั้งคู่ confidence <b>100%</b> — แต่ lift = 1 ทั้งคู่ ซึ่งคือบทเรียนสำคัญของตัวอย่างนี้">min sup <b>50%</b>, min conf <b>75%</b> → the surviving strong rules are <b>{Bread}→{Milk}</b> and <b>{Eggs}→{Milk}</b>, both at <b>100% confidence</b> — but both with lift 1, which is the lesson of the example.</td></tr>
+          <tr><td data-th="แบบฝึกหัด 5 transaction">The 5-transaction exercise</td><td data-th="min support <b>60%</b>, min confidence <b>80%</b> → เหลือ strong rule เดียวคือ <b>{Butter}→{Bread}</b> confidence <b>100%</b> lift <b>1.25</b>">min sup <b>60%</b>, min conf <b>80%</b> → one strong rule survives: <b>{Butter}→{Bread}</b>, confidence <b>100%</b>, lift <b>1.25</b>.</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SET 4 : DECISION TREES ============ -->
+  <section class="band">
+    <div class="band-head">
+      <span class="wk-pill">SET 4</span>
+      <h2 data-th="Decision Trees">Decision Trees</h2>
+      <span class="band-date" data-th="คาบ 5">Class 5</span>
+      <span class="band-tag" data-th="<b>supervised</b> · ทำได้ทั้ง <b>classification และ regression</b> · <b>rule-based</b> · หัวใจคือ <b>จะเลือก feature ไหนมาถามก่อน</b> ซึ่งตอบด้วย entropy + information gain — <b>แต่สูตรไม่ออกสอบ ขอแค่ concept</b>"><b>Supervised</b>, does <b>both classification and regression</b>, and is <b>rule-based</b>. The heart of it is <b>which feature to ask first</b>, answered by entropy + information gain — <b>but the formulas are not examined, only the concept</b>.</span>
+    </div>
+
+    <div class="fact-grid">
+      <div class="fact b">
+        <h3 data-th="Classifier ตัวอื่นในสไลด์">The other classifiers on the slide</h3>
+        <p data-th="<b>KNN</b> — ทำนายจาก data point ที่อยู่ใน <b>neighborhood</b> ของจุดทดสอบ"><b>KNN</b> — predicts from the training points in the <b>neighborhood</b> of the test point.</p>
+        <p data-th="<b>Decision Tree</b> — split dataset ที่ทุก node ตามค่าของตัวแปรหนึ่ง แล้วจัดประเภทที่ leaf จากค่ารวมของ class label"><b>Decision Tree</b> — split at every node on a variable's value, then classify at a leaf from the aggregate class labels.</p>
+        <p data-th="<b>Naive Bayes</b> — ใช้ likelihood probability · <b>สมมติว่า feature เป็นอิสระต่อกัน</b> เพื่อให้โมเดลง่ายลง"><b>Naive Bayes</b> — uses likelihood probabilities, <b>assuming features are independent</b> to simplify the model.</p>
+        <p data-th="<b>Logistic regression</b> — fit ความน่าจะเป็นของ class ด้วย <b>sigmoid function</b> หา coefficient ด้วย <b>gradient descent</b>"><b>Logistic regression</b> — fits class probabilities with a <b>sigmoid</b>, finding coefficients by <b>gradient descent</b>.</p>
+        <p data-th="<b>SVM</b> — เรียนรู้ <b>hyperplane</b> ที่แยกสอง class ด้วย <b>margin สูงสุด</b>"><b>SVM</b> — learns the <b>hyperplane</b> separating two classes with the <b>maximum margin</b>.</p>
+        <p class="fnote" data-th="ประโยคเปิดของสไลด์หน้านี้ถามได้ตรงๆ: <b>“ใน classification model ตัว target เป็น categorical ส่วนใน regression ตัว target เป็น numeric”</b>">The slide's opening sentence can be asked as-is: <b>"In classification models the target variable or class label is categorical, whereas in regression the target variable is numeric."</b></p>
+      </div>
+      <div class="fact g">
+        <h3 data-th="Entropy">Entropy</h3>
+        <p data-th="<b>วัดว่ากลุ่มหนึ่ง “รก” หรือ “ไม่บริสุทธิ์” แค่ไหน</b>"><b>Measures how messy or impure a group is.</b></p>
+        <p data-th="คำพ้องที่ช้อยส์อาจใช้: <b>disorder · messy · impure · randomness · uncertainty</b>">Words an option may use instead: <b>disorder · messy · impure · randomness · uncertainty</b>.</p>
+        <p data-th="<b>Entropy = 0</b> → <b>perfectly pure</b> ทุกตัวอยู่ category เดียวกัน · ตัวอย่างสไลด์: ล้วงถุงที่มีแอปเปิ้ล Red Delicious 10 ลูก uncertainty = 0"><b>Entropy = 0</b> → <b>perfectly pure</b>, everyone in the same category. The slide's example: reach into a bag of 10 Red Delicious apples, uncertainty 0.</p>
+        <p data-th="<b>Entropy = 1</b> → <b>maximum mess</b> แบ่ง 50/50 พอดี · ล้วงถุงที่มีแอปเปิ้ล 5 ส้ม 5 — ไม่มีทางรู้เลยว่าจะได้อะไร"><b>Entropy = 1</b> → <b>maximum mess</b>, a perfect 50/50 split. A bag of 5 apples and 5 oranges — no idea what you will pull out.</p>
+        <p class="fnote" data-th="อุปมาห้องเรียน: นั่งมั่วๆ ชายหญิงปน = entropy สูง · แยกชายซ้ายหญิงขวา = entropy ต่ำ · นั่งสลับกันเป๊ะ = maximum mess · ห้องที่มีแต่ผู้หญิงล้วน = <b>entropy 0 ทันที</b>">His classroom analogy: everyone mixed = high entropy · men left, women right = low entropy · strictly alternating = maximum mess · a room of only women = <b>entropy 0 at once</b>.</p>
+      </div>
+      <div class="fact a">
+        <h3 data-th="Information Gain">Information Gain</h3>
+        <p data-th="<b>วัดว่าคำถามนี้ลดความรกลงได้เท่าไหร่</b>"><b>Measures how much a question reduces that messiness.</b></p>
+        <p data-th="<code>IG = Entropy(parent) − Weighted Average Entropy(children)</code>"><code>IG = Entropy(Parent) − Weighted Average Entropy(Children)</code></p>
+        <p data-th="ต้อง <b>weighted</b> เพราะลูกแต่ละคนมีจำนวน data point ไม่เท่ากัน — “ลูกคนนี้ให้มากหน่อย ลูกคนนั้นให้น้อยหน่อย”">It must be <b>weighted</b>, because each child holds a different number of data points — "this child gets more, that child gets less".</p>
+        <p data-th="<b>IG เป็นค่าเชิงบวก ยิ่งมากยิ่งดี</b> → <b>เลือก feature ที่ IG สูงสุดมาเป็นคำถาม</b>"><b>IG is positive and more is better</b> → <b>pick the feature with the highest IG as the question</b>.</p>
+      </div>
+      <div class="fact r">
+        <h3 data-th="ต้นไม้เตี้ยดีกว่าต้นไม้สูง">Short trees beat tall ones</h3>
+        <p data-th="ต้นไม้เตี้ย <b>จบเร็ว ใช้พลังงานและการคำนวณน้อยกว่า</b> → <b>คำถามยิ่งน้อยยิ่งดี</b>">A short tree <b>finishes sooner, using less energy and computation</b> → <b>fewer questions is better</b>.</p>
+        <p data-th="อุปมา: เหมือนไป<b>เข้าคิวหรือหาหมอ</b> — เขามีการ <b>screen</b> และวิธี screen ที่ดีที่สุดคือวิธีที่<b>แยกคนได้เร็วที่สุด</b> · <b>คำถามแรกจึงสำคัญที่สุด</b>">His analogy: like <b>queuing or seeing a doctor</b> — there is a <b>screening</b> step, and the best screening separates people fastest. <b>So the first question matters most.</b></p>
+        <p class="fnote" data-th="<b>กฎที่อาจารย์ย้ำสองรอบ: attribute ที่ใช้ไปแล้ว ห้ามใช้ซ้ำในเส้นทางเดียวกัน</b> — “ถ้าคุณใช้ Outlook แล้ว คุณไม่ควรมี Outlook มาข้างล่างอีก”"><b>The rule he repeated twice: an attribute used once may not be reused on the same path</b> — "if you've used Outlook, you shouldn't have Outlook again further down".</p>
+      </div>
+    </div>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 880 330" role="img" aria-label="The PlayTennis decision tree: Outlook is the root because it has the highest information gain of 0.247; the Overcast branch is pure and becomes a Yes leaf immediately; the Sunny branch splits again on Humidity, and the Rain branch splits again on Windy.">
+        <rect x="368" y="20" width="144" height="34" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6"/>
+        <text x="440" y="42" text-anchor="middle" class="strong" font-size="13" fill="var(--accent)">Outlook ?</text>
+        <path d="M400,54 L200,110" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>
+        <path d="M440,54 V110" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>
+        <path d="M480,54 L690,110" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>
+        <text x="272" y="76" text-anchor="middle" class="mono" font-size="11" fill="var(--rose)">Sunny</text>
+        <text x="452" y="88" text-anchor="start" class="mono" font-size="11" fill="var(--rose)">Overcast</text>
+        <text x="612" y="76" text-anchor="middle" class="mono" font-size="11" fill="var(--rose)">Rain</text>
+        <rect x="130" y="110" width="140" height="34" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6"/>
+        <text x="200" y="132" text-anchor="middle" class="strong" font-size="13" fill="var(--accent)">Humidity ?</text>
+        <rect x="386" y="110" width="108" height="34" rx="8" fill="var(--green-soft)" stroke="var(--green)" stroke-width="1.6"/>
+        <text x="440" y="132" text-anchor="middle" class="strong" font-size="13" fill="var(--green)">Yes</text>
+        <rect x="620" y="110" width="140" height="34" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6"/>
+        <text x="690" y="132" text-anchor="middle" class="strong" font-size="13" fill="var(--accent)">Windy ?</text>
+        <text x="440" y="162" text-anchor="middle" class="lbl" font-size="10.5">4 Yes, 0 No → pure</text>
+        <text x="440" y="176" text-anchor="middle" class="lbl" font-size="10.5">a leaf immediately</text>
+        <path d="M170,144 L110,206" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>
+        <path d="M230,144 L292,206" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>
+        <text x="112" y="176" text-anchor="middle" class="mono" font-size="11" fill="var(--rose)">High</text>
+        <text x="300" y="176" text-anchor="middle" class="mono" font-size="11" fill="var(--rose)">Normal</text>
+        <path d="M660,144 L602,206" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>
+        <path d="M720,144 L782,206" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>
+        <text x="600" y="176" text-anchor="middle" class="mono" font-size="11" fill="var(--rose)">True</text>
+        <text x="790" y="176" text-anchor="middle" class="mono" font-size="11" fill="var(--rose)">False</text>
+        <rect x="58" y="206" width="104" height="34" rx="8" fill="var(--red-soft)" stroke="var(--red)" stroke-width="1.6"/>
+        <text x="110" y="228" text-anchor="middle" class="strong" font-size="13" fill="var(--red)">No</text>
+        <rect x="240" y="206" width="104" height="34" rx="8" fill="var(--green-soft)" stroke="var(--green)" stroke-width="1.6"/>
+        <text x="292" y="228" text-anchor="middle" class="strong" font-size="13" fill="var(--green)">Yes</text>
+        <rect x="550" y="206" width="104" height="34" rx="8" fill="var(--red-soft)" stroke="var(--red)" stroke-width="1.6"/>
+        <text x="602" y="228" text-anchor="middle" class="strong" font-size="13" fill="var(--red)">No</text>
+        <rect x="730" y="206" width="104" height="34" rx="8" fill="var(--green-soft)" stroke="var(--green)" stroke-width="1.6"/>
+        <text x="782" y="228" text-anchor="middle" class="strong" font-size="13" fill="var(--green)">Yes</text>
+        <text x="110" y="258" text-anchor="middle" class="lbl" font-size="10">0 Yes, 3 No</text>
+        <text x="292" y="258" text-anchor="middle" class="lbl" font-size="10">2 Yes, 0 No</text>
+        <rect x="20" y="284" width="840" height="34" rx="8" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="1.3"/>
+        <text x="440" y="299" text-anchor="middle" class="mono" font-size="11" fill="var(--amber)">14 rows · 9 Yes / 5 No · Entropy(full set) = 0.94</text>
+        <text x="440" y="313" text-anchor="middle" class="mono" font-size="11" fill="var(--amber)">IG(Outlook) = 0.247 → highest → root · IG(Humidity) = 0.15</text>
+      </svg>
+      <figcaption data-th="ตัวอย่างที่สไลด์เรียกว่า <b>“one of the most famous decision tree examples (Quinlan, 1986)”</b> · เริ่มจาก entropy <b>0.94</b> ซึ่งเข้าใกล้ 1 แปลว่าข้อมูลยังไม่เป็นระเบียบเลย มีทั้ง Yes ทั้ง No ปนกัน · ลอง feature ทั้งสี่ (Outlook, Temperature, Humidity, Windy) แล้ว <b>Outlook ให้ IG สูงสุด 0.247 จึงเป็น root</b> · <b>กิ่ง Overcast pure ทันที (4 Yes 0 No) จึงจบเป็น leaf ไม่ต้องถามต่อ</b> — นี่คือ stopping condition ข้อแรก">The deck calls this <b>"one of the most famous decision tree examples (Quinlan, 1986)"</b>. It starts at entropy <b>0.94</b> — close to 1, so the data is not orderly at all, Yes and No thoroughly mixed. Trying all four features (Outlook, Temperature, Humidity, Windy), <b>Outlook gives the highest IG at 0.247 and becomes the root</b>. <b>The Overcast branch is pure at once (4 Yes, 0 No) so it becomes a leaf and asks nothing further</b> — the first stopping condition.</figcaption>
+    </figure>
+
+    <div class="cards two">
+      <div class="card">
+        <h3 data-th="ขั้นตอน (ID3)">The steps (ID3)</h3>
+        <ul>
+          <li data-th="<b>1.</b> คำนวณ <b>entropy ของ dataset ทั้งหมด</b>"><b>1.</b> Compute the <b>entropy of the whole dataset</b>.</li>
+          <li data-th="<b>2.</b> <b>ลองทุก feature เป็น root</b> — split ตามแต่ละค่า หา entropy ของแต่ละ branch แล้ว weighted average"><b>2.</b> <b>Try each feature as the root</b> — split on each value, take each branch's entropy, then the weighted average.</li>
+          <li data-th="<b>3.</b> คำนวณ IG ของทุก feature แล้ว<b>เลือกตัวที่สูงสุด</b>"><b>3.</b> Compute IG for every feature and <b>pick the highest</b>.</li>
+          <li data-th="<b>4.</b> วาด split แรก — root node กับ child nodes"><b>4.</b> Draw the first split — root node and children.</li>
+          <li data-th="<b>5. recurse</b> — ทำซ้ำกับทุก subset จนกว่าจะเข้า <b>stopping condition</b>"><b>5. Recurse</b> — repeat on every subset until a <b>stopping condition</b> is met.</li>
+          <li data-th="สไลด์ระบุ <b>ID3 by R. Quinlan, 1986</b> — แต่ <b>ชื่อ algorithm ไม่ต้องจำ</b>">The deck names <b>ID3 by R. Quinlan, 1986</b> — but <b>the name need not be memorised</b>.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 data-th="Stopping condition และ overfitting">Stopping conditions and overfitting</h3>
+        <ul>
+          <li data-th="ถ้าปล่อยไว้ โปรแกรม<b>ไม่หยุด</b> — มันจะ split จนเหลือ data point 1 ตัวหรือ 0 ตัวในแต่ละ leaf">Left alone the program <b>does not stop</b> — it splits until each leaf holds one point or none.</li>
+          <li data-th="<b>max depth</b> — กำหนดจำนวนชั้นล่วงหน้า"><b>max depth</b> — fix the number of levels in advance.</li>
+          <li data-th="<b>minimum samples</b> — ถ้าเหลือ data point น้อยกว่าที่กำหนด (เช่น &lt; 50) ก็หยุด"><b>minimum samples</b> — stop if fewer than n points remain (say &lt; 50).</li>
+          <li data-th="<b>pure node</b> — ถ้า entropy = 0 แล้วก็จบเป็น leaf ทันที"><b>pure node</b> — if entropy is 0 it becomes a leaf at once.</li>
+          <li data-th="<b>ทำไมต้องหยุด:</b> ลึกเกินไปจนเหลือ data point น้อยๆ ตอนล่างคือ <b>overfitting</b> — “เรียนรู้มากเกินไปกับข้อมูลที่เรามา train”"><b>Why stop:</b> going so deep that few points remain at the bottom is <b>overfitting</b> — "it has learned too much from the data we trained on".</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 data-th="Random Forest">Random Forest</h3>
+        <ul>
+          <li data-th="Decision Tree ปกติให้<b>ต้นไม้ต้นเดียว</b> — มีคนคิดว่าต้นเดียวอาจทำงานไม่ดี เหมือนตัดสินใจคนเดียว">A plain Decision Tree gives <b>one tree</b> — and one tree may not do well, like deciding alone.</li>
+          <li data-th="<b>Random Forest</b> = ใช้ต้นไม้ <b>100 / 200 / 300 / 500 ต้น</b> แล้ว<b>เอาเสียงส่วนมาก</b> (voting)"><b>Random Forest</b> = <b>100 / 200 / 300 / 500</b> trees, then <b>take the majority vote</b>.</li>
+          <li data-th="แต่ละต้นต้อง<b>แตกต่างกัน</b> — ใช้เกณฑ์เลือก feature ต่างกัน อาจ random อาจผสมต้นสูงต้นเตี้ย · <b>ความหลากหลายคือหัวใจ</b>">Each tree must be <b>different</b> — different feature-selection criteria, randomisation, a mix of tall and short. <b>Diversity is the point.</b></li>
+          <li data-th="อาจารย์บอกเองว่า <b>“เราไม่ได้พูดถึงกัน เราพูดแค่ตัวนี้ก็พอเป็น basic ก่อน”</b>">He said himself: <b>"we're not covering it, this basic one is enough for now"</b>.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 data-th="ใน Orange">In Orange</h3>
+        <ul>
+          <li data-th="dataset ไอศกรีม <b>12 data points</b> · 4 feature · 1 <b>target</b> ซึ่งต้องระบุให้ชัด (Orange ทำเครื่องหมายสีเขียว ชนิด categorical)">The ice-cream dataset: <b>12 data points</b>, 4 features and 1 <b>target</b>, which must be marked explicitly (Orange flags it green, type categorical).</li>
+          <li data-th="<b>Induce binary tree</b> ติ๊ก = บังคับ binary · ไม่ติ๊ก = แตกตามจำนวนค่าจริง"><b>Induce binary tree</b>: ticked forces binary; unticked branches on however many values exist.</li>
+          <li data-th="<b>ผลที่ต่างกัน:</b> ติ๊ก binary → Weather ที่มี 3 ค่าถูกจับ <b>Cloudy กับ Sunny ไว้ด้วยกัน</b> แล้วค่อยแยกทีหลัง · ไม่ติ๊ก → <b>แตกเป็น 3 กิ่งพร้อมกัน</b> · <b>ต้นไม้หน้าตาต่างกัน แต่ไม่ผิดทั้งคู่</b>"><b>The difference:</b> with binary on, Weather's three values group <b>Cloudy and Sunny together</b> to be split later; with it off it <b>fans into three branches at once</b>. <b>The trees differ, and neither is wrong.</b></li>
+          <li data-th="<b>Split subsets smaller than…</b> คือ <b>stopping condition</b> ที่ตั้งได้"><b>Split subsets smaller than…</b> is the <b>stopping condition</b> you can set.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SET 5 : K-MEANS ============ -->
+  <section class="band">
+    <div class="band-head">
+      <span class="wk-pill">SET 5</span>
+      <h2 data-th="K-means Clustering">K-means Clustering</h2>
+      <span class="band-date" data-th="คาบ 5">Class 5</span>
+      <span class="band-tag" data-th="<b>unsupervised</b> · <b>descriptive</b> · อาจารย์พูดตรงๆ ว่า <b>“อันนี้เป็นโจทย์ในข้อสอบ อาจจะถามว่า K-means อยู่ในกลุ่มประเภทอะไร”</b> และ <b>“ผมจะถามว่า parameter กับ hyperparameter ต่างกันอย่างไร”</b>"><b>Unsupervised</b> and <b>descriptive</b>. He said outright: <b>"this is an exam question — I might ask which category K-means falls into"</b> and <b>"I'm going to ask how a parameter and a hyperparameter differ"</b>.</span>
+    </div>
+
+    <div class="fact-grid">
+      <div class="fact g">
+        <h3 data-th="Clustering ≠ Classification">Clustering ≠ Classification</h3>
+        <p data-th="<b>Clustering</b> = จัดกลุ่ม data point ที่คล้ายกันไว้ด้วยกัน <b>โดยไม่รู้ label ล่วงหน้า</b> · เรียกอีกอย่างว่า <b>cluster analysis</b>"><b>Clustering</b> groups similar data points <b>without prior knowledge of the labels</b>. Also called <b>cluster analysis</b>.</p>
+        <p data-th="<b>Classification เป็น supervised ใช้ label</b> · <b>Clustering เป็น unsupervised ไม่ใช้ label</b>"><b>Classification is supervised and uses labels. Clustering is unsupervised and does not.</b></p>
+        <p data-th="<b>clustering วัดถูก/ผิดไม่ได้</b> — “ไม่รู้ว่าถูก ไม่รู้ว่าผิด เอาแค่จัดกลุ่ม” · <b>วัดได้แค่ดีหรือไม่ดี</b> คือดูตอนเอาไปใช้ว่าได้ผลไหม"><b>You cannot score clustering right or wrong</b> — "you don't know what's right or wrong, you just group them". <b>You can only ask whether it is good</b>, by seeing whether it works when applied.</p>
+        <p class="fnote" data-th="ตัวอย่างการใช้จริง: เจ้าของ product อยากรู้ว่าคนที่ซื้อของเราเป็นกลุ่มไหนบ้าง เอา attribute ของแต่ละคนมา (อยู่ในเมือง/นอกเมือง, single, single mom …) แล้วให้มันจัดกลุ่มให้ <b>โดยที่เราไม่รู้คำตอบว่าถูกหรือผิด</b>">A real use: a product owner wants to know what kinds of people buy it, feeds in each person's attributes (in town / out of town, single, single mum …) and has them grouped — <b>without knowing whether the answer is right</b>.</p>
+      </div>
+      <div class="fact a">
+        <h3 data-th="K เป็น hyperparameter">K is a hyperparameter</h3>
+        <p data-th="<b>K = จำนวน cluster ที่ต้องการ</b> และ <b>user เป็นคนเลือกเอง ล่วงหน้า</b>"><b>K = the number of clusters you want</b>, and <b>the user chooses it in advance</b>.</p>
+        <p data-th="คนที่ระบุคือ <b>user / data scientist</b> ไม่ใช่โมเดลเรียนรู้เอง → จึงเป็น <b>hyperparameter ไม่ใช่ parameter</b>">It is set by the <b>user / data scientist</b>, not learned by the model → so it is a <b>hyperparameter, not a parameter</b>.</p>
+        <p data-th="<b>“มันไม่มีอะไรถูกไม่มีอะไรผิด”</b> — Iris จะจัด 3 กลุ่ม 4 กลุ่ม 5 กลุ่มก็ได้ ขึ้นอยู่กับว่าเอาไปใช้แล้วดีไหม"><b>"There's no right and no wrong"</b> — Iris can be cut into 3, 4 or 5 groups. What matters is whether it works when applied.</p>
+      </div>
+      <div class="fact b">
+        <h3 data-th="Centroid และระยะทาง">Centroid and distance</h3>
+        <p data-th="<b>Centroid = จุดศูนย์กลางของ cluster</b> · คำที่เกี่ยวข้อง: <b>center</b> · <b>CG (center of gravity)</b> · <b>COM (center of mass)</b>"><b>A centroid is a cluster's centre point.</b> Related: <b>center</b>, <b>CG (center of gravity)</b>, <b>COM (center of mass)</b>.</p>
+        <p data-th="<b>Centroid ของสามเหลี่ยม = จุดตัดของเส้นมัธยฐาน (median)</b> — สไลด์มีรูปนี้"><b>The centroid of a triangle is the intersection of its medians</b> — the deck has this figure.</p>
+        <p data-th="วัดความคล้ายด้วย <b>ระยะทาง</b> — <b>ยิ่งใกล้ยิ่งเหมือน ยิ่งไกลยิ่งต่าง</b> · ใช้ <b>Euclidean distance</b> ซึ่งมาจาก<b>พีทาโกรัส</b>: <code>d = √[(x₁−x₂)² + (y₁−y₂)²]</code>">Similarity is measured by <b>distance</b> — <b>closer means more alike</b>. It uses <b>Euclidean distance</b>, straight from <b>Pythagoras</b>: <code>d = √[(x₁−x₂)² + (y₁−y₂)²]</code></p>
+        <p class="fnote" data-th="<b>WCSS = Within-Cluster Sum of Squares</b> — ผลรวมกำลังสองของระยะจากทุกจุดถึง centroid ของมัน · <b>ทำไมต้อง square:</b> ไม่ต้องหา square root ที่ช้า และเราต้องการแค่เปรียบเทียบว่าใกล้หรือไกล ไม่ต้องการตัวเลขที่ precise → <b>คำนวณเร็วมาก</b>"><b>WCSS = Within-Cluster Sum of Squares</b> — the squared distances from every point to its centroid, added up. <b>Why square:</b> it avoids a slow square root, and we only need to compare near from far, not a precise number → <b>very fast to compute</b>.</p>
+      </div>
+      <div class="fact r">
+        <h3 data-th="Normalization">Normalization</h3>
+        <p data-th="<b>ปัญหา: scale ต่างกัน</b> — อายุห่างกันมากสุด ~100 แต่รายได้ต่างกันได้เกือบล้าน · ใน <code>imports-85</code>: horsepower <b>48–288</b> แต่ price <b>5,000–40,005</b>"><b>The problem is unequal scales</b> — age spans about 100, income nearly a million. In <code>imports-85</code>: horsepower <b>48–288</b> but price <b>5,000–40,005</b>.</p>
+        <p data-th="machine learning ต้องหา <b>error</b> แล้ว<b>ยกกำลังสอง</b> — ตัวหลักหมื่นยกกำลังสองไปหลักล้าน ส่วนตัวหลักร้อยได้แค่หลักหมื่น → <b>ไม่แฟร์ โมเดลจะให้น้ำหนัก feature ที่ค่าเยอะเกินไป</b>">ML computes an <b>error</b> and <b>squares it</b> — a variable in the tens of thousands squares into the millions, one in the hundreds only into the tens of thousands → <b>unfair, and the model over-weights the large-valued feature</b>.</p>
+        <p data-th="<b>Normalization</b> บีบให้อยู่ระหว่าง <b>0 กับ 1</b> · <b>Standardization (Z-score)</b> ใช้ standard deviation"><b>Normalization</b> squeezes into <b>0 to 1</b>. <b>Standardization (Z-score)</b> uses the standard deviation.</p>
+        <p class="fnote" data-th="อาจารย์เชื่อมเข้ากับข้อสอบทันที: <b>“เป็น bias ในข้อสอบผมก็ถามนะ”</b> → <b>scale ที่ไม่เท่ากันนับเป็น data bias</b> · และใน Orange ให้ <b>normalize เฉพาะ feature ห้ามแตะ target</b>">He tied it straight to the exam: <b>"that's bias, and I ask about bias on the paper"</b> → <b>unequal scales count as data bias</b>. And in Orange, <b>normalize the features only, never the target</b>.</p>
+      </div>
+    </div>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 880 260" role="img" aria-label="The K-means loop: choose k centroids at random, assign every point to its nearest centroid, recalculate each centroid as the average of its members, reassign, and repeat the last two steps until nothing moves or the iteration cap is reached.">
+        <rect x="20" y="60" width="150" height="72" rx="10" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6"/>
+        <text x="95" y="84" text-anchor="middle" class="mono" font-size="11" fill="var(--accent)">STEP 1</text>
+        <text x="95" y="103" text-anchor="middle" font-size="12">select k centroids</text>
+        <text x="95" y="120" text-anchor="middle" class="lbl" font-size="10.5">k rows, at random</text>
+        <rect x="200" y="60" width="150" height="72" rx="10" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="1.6"/>
+        <text x="275" y="84" text-anchor="middle" class="mono" font-size="11" fill="var(--violet)">STEP 2</text>
+        <text x="275" y="103" text-anchor="middle" font-size="12">assign each point</text>
+        <text x="275" y="120" text-anchor="middle" class="lbl" font-size="10.5">to its nearest centroid</text>
+        <rect x="380" y="60" width="150" height="72" rx="10" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="1.6"/>
+        <text x="455" y="84" text-anchor="middle" class="mono" font-size="11" fill="var(--violet)">STEP 3</text>
+        <text x="455" y="103" text-anchor="middle" font-size="12">recalculate centroids</text>
+        <text x="455" y="120" text-anchor="middle" class="lbl" font-size="10.5">average of the members</text>
+        <rect x="560" y="60" width="150" height="72" rx="10" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="1.6"/>
+        <text x="635" y="84" text-anchor="middle" class="mono" font-size="11" fill="var(--violet)">STEP 4</text>
+        <text x="635" y="103" text-anchor="middle" font-size="12">reassign points</text>
+        <text x="635" y="120" text-anchor="middle" class="lbl" font-size="10.5">nearest centroid again</text>
+        <rect x="740" y="60" width="120" height="72" rx="10" fill="var(--green-soft)" stroke="var(--green)" stroke-width="1.6"/>
+        <text x="800" y="84" text-anchor="middle" class="mono" font-size="11" fill="var(--green)">STOP</text>
+        <text x="800" y="103" text-anchor="middle" font-size="12">nothing moves</text>
+        <text x="800" y="120" text-anchor="middle" class="lbl" font-size="10.5">or max iterations</text>
+        <path d="M170,96 H196" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>
+        <path d="M350,96 H376" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>
+        <path d="M530,96 H556" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>
+        <path d="M710,96 H736" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>
+        <path d="M635,132 V172 H455 V136" fill="none" stroke="var(--rose)" stroke-width="1.7" stroke-dasharray="5 4"/>
+        <text x="545" y="190" text-anchor="middle" class="mono" font-size="11" fill="var(--rose)">repeat steps 3 and 4</text>
+        <rect x="20" y="212" width="840" height="34" rx="8" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="1.3"/>
+        <text x="440" y="227" text-anchor="middle" font-size="11.5" fill="var(--amber)">Step 1 is random — so K-means is NON-DETERMINISTIC: the same data can give different results on different runs.</text>
+        <text x="440" y="241" text-anchor="middle" font-size="11.5" fill="var(--amber)">It is also sensitive to the initial centroid placement, and can converge to a poor solution.</text>
+      </svg>
+      <figcaption data-th="อาจารย์อธิบายเพิ่มว่า centroid รอบแรก <b>“มันอาจจะเพี้ยน”</b> เพราะพอมีสมาชิกจริงแล้ว บางจุดเอียงซ้ายบางจุดเอียงขวา ต้องคำนวณจุดกลางจริงๆ ใหม่ · พอ centroid ย้าย <b>จุดที่เคยเป็นสีฟ้าอาจกลายเป็นสีแดง</b>ในรอบถัดไป · <b>“มันย้ายไปย้ายมาจนกระทั่งมันนิ่ง ก็จบแค่นั้นเอง”</b> — <b>ไม่ใช่ทำรอบเดียวจบ</b> · และสไลด์ระบุด้วยว่า <b>K-means ไม่การันตีว่าแต่ละกลุ่มจะขนาดเท่ากัน</b> แต่หากลุ่มที่ <b>best separated</b>">He added that the first centroids <b>"may be off"</b> — with real members, some points lean left and some right, so the true middle must be recomputed. Once a centroid moves, <b>a point that was blue may turn red</b> next pass. <b>"It shifts back and forth until it settles, and that's the end of it"</b> — <b>not one round and done</b>. The deck also notes <b>K-means does not ensure equal-sized clusters</b>, but finds the ones that are <b>best separated</b>.</figcaption>
+    </figure>
+
+    <div class="cards">
+      <div class="card">
+        <h3 data-th="เลือก k ยังไง — Elbow method">Choosing k — the elbow method</h3>
+        <ul>
+          <li data-th="วิธีที่<b>ไม่ค่อยดี</b>: ใช้ความรู้เชิงสถิติ/domain เดาว่าน่าจะมีสัก 5 กลุ่ม · <b>อาจารย์บอกเองว่า “อันนี้ไม่ใช่คำตอบที่ดี มันเป็นการลองผิดลองถูก”</b>">The <b>weaker</b> way: guess from statistics or domain knowledge that there are about 5 groups. <b>He said himself: "that isn't a good answer, it's trial and error"</b>.</li>
+          <li data-th="<b>Elbow method:</b> ลอง <b>k = 1, 2, 3, …</b> ไปเรื่อยๆ (เช่นถึง 10)"><b>The elbow method:</b> try <b>k = 1, 2, 3, …</b> onwards (to 10, say).</li>
+          <li data-th="แต่ละ k คำนวณ <b>WCSS</b> (error รวมของทุก cluster) แล้ว <b>plot</b> เทียบกับ k">For each k compute <b>WCSS</b> (the errors of all clusters added together), then <b>plot</b> it against k.</li>
+          <li data-th="<b>เลือกจุดที่ error เริ่มนิ่ง — ความชันเริ่มราบ</b> นั่นคือ “ข้อศอก”"><b>Take the point where the error starts to flatten — where the slope goes level.</b> That is the elbow.</li>
+          <li data-th="ตัวอย่างในสไลด์: <b>“3 at best or 4 if needed”</b> · <b>elbow แปลว่าข้อศอก</b>">The deck's example: <b>"3 at best or 4 if needed"</b>. <b>Elbow means the joint of the arm.</b></li>
+          <li data-th="มีอีกวิธีคือ <b>Silhouette Score</b> — สไลด์เอ่ยถึง แต่อาจารย์บอก “ยังไม่ต้องเรียนตอนนี้”">There is also the <b>Silhouette Score</b> — the deck names it, but he said "not for now".</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 data-th="K-modes และ K-prototypes">K-modes and K-prototypes</h3>
+        <ul>
+          <li data-th="<b>K-means ใช้กับ categorical ไม่ได้</b> — สไลด์บอกว่าถึงจะ encode เป็นตัวเลข (one-hot) <b>Euclidean distance ก็ยังหลอกได้</b>"><b>K-means is not suitable for categorical data</b> — the deck says even one-hot encoding leaves <b>Euclidean distance misleading</b>.</li>
+          <li data-th="<b>K-means</b> → numerical → <b>Euclidean distance</b> → ใช้ <b>mean</b>"><b>K-means</b> → numerical → <b>Euclidean distance</b> → uses the <b>mean</b>.</li>
+          <li data-th="<b>K-modes</b> → categorical → <b>นับจำนวน mismatch</b> (คล้าย <b>Hamming distance</b>) → ใช้ <b>mode</b>"><b>K-modes</b> → categorical → <b>counts mismatches</b> (like <b>Hamming distance</b>) → uses the <b>mode</b>.</li>
+          <li data-th="<b>เหมือนกัน = mismatch 0 · ต่างกัน = mismatch 1</b> · <b>mismatch ยิ่งน้อยยิ่งใกล้</b> · เช่น New York vs New York = 0 · New York vs Chicago = 1"><b>Same = mismatch 0, different = mismatch 1.</b> <b>Fewer mismatches means closer.</b> New York vs New York = 0; New York vs Chicago = 1.</li>
+          <li data-th="<b>K-prototypes</b> = ผสมทั้งสอง · center เรียกว่า <b>prototype</b> เพราะเป็นจุดที่ “typical” ที่สุดของกลุ่ม · <code>cost = (age₁−age₂)² + (income₁−income₂)² + (จำนวน mismatch)</code>"><b>K-prototypes</b> combines both. Its centre is a <b>prototype</b> because it is the most "typical" point of the cluster. <code>cost = (age₁−age₂)² + (income₁−income₂)² + (number of mismatches)</code></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 data-th="Hard vs Soft clustering">Hard vs soft clustering</h3>
+        <ul>
+          <li data-th="<b>Hard clustering</b> — หนึ่งจุด<b>อยู่ได้แค่ cluster เดียว</b> ต้องเลือก · ตัวอย่าง: <b>K-means</b>"><b>Hard clustering</b> — a sample goes to <b>exactly one cluster</b>. Example: <b>K-means</b>.</li>
+          <li data-th="<b>Fuzzy / soft clustering</b> — หนึ่งจุด<b>กระจายอยู่ได้หลาย cluster</b> ตาม weight · ตัวอย่าง: <b>Fuzzy C-means (FCM)</b>"><b>Fuzzy / soft clustering</b> — a sample is <b>distributed among several clusters</b> by weight. Example: <b>Fuzzy C-means (FCM)</b>.</li>
+          <li data-th="<b>ตัวอย่างแอปเปิ้ลของสไลด์:</b> แอปเปิ้ลลูกหนึ่งจะแดง<b>หรือ</b>เขียว (hard) — แต่จริงๆ มันแดง<b>และ</b>เขียวได้ (fuzzy) คือแดงระดับหนึ่ง เขียวระดับหนึ่ง"><b>The deck's apple:</b> an apple is red <b>or</b> green (hard) — but it can also be red <b>and</b> green (fuzzy), red to a degree and green to a degree.</li>
+          <li data-th="อาจารย์อธิบายว่าจุดหนึ่งอาจอยู่กลุ่มนี้ <b>80%</b> กลุ่มนั้น <b>20%</b>">He put it as a point being <b>80%</b> in one cluster and <b>20%</b> in another.</li>
+          <li data-th="<b>ทำไมใช้ C ไม่ใช้ K:</b> <b>C มาจาก class / category</b> ก็คือจำนวน center นั่นแหละ ความหมายเดียวกับ K"><b>Why C and not K:</b> <b>C stands for class / category</b> — the number of centres. Same meaning as K.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <!-- ============ THE ASK LIST ============ -->
+  <section class="band">
+    <div class="band-head">
+      <span class="wk-pill">★</span>
+      <h2 data-th="สิ่งที่อาจารย์พูดเองว่าจะถาม">What the lecturer said he will ask</h2>
+      <span class="band-date" data-th="20 นาทีสุดท้ายของคาบ 5">The last 20 minutes of class 5</span>
+      <span class="band-tag" data-th="อาจารย์เปิดสไลด์เซต Intro และ EDA ไล่ทีละหน้าแล้วบอกว่าจะถามตรงไหน · วิธีออกข้อสอบของแกคือ <b>“เวลาออกข้อสอบผมก็ไปเปิดดูแล้วก็มาดูทีละหน้า ทีอันออกถามเป็นช้อยส์ 4 ช้อยส์”</b> — คือไล่จากสไลด์ทีละหน้าจริงๆ · ถ้าอ่านได้อย่างเดียว อ่านตรงนี้">He opened the Intro and EDA decks and went page by page saying what he will ask. How he writes it: <b>"when I set the exam I open it up and go through it page by page, and turn what comes up into four-option questions."</b> Literally slide by slide. If you read one thing, read this.</span>
+    </div>
+
+    <div class="sub-h" data-th="จากเซต Intro to DS, Engineering and AI">From the Intro to DS, Engineering and AI deck</div>
+    <div class="ask">
+      <div class="askrow"><span class="qm">?</span><span class="qt" data-th="<b>data scientist ต้องมี skill อะไรบ้าง / ต้องมีความรู้อะไรบ้าง</b><span class='qa'>สไลด์มีวลี <b>“Jack of all trades, master of …”</b> เหมือนเป็ด ทำได้หลายอย่าง เก่งบางอย่าง · skill: <b>statistics + computing + domain knowledge</b> · และ <b>4 A's</b> = Architecture, Acquisition, Analysis, Archiving</span>"><b>What skills does a data scientist need?</b><span class="qa">The deck has <b>"Jack of all trades, master of …"</b> — like a duck, many things, expert at a few. The skills: <b>statistics + computing + domain knowledge</b>. And the <b>4 A's</b> = Architecture, Acquisition, Analysis, Archiving.</span></span></div>
+      <div class="askrow"><span class="qm">?</span><span class="qt" data-th="<b>Data Scientist กับ Data Engineer ต่างกันอย่างไร</b> — “ต้องให้ได้”<span class='qa'><b>DE ทำต้นน้ำ</b> — โครงสร้างพื้นฐาน การเก็บและจัดเก็บข้อมูล ทำ <b>ETL</b> · <b>DS ทำปลายน้ำ</b> — สำรวจ วิเคราะห์ สร้างโมเดล ตีความ</span>"><b>How do a Data Scientist and a Data Engineer differ?</b> — "you must get this"<span class="qa"><b>DE is upstream</b> — infrastructure, collecting and storing data, <b>ETL</b>. <b>DS is downstream</b> — exploring, analysing, modelling, interpreting.</span></span></div>
+      <div class="askrow"><span class="qm">?</span><span class="qt" data-th="<b>Data science pipeline / data lifecycle มีอะไรบ้าง</b> — “ผมถามตัวนี้ด้วย”<span class='qa'>ต้นน้ำ กลางน้ำ ปลายน้ำ · <b>data lifecycle เทียบได้กับ SDLC</b> · จำสองข้อ: ขั้นที่<b>ใช้เวลานานสุด = data preparation</b> ขั้นที่<b>สำคัญที่สุด = EDA</b></span>"><b>What is in the data science pipeline / lifecycle?</b> — "I ask about this one"<span class="qa">Upstream, midstream, downstream. <b>The data lifecycle parallels the SDLC.</b> Remember two facts: the <b>longest step is data preparation</b>, the <b>most important is EDA</b>.</span></span></div>
+      <div class="askrow"><span class="qm">?</span><span class="qt" data-th="<b>bias มีอะไรบ้าง / ลด bias ยังไง</b><span class='qa'><b>Data bias</b> (ตัวข้อมูลเอง เช่น scale ไม่เท่ากัน) · <b>Human bias</b> (อคติของคน มักมาจากความเคยชินโดยไม่รู้ตัว) · <b>Algorithmic bias</b> (เกิดจากการ train เรียนมากไปน้อยไป) · <b>bias คือ error</b> ที่เข้ามาโดยอาจไม่ตั้งใจ</span>"><b>What kinds of bias are there, and how do you reduce bias?</b><span class="qa"><b>Data bias</b> (in the data itself, e.g. unequal scales) · <b>Human bias</b> (from unnoticed habit) · <b>Algorithmic bias</b> (from training, too much or too little). <b>Bias is error</b> that creeps in, sometimes unintentionally.</span></span></div>
+      <div class="askrow"><span class="qm">?</span><span class="qt" data-th="<b>overfitting คืออะไร</b><span class='qa'>เรียนรู้ training data มากเกินไปจน<b>เรียน noise ไปด้วย</b> — ทำได้ดีมากกับข้อมูลที่ train แต่แย่กับข้อมูลใหม่ · <b>ตัดเสื้อฟิตเป๊ะกับคนเดียว ใส่คนอื่นไม่ได้</b> · <b>underfitting = หลวมเกินไป</b> · <b>ตัวแก้คือ validation</b></span>"><b>What is overfitting?</b><span class="qa">Learning the training data so well it <b>learns the noise too</b> — excellent on training data, poor on new data. <b>A suit cut for one person that fits nobody else.</b> <b>Underfitting is a suit too loose.</b> <b>The fix is validation.</b></span></span></div>
+      <div class="askrow"><span class="qm">?</span><span class="qt" data-th="<b>“Data is the new oil” และ “AI is the new electricity” หมายความว่าอะไร</b><span class='qa'><b>Data is the new oil</b> — <b>Clive Humby, 2006</b> ข้อมูลมีค่าแต่ดิบๆ ใช้ไม่ได้ ต้องกลั่นก่อน · <b>AI is the new electricity</b> — <b>Andrew Ng, 2016</b> AI จะพลิกอุตสาหกรรมแบบที่ไฟฟ้าเคยทำ</span>"><b>What do "Data is the new oil" and "AI is the new electricity" mean?</b><span class="qa"><b>Data is the new oil</b> — <b>Clive Humby, 2006</b>: valuable but useless unrefined. <b>AI is the new electricity</b> — <b>Andrew Ng, 2016</b>: AI will transform industry as electricity did.</span></span></div>
+      <div class="askrow"><span class="qm">?</span><span class="qt" data-th="<b>big data — V มีกี่ตัว อะไรบ้าง</b> — “มี 5 V มี 7 V”<span class='qa'><b>Volume · Velocity · Variety · Veracity · Value</b> โดย <b>Value สำคัญที่สุด</b> · <b>+2</b> = <b>Variability</b> และ <b>Visualization</b></span>"><b>The V's of big data — how many, and which?</b> — "there are 5 V's, there are 7 V's"<span class="qa"><b>Volume · Velocity · Variety · Veracity · Value</b>, with <b>Value the most important</b>. <b>Plus 2</b>: <b>Variability</b> and <b>Visualization</b>.</span></span></div>
+      <div class="askrow"><span class="qm">?</span><span class="qt" data-th="<b>insight คืออะไร · actionable insight คืออะไร</b><span class='qa'><b>Insight</b> = ความเข้าใจลึกที่ได้จากการวิเคราะห์ข้อมูล · <b>Actionable</b> = คุณสมบัติที่ทำให้ลงมือทำต่อได้ — <b>ถ้าทำ X แล้ว Y จะดีขึ้น</b> · ส่วน <b>data product</b> คือผลลัพธ์ของงาน DS เช่น recommender system หรือตัวโมเดล</span>"><b>What is an insight, and what is an actionable insight?</b><span class="qa"><b>Insight</b> = deep understanding from analysing data. <b>Actionable</b> = the property that lets you act — <b>do X and Y improves</b>. A <b>data product</b> is the output of DS work, e.g. a recommender system or a model.</span></span></div>
+      <div class="askrow"><span class="qm">?</span><span class="qt" data-th="<b>data mining คืออะไร · KDD คืออะไร</b> — “ถามตัวนี้เลย”<span class='qa'><b>KDD = Knowledge Discovery in Databases</b> คือ<b>กระบวนการทั้งหมด</b> · <b>data mining เป็นขั้นหนึ่งอยู่ข้างใน KDD</b> — ดึงข้อมูลและ pattern ที่ยังไม่เคยรู้ออกมาจากฐานข้อมูลขนาดใหญ่ · <b>data warehouse ต้องมี time stamp</b></span>"><b>What is data mining, and what is KDD?</b> — "I ask this one directly"<span class="qa"><b>KDD = Knowledge Discovery in Databases</b>, the <b>whole process</b>. <b>Data mining is one step inside it</b> — pulling unknown information and patterns out of large databases. <b>A data warehouse must carry time stamps.</b></span></span></div>
+      <div class="askrow"><span class="qm">?</span><span class="qt" data-th="<b>Orange</b> — “มีข้อหนึ่งถามออเรนจ์ น่าจะง่ายเลย หนึ่งแต้มเลย”<span class='qa'>visual programming ลาก <b>widget</b> มาต่อกัน · workspace นามสกุล <code>.ows</code> · ลำดับที่ใช้ในคาบ: <b>File → Data Table → Edit Domain → Select Columns → Preprocess → Scatter Plot → Linear Regression</b></span>"><b>Orange</b> — "there's one question on Orange, should be easy, a free mark"<span class="qa">Visual programming by dragging <b>widgets</b> and wiring them. A workspace is <code>.ows</code>. The order used in class: <b>File → Data Table → Edit Domain → Select Columns → Preprocess → Scatter Plot → Linear Regression</b>.</span></span></div>
+    </div>
+
+    <div class="sub-h" data-th="จากเซต EDA – Model Fitting">From the EDA – Model Fitting deck</div>
+    <div class="ask">
+      <div class="askrow"><span class="qm">?</span><span class="qt" data-th="<b>box plot มีไว้เพื่ออะไร</b> — “ผมถาม box plot เลยนะ”<span class='qa'>ดู <b>dispersion</b> (การกระจายตัว) · <b>skewness</b> · <b>quartiles</b> · <b>outliers</b> · และ<b>เปรียบเทียบระหว่างกลุ่มได้</b> · ข้อได้เปรียบเหนือ histogram คือเห็น distribution โดยไม่ต้องพล็อตทั้งหมด และเทียบหลายกลุ่มพร้อมกันได้</span>"><b>What is a box plot for?</b> — "I ask about the box plot directly"<span class="qa">It shows <b>dispersion</b>, <b>skewness</b>, the <b>quartiles</b> and the <b>outliers</b> — and it <b>compares groups</b>. Its advantage over a histogram is seeing the distribution without plotting everything, and fitting several groups side by side.</span></span></div>
+      <div class="askrow"><span class="qm">?</span><span class="qt" data-th="<b>scatter plot มีไว้เพื่ออะไร · ทำไมเราต้องพล็อตด้วย</b> — “ลองไปหาคำตอบเอาเอง”<span class='qa'>พล็อต <b>2 ตัวแปร</b> เทียบกัน (bivariate) เพื่อดู<b>ความสัมพันธ์</b> — ไปทางเดียวกัน สวนทาง หรือไม่สัมพันธ์เลย · <b>ที่ต้องพล็อตเพราะอ่านตารางตัวเลขล้วนแล้วมองไม่เห็น pattern</b> แต่พอพล็อตแล้วเห็นทันที</span>"><b>What is a scatter plot for, and why plot at all?</b> — "go and find the answer yourselves"<span class="qa">It plots <b>two variables</b> against each other (bivariate) to show the <b>relationship</b> — together, opposite, or none. <b>You plot because a table of numbers hides the pattern</b> that a plot reveals instantly.</span></span></div>
+      <div class="askrow"><span class="qm">?</span><span class="qt" data-th="<b>EDA คำนิยาม</b> — “แน่นอน ถาม EDA นะ ต้องให้คำนิยามได้”<span class='qa'>เทคนิควิเคราะห์เพื่อ<b>ทำความเข้าใจข้อมูล</b>โดยสรุปคุณลักษณะหลัก มักผ่าน statistical graphics และ visualization · <b>เป็น non-parametric</b> ไม่ตั้งสมมติฐานเรื่อง distribution · ประกอบด้วย <b>visualization + statistical summary + hypothesis testing</b> · เป็น <b>iterative</b></span>"><b>Define EDA</b> — "of course I ask about EDA, you must be able to define it"<span class="qa">A technique for <b>understanding your data</b> by summarizing its main characteristics, usually through statistical graphics and visualization. <b>Non-parametric</b> — no assumptions about the distribution. It is <b>visualization + statistical summary + hypothesis testing</b>, done <b>iteratively</b>.</span></span></div>
+      <div class="askrow"><span class="qm">?</span><span class="qt" data-th="<b>predictive กับ descriptive ต่างกันอย่างไร</b> — “ต้องอธิบายได้”<span class='qa'><b>Predictive</b> ทำนายค่าของตัวแปรหนึ่งจากตัวที่เหลือ — ตัวที่ทำนายคือ <b>target/dependent</b> ตัวที่ใช้ทำนายคือ <b>predictor/independent</b> · <b>Descriptive</b> หาความสัมพันธ์ระหว่างตัวแปรเพื่อ<b>เข้าใจโครงสร้างข้อมูล</b> ไม่ได้ทำนาย · <b>classification/regression = predictive</b> · <b>clustering/association rules = descriptive</b></span>"><b>How do predictive and descriptive differ?</b> — "you have to be able to explain it"<span class="qa"><b>Predictive</b> predicts one variable from the rest — the predicted one is the <b>target/dependent</b>, the others are <b>predictors/independent</b>. <b>Descriptive</b> finds relationships to <b>understand the data's structure</b>, without predicting. <b>Classification and regression are predictive; clustering and association rules are descriptive.</b></span></span></div>
+      <div class="askrow"><span class="qm">?</span><span class="qt" data-th="<b>model parameter กับ hyperparameter ต่างกันอย่างไร</b> — “จะมีช้อยส์ให้เลือกนะ”<span class='qa'><b>Parameter</b> — <b>algorithm ประมาณค่ามาเองจากข้อมูล</b> เช่น weights, coefficients · <b>Hyperparameter</b> — <b>คนตั้งเอง</b> เช่น <b>k ใน K-means</b>, k ใน KNN, learning rate, จำนวน layer, epochs, loss function</span>"><b>How do a model parameter and a hyperparameter differ?</b> — "there'll be options to pick from"<span class="qa"><b>A parameter</b> is <b>estimated from the data by the algorithm</b> — weights, coefficients. <b>A hyperparameter</b> is <b>set by a person</b> — <b>k in K-means</b>, k in KNN, learning rate, layers, epochs, the loss function.</span></span></div>
+      <div class="askrow"><span class="qm">?</span><span class="qt" data-th="<b>model fitting / data fitting / data modeling ต่างกันยังไง</b><span class='qa'>ซ้อนกันแบบนี้: <b>Modeling ⊃ Data modeling ⊃ (Data fitting, Model fitting)</b> · <b>Data fitting</b> หาฟังก์ชันที่อธิบายข้อมูลที่มีอยู่ดีที่สุด (least squares, polynomial fitting, spline) · <b>Model fitting</b> ปรับ parameter ของโมเดลที่เลือกไว้แล้ว เน้น <b>generalization</b> (gradient descent, maximum likelihood)</span>"><b>How do model fitting, data fitting and data modeling differ?</b><span class="qa">They nest: <b>Modeling ⊃ Data modeling ⊃ (Data fitting, Model fitting)</b>. <b>Data fitting</b> finds the function best describing existing data (least squares, polynomial fitting, splines). <b>Model fitting</b> tunes a pre-selected model's parameters, aiming at <b>generalization</b> (gradient descent, maximum likelihood).</span></span></div>
+      <div class="askrow"><span class="qm">?</span><span class="qt" data-th="<b>OLTP กับ OLAP</b> — “ถ้าจำไม่ผิดก็จะถามพวกนี้”<span class='qa'><b>OLTP</b> = Online Transaction Processing — งาน transaction รายวัน อ่าน/เขียนทีละน้อยแต่บ่อย · <b>OLAP</b> = Online Analytical Processing — งานวิเคราะห์ อ่านข้อมูลย้อนหลังทีละมากๆ อยู่บน data warehouse</span>"><b>OLTP vs OLAP</b> — "if I remember rightly I ask about these"<span class="qa"><b>OLTP</b> = Online Transaction Processing — day-to-day transactions, small frequent reads and writes. <b>OLAP</b> = Online Analytical Processing — analysis over large historical reads, on top of a data warehouse.</span></span></div>
+      <div class="askrow"><span class="qm">?</span><span class="qt" data-th="<b>ratio คืออะไร interval คืออะไร</b> — “ผมก็จะถามนะ”<span class='qa'><b>Ratio มีศูนย์จริง</b> (น้ำหนัก, ความยาว, ชีพจร, <b>Kelvin</b>) จึงพูดว่า “เป็นกี่เท่า” ได้ · <b>Interval ไม่มีศูนย์จริง</b> (<b>°C</b>, <b>°F</b>, pH, ปี ค.ศ., คะแนน TOEFL) ผลต่างมีความหมายแต่บอกอัตราส่วนไม่ได้ · <b>50 °C ไม่ได้ร้อนเป็น 2 เท่าของ 25 °C แต่ 100 K เป็น 2 เท่าของ 50 K</b></span>"><b>What is ratio, what is interval?</b> — "I will ask"<span class="qa"><b>Ratio has a true zero</b> (weight, length, pulse, <b>Kelvin</b>), so "how many times" is meaningful. <b>Interval has none</b> (<b>°C</b>, <b>°F</b>, pH, AD year, TOEFL score): differences mean something, ratios do not. <b>50 °C is not twice 25 °C, but 100 K is twice 50 K.</b></span></span></div>
+      <div class="askrow"><span class="qm">?</span><span class="qt" data-th="<b>Q1 Q2 Q3 IQR รั้ว และ outlier</b> — “อันนี้ต้องเข้าใจ”<span class='qa'><b>IQR = Q3 − Q1</b> = ความกว้างของกล่อง · <b>รั้ว = Q1 − 1.5×IQR</b> และ <b>Q3 + 1.5×IQR</b> (บางคนใช้ 3 แต่ 1.5 นิยมกว่า) · <b>นอกรั้ว = outlier</b> · <b>min/max นับเฉพาะจุดในรั้ว</b> · <b>five-number summary</b> = min, Q1, Q2, Q3, max</span>"><b>Q1, Q2, Q3, the IQR, the fences and outliers</b> — "this you have to understand"<span class="qa"><b>IQR = Q3 − Q1</b>, the width of the box. <b>Fences at Q1 − 1.5×IQR and Q3 + 1.5×IQR</b> (some use 3, but 1.5 is more common). <b>Outside a fence is an outlier.</b> <b>min/max count only points inside.</b> The <b>five-number summary</b> is min, Q1, Q2, Q3, max.</span></span></div>
+      <div class="askrow"><span class="qm">?</span><span class="qt" data-th="<b>correlation</b> — ไม่ต้องจำสูตร<span class='qa'>อยู่ระหว่าง <b>−1 ถึง 1</b> · <b>0 = ไม่มี correlation</b> · <b>บวก</b> ไปทางเดียวกัน · <b>ลบ</b> สวนทาง · <b>Pearson</b> สำหรับตัวเลขและเชิงเส้น <b>Spearman</b> สำหรับ ordinal · <b>correlation ≠ causation</b></span>"><b>Correlation</b> — no formula needed<span class="qa">It runs <b>−1 to 1</b>. <b>0 = none.</b> <b>Positive</b> = same direction, <b>negative</b> = opposite. <b>Pearson</b> for numeric and linear, <b>Spearman</b> for ordinal. <b>Correlation is not causation.</b></span></span></div>
+      <div class="askrow"><span class="qm">?</span><span class="qt" data-th="<b>อ่านค่า coefficient และดาวยังไง</b><span class='qa'><b>ดาวมาจาก t-test</b> ยิ่งมากยิ่งดี (p &lt; 0.05 ถือว่า significant) · <b>ไม่มีดาวเลย = ตัวแปรนั้นไม่สำคัญพอจะใช้ทำนาย</b> · <b>p-value และ R² ไม่ถาม</b></span>"><b>How do you read the coefficients and the stars?</b><span class="qa"><b>The stars come from the t-test</b>; more is better (p &lt; 0.05 counts as significant). <b>No stars at all means that variable is not important enough to predict with.</b> <b>p-value and R² are not asked.</b></span></span></div>
+      <div class="askrow"><span class="qm">?</span><span class="qt" data-th="<b>K-means อยู่ในกลุ่มประเภทอะไร</b> — “อันนี้เป็นโจทย์ในข้อสอบ”<span class='qa'><b>unsupervised learning</b> · <b>เหตุผล: ไม่มีการใช้ label</b> · และอยู่<b>แยกต่างหาก</b>จาก classification/regression ในแผนภาพ AI</span>"><b>Which category does K-means fall into?</b> — "this is an exam question"<span class="qa"><b>Unsupervised learning.</b> <b>The reason: no label is used.</b> It sits <b>separately</b> from classification and regression in the AI diagram.</span></span></div>
+      <div class="askrow"><span class="qm">?</span><span class="qt" data-th="<b>Support คำนวณยังไง</b> — “ถ้าออกก็คือหนึ่งอัน”<span class='qa'><code>Support(X) = จำนวน transaction ที่มี X ÷ transaction ทั้งหมด</code> · และต้องจำ <code>Confidence(X→Y) = Support(X,Y) ÷ Support(X)</code> ด้วย</span>"><b>How is support computed?</b> — "if it comes up, it's one"<span class="qa"><code>Support(X) = transactions containing X ÷ total transactions</code>. And memorise <code>Confidence(X→Y) = Support(X,Y) ÷ Support(X)</code> too.</span></span></div>
+      <div class="askrow"><span class="qm">?</span><span class="qt" data-th="<b>reinforcement learning คืออะไร</b><span class='qa'>เรียนรู้แบบลองผิดลองถูก มี <b>reward</b> — ทำดีได้รางวัล ทำผิดหักแต้ม · ตัวอย่าง: เล่นหมากรุก/โกะ, หุ่นยนต์หัดเดิน · ใน <b>Gen AI</b> คือปุ่ม 👍👎 ที่เก็บเป็นข้อมูลไปปรับโมเดล</span>"><b>What is reinforcement learning?</b><span class="qa">Learning by trial and error with a <b>reward</b> — points for doing well, a penalty for doing badly. Examples: chess or Go, a robot learning to walk. In <b>Gen AI</b> it is the 👍👎 buttons, collected and fed back.</span></span></div>
+    </div>
+  </section>
+
+  <!-- ============ TRAPS ============ -->
+  <section class="band">
+    <div class="band-head">
+      <span class="wk-pill">!</span>
+      <h2 data-th="กับดักที่ช้อยส์ชอบใช้">The traps the options will use</h2>
+      <span class="band-tag" data-th="อาจารย์บอกว่าที่ยากเพราะ <b>“ช้อยส์มันใกล้เคียงกัน”</b> — ทั้งหมดข้างล่างนี้คือคู่ที่ใกล้กันจนสลับกันได้">He said the hard part is that <b>"the options sit close together"</b>. Every pair below is close enough to be swapped.</span>
+    </div>
+    <div class="traps">
+      <div class="trap"><b data-th="box plot เป็น EDA แต่ linear regression ไม่ใช่">A box plot is EDA; linear regression is not</b><span data-th="สไลด์เขียนไว้ตรงๆ · <b>linear regression คือ data modeling</b> ไม่ใช่ EDA · แต่ EDA ใช้หา pattern ที่จะป้อนเข้าไปสร้าง regression ต่อได้">The slide says so outright. <b>Linear regression is data modeling</b>, not EDA — though EDA finds the patterns that then feed a regression model.</span></div>
+      <div class="trap"><b data-th="Cardinality ของ Value ใน 5 V's">Value, not Volume</b><span data-th="สไลด์ระบุว่า <b>Value คือ V ที่สำคัญที่สุด</b> ไม่ใช่ Volume — ช้อยส์จะล่อด้วย Volume เพราะฟังดูเป็น “big” data มากกว่า">The slide names <b>Value the most important V</b>, not Volume — and Volume is the tempting option because it sounds more like "big" data.</span></div>
+      <div class="trap"><b data-th="Data Administrator ไม่มีในวิชานี้ — แต่ DS กับ DE มี">DS vs DE, not DS vs DBA</b><span data-th="<b>Data Engineer ทำต้นน้ำ</b> (infrastructure, จัดเก็บ, ETL) · <b>Data Scientist ทำปลายน้ำ</b> (สำรวจ วิเคราะห์ สร้างโมเดล ตีความ) · อย่าสลับ"><b>The Data Engineer is upstream</b> (infrastructure, storage, ETL); <b>the Data Scientist is downstream</b> (explore, analyse, model, interpret). Do not swap them.</span></div>
+      <div class="trap"><b data-th="KDD ⊃ Data mining ไม่ใช่กลับกัน">KDD ⊃ data mining, not the reverse</b><span data-th="<b>KDD คือกระบวนการทั้งหมด</b> ส่วน <b>data mining เป็นขั้นหนึ่งอยู่ข้างใน</b> — ช้อยส์จะสลับให้ data mining ใหญ่กว่า"><b>KDD is the whole process</b> and <b>data mining is one step inside it</b> — an option will reverse it and make data mining the larger.</span></div>
+      <div class="trap"><b data-th="Interval vs Ratio — ดูที่ศูนย์จริง">Interval vs ratio — look for the true zero</b><span data-th="<b>°C และ °F เป็น interval</b> เพราะ 0 องศาไม่ได้แปลว่าไม่มีความร้อน · <b>Kelvin เป็น ratio</b> · <b>ปี ค.ศ. และคะแนนสอบเป็น interval</b> · น้ำหนัก ความยาว ชีพจร เป็น ratio"><b>°C and °F are interval</b>, because 0 degrees is not the absence of heat. <b>Kelvin is ratio.</b> <b>AD years and test scores are interval.</b> Weight, length and pulse are ratio.</span></div>
+      <div class="trap"><b data-th="เบอร์เสื้อนักกีฬาเป็น nominal">A shirt number is nominal</b><span data-th="8, 10, 23 เป็นตัวเลขก็จริง แต่เป็นแค่<b>สัญลักษณ์</b> ไม่ได้บอกว่าใครเก่งกว่า → <b>nominal ไม่ใช่ numerical</b> · <b>เห็นตัวเลขไม่พอ ต้องดูจุดประสงค์</b>">8, 10, 23 are numbers, but only <b>symbols</b> — they say nothing about who is better → <b>nominal, not numerical</b>. <b>Digits alone are not enough; consider the purpose.</b></span></div>
+      <div class="trap"><b data-th="Mode = ยอดของ histogram ไม่ใช่ mean">The mode is the histogram's peak</b><span data-th="แกน y ของ histogram คือ <b>frequency</b> ดังนั้นยอดคือค่าที่พบบ่อยที่สุด = <b>mode</b> · ส่วน <b>mean ถูกดึงไปทางหาง</b> และ <b>median = Q2</b> อยู่ระหว่าง mode กับ mean">A histogram's y axis is <b>frequency</b>, so the peak is the most common value = <b>the mode</b>. The <b>mean is pulled towards the tail</b>, and <b>the median = Q2</b> sits between them.</span></div>
+      <div class="trap"><b data-th="หนวดจบที่จุดข้อมูลจริง ไม่ใช่ที่รั้ว">Whiskers end on data, not on the fence</b><span data-th="หนวดลากไปถึง<b>จุดข้อมูลจริงที่ไกลที่สุดที่ยังอยู่ในรั้ว</b> → <b>หนวดสองข้างยาวไม่เท่ากันได้</b> · และ <b>min/max ไม่นับ outlier</b>">A whisker runs to the <b>furthest real data point still inside the fence</b> → <b>the two need not be equal</b>. And <b>min/max exclude outliers</b>.</span></div>
+      <div class="trap"><b data-th="confidence ไม่สมมาตร">Confidence is not symmetric</b><span data-th="<code>Confidence(X→Y) ≠ Confidence(Y→X)</code> เพราะตัวเศษเท่ากันแต่<b>ตัวส่วนต่างกัน</b> · ส่วน <b>support สมมาตร</b> เพราะ Support(X,Y) = Support(Y,X)"><code>Confidence(X→Y) ≠ Confidence(Y→X)</code> — the numerators match but <b>the denominators do not</b>. <b>Support is symmetric</b>, since Support(X,Y) = Support(Y,X).</span></div>
+      <div class="trap"><b data-th="confidence 100% ไม่ได้แปลว่าดี">100% confidence does not mean useful</b><span data-th="ตัวอย่างในสไลด์ได้ confidence 100% แต่ <b>lift = 1 พอดี</b> เพราะนมอยู่ในทุก transaction อยู่แล้ว → กฎนั้นไม่ได้บอกอะไรใหม่ · <b>ต้องดู lift ด้วยเสมอ</b>">A slide example hits 100% confidence with a <b>lift of exactly 1</b>, because milk is in every transaction anyway — the rule tells you nothing new. <b>Always check lift too.</b></span></div>
+      <div class="trap"><b data-th="Decision Tree ทำ regression ได้">A Decision Tree does regression too</b><span data-th="ช้อยส์จะล่อว่า DT ทำได้แค่ classification · <b>ผิด</b> — สไลด์มีตัวอย่าง <b>“Predict a house price”</b> ที่ label เป็นตัวเลข · <b>นี่คือข้อดีของมัน</b>">An option will claim DT does classification only. <b>Wrong</b> — the deck has a <b>"Predict a house price"</b> example with a numeric label. <b>That is its advantage.</b></span></div>
+      <div class="trap"><b data-th="Entropy 1 ไม่ใช่ “ดี”">Entropy 1 is not "good"</b><span data-th="<b>0 = pure ดีที่สุด</b> · <b>1 = mess สูงสุด</b> · เข้าใกล้ 1 แปลว่ายังปนกันมาก · ในตัวอย่าง PlayTennis เริ่มที่ <b>0.94</b> ซึ่งแปลว่ายังไม่เป็นระเบียบเลย"><b>0 = pure, the best.</b> <b>1 = maximum mess.</b> Close to 1 means still thoroughly mixed. PlayTennis starts at <b>0.94</b> — not orderly at all.</span></div>
+      <div class="trap"><b data-th="IG เลือกตัวมากสุด ไม่ใช่น้อยสุด">Pick the highest IG, not the lowest</b><span data-th="<b>IG ยิ่งมากยิ่งดี</b> เพราะแปลว่าลดความรกได้เยอะ · ในตัวอย่าง <b>IG(Outlook) = 0.247</b> สูงกว่า Humidity 0.15 จึงเป็น root"><b>More IG is better</b>, because it means more mess removed. In the example <b>IG(Outlook) = 0.247</b> beats Humidity's 0.15, so Outlook is the root.</span></div>
+      <div class="trap"><b data-th="K-means ให้ผลไม่เหมือนเดิมทุกครั้ง">K-means does not repeat itself</b><span data-th="เป็น <b>non-deterministic</b> — รันซ้ำกับข้อมูลเดิมได้ผลต่างกัน เพราะ<b>สุ่ม centroid เริ่มต้น</b> · และ <b>sensitive to initial placement</b> อาจ converge ไปหาคำตอบที่ไม่ดี">It is <b>non-deterministic</b> — repeat runs on the same data differ, because the <b>starting centroids are random</b>. It is also <b>sensitive to initial placement</b> and can converge to a poor solution.</span></div>
+      <div class="trap"><b data-th="clustering ไม่มีถูกผิด">Clustering has no right answer</b><span data-th="เพราะ<b>ไม่มี label</b> จึงวัดถูก/ผิดไม่ได้ · วัดได้แค่ <b>ดีหรือไม่ดี</b> ตอนเอาไปใช้ · 3 กลุ่มหรือ 4 กลุ่มไม่มีอันไหนผิด">With <b>no labels</b> there is nothing to be right or wrong against. You can only ask whether it is <b>good</b> in use. Three groups or four — neither is wrong.</span></div>
+      <div class="trap"><b data-th="K-means ใช้กับ categorical ไม่ได้">K-means cannot take categorical data</b><span data-th="ถึงจะ encode เป็นตัวเลขด้วย one-hot ก็ตาม <b>Euclidean distance ยังหลอกได้</b> → ต้องใช้ <b>K-modes</b> (นับ mismatch) หรือ <b>K-prototypes</b> ถ้าผสมกัน">Even encoded numerically with one-hot, <b>Euclidean distance stays misleading</b> → use <b>K-modes</b> (mismatch counts) or <b>K-prototypes</b> for mixed data.</span></div>
+      <div class="trap"><b data-th="normalize เฉพาะ feature">Normalize the features only</b><span data-th="<b>ห้ามแตะ target</b> เพราะ target คือ output · และถ้าไม่ normalize เลย โมเดลจะ<b>ลำเอียง</b>ไปหา feature ที่มีค่าเยอะ ซึ่งนับเป็น <b>data bias</b>"><b>Never the target</b>, because the target is the output. Skipping it entirely makes the model <b>lean</b> towards large-valued features — which counts as <b>data bias</b>.</span></div>
+      <div class="trap"><b data-th="y ต้องเป็นตัวเลขเสมอ">y must always be numeric</b><span data-th="ใน linear regression <b>ตัวแปรตาม y ต้องเป็นตัวเลข</b> ส่วน x <b>ผสม numeric กับ categorical ได้</b> — ช้อยส์จะสลับสองข้อนี้">In linear regression <b>the dependent variable y must be numeric</b>, while x <b>may mix numeric and categorical</b> — an option will swap the two.</span></div>
+    </div>
+  </section>
+  <!-- ============ QUIZ ============ -->
+  <section class="band">
+    <div class="band-head">
+      <span class="wk-pill">Q</span>
+      <h2 data-th="ลองทำดู — 24 ข้อ">Try these — 24 questions</h2>
+      <span class="band-tag" data-th="เขียนให้ใกล้เคียงกับที่อาจารย์บอกว่าจะถาม · <b>ช้อยส์ตั้งใจให้ใกล้เคียงกัน</b> แบบที่แกเตือน · แตะที่ข้อเพื่อดูเฉลยและเหตุผล">Written to match what he said he will ask, with <b>options deliberately close together</b> as he warned. Tap a question for the answer and the reason.</span>
+    </div>
+    <div class="mcq-tools">
+      <button id="qOpen" type="button" data-th="เปิดเฉลยทั้งหมด">Reveal all</button>
+      <button id="qClose" type="button" data-th="ปิดเฉลยทั้งหมด">Hide all</button>
+    </div>
+    <div class="mcq-wrap">
+
+<details class="mcq"><summary data-n="1"><span class="qtext" data-th="ใครเป็นคนเสนอคำว่า <b>data science</b> และปีอะไร">Who proposed the term <b>data science</b>, and when?</span><ul class="opts"><li data-th="DJ Patil, 2008">DJ Patil, 2008</li><li class="right" data-th="Peter Naur, 1974">Peter Naur, 1974</li><li data-th="Clive Humby, 2006">Clive Humby, 2006</li><li data-th="Andrew Ng, 2016">Andrew Ng, 2016</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="<b>Peter Naur, 1974</b> เสนอเป็นชื่อทางเลือกของ computer science · ส่วน <b>DJ Patil และ Jeff Hammerbacher, 2008</b> คือคนตั้งคำว่า <b>data scientist</b> ซึ่งเป็นคนละคำ · Humby 2006 = “data is the new oil” · Ng 2016 = “AI is the new electricity”"><b>Peter Naur, 1974</b>, as an alternative name for computer science. <b>DJ Patil and Jeff Hammerbacher, 2008</b> coined <b>data scientist</b>, a different term. Humby 2006 is "data is the new oil"; Ng 2016 is "AI is the new electricity".</div></details>
+
+<details class="mcq"><summary data-n="2"><span class="qtext" data-th="ใน 5 V's ของ big data สไลด์ระบุว่าตัวไหน<b>สำคัญที่สุด</b>">Which of the 5 V's does the slide name as <b>the most important</b>?</span><ul class="opts"><li data-th="Volume">Volume</li><li data-th="Velocity">Velocity</li><li class="right" data-th="Value">Value</li><li data-th="Veracity">Veracity</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="<b>Value</b> — คุณค่าต่อการตัดสินใจ · Volume เป็นตัวลวงที่แรงที่สุดเพราะฟังดูเป็น “big” data มากกว่า แต่ปริมาณเยอะแล้วไม่มีคุณค่าก็ไม่มีประโยชน์ · อีกสอง V ที่เพิ่มมาคือ <b>Variability</b> และ <b>Visualization</b>"><b>Value</b> — what the data is worth for decision-making. Volume is the strongest distractor because it sounds more like "big" data, but quantity without value is useless. The two extra V's are <b>Variability</b> and <b>Visualization</b>.</div></details>
+
+<details class="mcq"><summary data-n="3"><span class="qtext" data-th="ข้อใด<b>ไม่ใช่</b> EDA">Which is <b>not</b> EDA?</span><ul class="opts"><li data-th="Box plot">A box plot</li><li data-th="Scatter plot">A scatter plot</li><li class="right" data-th="Linear regression">Linear regression</li><li data-th="Statistical summary">A statistical summary</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="สไลด์เขียนไว้ตรงๆ ว่า <b>box plot เป็น EDA แต่ linear regression ไม่ใช่</b> — มันคือ <b>data modeling</b> · แต่ EDA ใช้หา pattern ที่จะป้อนเข้าไปสร้าง regression ต่อได้ · <b>นี่คือกับดักที่สไลด์ตั้งใจวางไว้</b>">The slide says outright that <b>a box plot is EDA but linear regression is not</b> — it is <b>data modeling</b>. EDA does find the patterns that then feed a regression model. <b>This is a trap the slide sets deliberately.</b></div></details>
+
+<details class="mcq"><summary data-n="4"><span class="qtext" data-th="ข้อใดคือ <b>hyperparameter</b>">Which of these is a <b>hyperparameter</b>?</span><ul class="opts"><li data-th="Weights ของ neural network">The weights of a neural network</li><li data-th="Coefficient ของ linear regression">The coefficients of a linear regression</li><li class="right" data-th="k ใน K-means">k in K-means</li><li data-th="Intercept ของเส้นตรง">The intercept of a straight line</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="<b>hyperparameter คือค่าที่คนตั้งเอง</b> — k ใน K-means, k ใน KNN, learning rate, จำนวน layer, epochs, loss function · ส่วนอีกสามตัวเลือกเป็น <b>model parameter</b> ที่ algorithm ประมาณค่ามาเองจากข้อมูล · อาจารย์บอกตรงๆ ว่า <b>“ผมจะถามว่า parameter กับ hyperparameter ต่างกันอย่างไร จะมีช้อยส์ให้เลือก”</b>"><b>A hyperparameter is set by a person</b> — k in K-means, k in KNN, learning rate, layers, epochs, the loss function. The other three are <b>model parameters</b>, estimated from the data by the algorithm. He said outright: <b>"I'm going to ask how a parameter and a hyperparameter differ. There'll be options to pick from."</b></div></details>
+
+<details class="mcq"><summary data-n="5"><span class="qtext" data-th="ข้อใดเป็น <b>ratio scale</b>">Which is on a <b>ratio scale</b>?</span><ul class="opts"><li data-th="อุณหภูมิเป็นองศาเซลเซียส">Temperature in degrees Celsius</li><li data-th="ปี ค.ศ.">The AD year</li><li data-th="คะแนน TOEFL">A TOEFL score</li><li class="right" data-th="อุณหภูมิเป็นเคลวิน">Temperature in Kelvin</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="<b>ratio ต้องมีศูนย์จริง</b> — <b>0 K = ไม่มีพลังงานความร้อนเลย</b> (= −273.15 °C) จึงพูดได้ว่า <b>100 K เป็นสองเท่าของ 50 K</b> · ส่วน <b>°C, ปี ค.ศ. และคะแนน TOEFL เป็น interval ทั้งหมด</b> เพราะศูนย์ของมันเป็นจุดที่มนุษย์ตกลงกัน ไม่ใช่การไม่มีปริมาณนั้น → <b>50 °C ไม่ได้ร้อนเป็นสองเท่าของ 25 °C</b>"><b>Ratio needs a true zero.</b> <b>0 K is the complete absence of thermal energy</b> (= −273.15 °C), so <b>100 K really is twice 50 K</b>. <b>°C, AD years and TOEFL scores are all interval</b>, because their zero is an agreed point rather than an absence → <b>50 °C is not twice as hot as 25 °C</b>.</div></details>
+
+<details class="mcq"><summary data-n="6"><span class="qtext" data-th="เบอร์เสื้อนักกีฬา เช่น 8, 10, 23 เป็นข้อมูลชนิดใด">An athlete's shirt number — 8, 10, 23 — is what type of data?</span><ul class="opts"><li class="right" data-th="Nominal">Nominal</li><li data-th="Ordinal">Ordinal</li><li data-th="Discrete numerical">Discrete numerical</li><li data-th="Ratio">Ratio</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="เป็นตัวเลขก็จริง แต่มันเป็นแค่ <b>สัญลักษณ์</b> — เบอร์ 10 ไม่ได้เก่งกว่าเบอร์ 8 และเอาไปบวกลบไม่ได้ จึงเป็น <b>nominal</b> · บทเรียนของตัวอย่างนี้คือ <b>เห็นตัวเลขไม่พอ ต้องดูจุดประสงค์และบริบทของการใช้ด้วย</b>">They are numbers, but only <b>symbols</b> — number 10 is not better than number 8, and you cannot add them. So they are <b>nominal</b>. The lesson: <b>seeing digits is not enough; consider the purpose and context of their use</b>.</div></details>
+
+<details class="mcq"><summary data-n="7"><span class="qtext" data-th="<b>Q1 = 20, Q3 = 40</b> · จุดใดนับเป็น <b>outlier</b>">Given <b>Q1 = 20 and Q3 = 40</b>, which point counts as an <b>outlier</b>?</span><ul class="opts"><li data-th="45">45</li><li data-th="65">65</li><li class="right" data-th="75">75</li><li data-th="ทั้ง 65 และ 75">Both 65 and 75</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="<b>IQR = Q3 − Q1 = 40 − 20 = 20</b> · <b>1.5 × IQR = 30</b> · <b>รั้วบน = Q3 + 30 = 70</b> และ <b>รั้วล่าง = Q1 − 30 = −10</b> · ดังนั้น 45 และ 65 ยังอยู่ในรั้ว มีแต่ <b>75 ที่เกิน 70</b> จึงเป็น outlier ตัวเดียว · <b>min/max ของ box plot จะไม่นับ 75 นี้</b>"><b>IQR = Q3 − Q1 = 40 − 20 = 20.</b> <b>1.5 × IQR = 30.</b> <b>The upper fence is Q3 + 30 = 70</b> and the lower is Q1 − 30 = −10. So 45 and 65 are still inside, and only <b>75 exceeds 70</b> — one outlier. <b>The box plot's min/max will not count it.</b></div></details>
+
+<details class="mcq"><summary data-n="8"><span class="qtext" data-th="ข้อใดถูกต้องเกี่ยวกับ <b>หนวด (whisker)</b> ของ box plot">Which is true of a box plot's <b>whiskers</b>?</span><ul class="opts"><li data-th="ลากไปจนถึงรั้วเสมอ">They always run out to the fence</li><li class="right" data-th="จบที่จุดข้อมูลจริงที่ไกลที่สุดที่ยังอยู่ในรั้ว จึงยาวไม่เท่ากันได้">They end on the furthest real data point still inside the fence, so they need not be equal</li><li data-th="สองข้างต้องยาวเท่ากันเสมอ">The two must always be the same length</li><li data-th="ลากไปถึง outlier ที่ไกลที่สุด">They run out to the furthest outlier</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="<b>หนวดต้องจบที่ observed data point</b> ที่ไกลจากกล่องที่สุดแต่ยัง<b>อยู่ในรั้ว</b> ไม่ใช่ลากไปถึงตัวรั้ว → <b>สองข้างยาวไม่เท่ากันได้</b> เพราะจุดที่ไกลสุดในรั้วของสองฝั่งอาจอยู่คนละระยะ · ส่วน outlier อยู่นอกรั้วและถูกพล็อตแยกเป็นจุด"><b>A whisker must end on an observed data point</b> — the furthest from the box that is still <b>inside the fence</b>, not at the fence itself. So <b>the two need not match</b>, since the furthest inside point differs on each side. Outliers lie beyond the fence and are plotted as separate points.</div></details>
+
+<details class="mcq"><summary data-n="9"><span class="qtext" data-th="<b>KDD</b> กับ <b>data mining</b> สัมพันธ์กันอย่างไร">How are <b>KDD</b> and <b>data mining</b> related?</span><ul class="opts"><li data-th="เป็นคำเดียวกัน ใช้แทนกันได้">They are the same thing, used interchangeably</li><li class="right" data-th="KDD คือกระบวนการทั้งหมด และ data mining เป็นขั้นหนึ่งอยู่ข้างใน">KDD is the whole process, with data mining as one step inside it</li><li data-th="Data mining คือกระบวนการทั้งหมด และ KDD เป็นขั้นหนึ่งอยู่ข้างใน">Data mining is the whole process, with KDD as one step inside it</li><li data-th="เป็นคนละเรื่องกัน ไม่เกี่ยวข้องกันเลย">They are unrelated</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="<b>KDD = Knowledge Discovery in Databases</b> คือกระบวนการค้นหาความรู้จากฐานข้อมูลทั้งกระบวนการ · <b>data mining เป็นขั้นตอนหนึ่งอยู่ข้างใน</b> — คือการดึงข้อมูลและ pattern ที่ยังไม่เคยรู้ออกมาจากฐานข้อมูลขนาดใหญ่ · ตัวเลือกที่สลับกันเป็นตัวลวงหลัก"><b>KDD = Knowledge Discovery in Databases</b>, the whole knowledge-discovery process. <b>Data mining is one step inside it</b> — pulling previously unknown information and patterns out of large databases. The reversed option is the main distractor.</div></details>
+
+<details class="mcq"><summary data-n="10"><span class="qtext" data-th="<code>Support</code> คำนวณอย่างไร">How is <code>Support</code> computed?</span><ul class="opts"><li data-th="Support(X,Y) ÷ Support(X)">Support(X,Y) ÷ Support(X)</li><li class="right" data-th="จำนวน transaction ที่มี X ÷ transaction ทั้งหมด">transactions containing X ÷ total transactions</li><li data-th="Confidence(X→Y) ÷ Support(Y)">Confidence(X→Y) ÷ Support(Y)</li><li data-th="จำนวน item ทั้งหมด ÷ จำนวน transaction">total items ÷ total transactions</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="<b>Support(X) = ความถี่ที่มี X ÷ N</b> · ตัวเลือกแรกคือ <b>confidence</b> และตัวเลือกที่สามคือ <b>lift</b> — ทั้งสองเป็นตัวลวงที่แรงเพราะจำสลับกันบ่อย · <b>นี่คือสูตรเดียวที่อาจารย์ยืนยันว่าออกสอบ</b>"><b>Support(X) = the frequency containing X ÷ N.</b> The first option is <b>confidence</b> and the third is <b>lift</b> — strong distractors because the three get swapped. <b>This is the one formula he confirmed is on the paper.</b></div></details>
+
+<details class="mcq"><summary data-n="11"><span class="qtext" data-th="กฎ <code>{Bread} → {Milk}</code> มี confidence 100% แต่ lift = 1 พอดี แปลว่าอะไร">A rule <code>{Bread} → {Milk}</code> has 100% confidence but a lift of exactly 1. What does that mean?</span><ul class="opts"><li data-th="เป็นกฎที่แข็งแรงที่สุดเท่าที่เป็นไปได้">It is the strongest rule possible</li><li class="right" data-th="Bread ไม่ได้ทำให้ Milk มีโอกาสมากขึ้นเลย — นมอยู่ในทุกตะกร้าอยู่แล้ว">Bread makes Milk no more likely — milk is in every basket anyway</li><li data-th="Bread ทำให้ Milk มีโอกาสน้อยลง">Bread makes Milk less likely</li><li data-th="คำนวณผิด เพราะ confidence 100% ต้องได้ lift สูง">The calculation is wrong, since 100% confidence must give a high lift</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="<b>lift = 1 แปลว่าเป็นอิสระต่อกัน</b> — กฎนี้ไม่ได้บอกอะไรใหม่เลย · ที่ confidence ได้ 100% เพราะ <b>Milk อยู่ในทุก transaction อยู่แล้ว</b> ไม่ว่าจะมี Bread หรือไม่ · <b>นี่คือบทเรียนสำคัญที่สุดของตัวอย่างในสไลด์: confidence สูงอย่างเดียวไม่พอ ต้องดู lift ด้วยเสมอ</b> · อ่าน lift: <b>&gt;1 สัมพันธ์จริง · =1 อิสระ · &lt;1 สัมพันธ์เชิงลบ</b>"><b>A lift of 1 means independence</b> — the rule tells you nothing new. Confidence reaches 100% only because <b>milk is in every transaction anyway</b>, with or without bread. <b>This is the most important lesson in the slide's example: high confidence alone is not enough, always check lift.</b> Reading lift: <b>&gt;1 a real association · =1 independent · &lt;1 negative</b>.</div></details>
+
+<details class="mcq"><summary data-n="12"><span class="qtext" data-th="จาก <b>3-itemset</b> หนึ่งชุด สร้าง association rule ได้กี่กฎ">How many association rules can be generated from one <b>3-itemset</b>?</span><ul class="opts"><li data-th="3">3</li><li data-th="4">4</li><li class="right" data-th="6">6</li><li data-th="8">8</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="<b>6 กฎ</b> — 3 กฎที่ consequent มี item เดียว (เช่น <code>{A,B}→{C}</code>) และ 3 กฎที่ consequent มีสอง item (เช่น <code>{A}→{B,C}</code>) · <b>กฎเหล็ก: ทุก item ต้องปรากฏในกฎ ห้ามขาดตัวไหน</b> และแต่ละข้างของลูกศรต้องมีอย่างน้อย 1 ตัว"><b>Six</b> — three with a one-item consequent (e.g. <code>{A,B}→{C}</code>) and three with a two-item consequent (e.g. <code>{A}→{B,C}</code>). <b>The hard rule: every item must appear, none may be dropped</b>, and each side of the arrow needs at least one.</div></details>
+
+<details class="mcq"><summary data-n="13"><span class="qtext" data-th="ข้อใดคือ <b>Apriori property</b>">Which statement is the <b>Apriori property</b>?</span><ul class="opts"><li class="right" data-th="ถ้า itemset หนึ่ง infrequent แล้ว superset ทุกตัวของมันก็ infrequent">If an itemset is infrequent, all of its supersets are infrequent</li><li data-th="ถ้า itemset หนึ่ง infrequent แล้ว subset ทุกตัวของมันก็ infrequent">If an itemset is infrequent, all of its subsets are infrequent</li><li data-th="ถ้า itemset หนึ่ง frequent แล้ว superset ทุกตัวของมันก็ frequent">If an itemset is frequent, all of its supersets are frequent</li><li data-th="ทุก itemset ที่มีขนาดเท่ากันมี support เท่ากัน">All itemsets of the same size have the same support</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="มีสองส่วน: <b>(1) frequent → subset ทุกตัว frequent</b> และ <b>(2) infrequent → superset ทุกตัว infrequent</b> ซึ่งเป็น contrapositive ของข้อแรก · ส่วนที่สองคือสิ่งที่ทำให้ <b>prune ได้</b> — เพราะ power set มีขนาด <b>2ⁿ</b> ถ้าไม่ตัดทิ้งตั้งแต่ต้น สินค้าหลักพันชิ้นก็คำนวณไม่ไหว · ตัวเลือกอื่นเป็นการสลับ subset/superset ซึ่งผิด">There are two parts: <b>(1) frequent → all subsets frequent</b>, and <b>(2) infrequent → all supersets infrequent</b>, the contrapositive of the first. The second is what makes <b>pruning</b> possible — the power set has size <b>2ⁿ</b>, so without cutting early, thousands of products are uncomputable. The other options swap subset and superset.</div></details>
+
+<details class="mcq"><summary data-n="14"><span class="qtext" data-th="Decision Tree ทำงานประเภทใดได้บ้าง">What kinds of task can a Decision Tree do?</span><ul class="opts"><li data-th="Classification เท่านั้น">Classification only</li><li data-th="Regression เท่านั้น">Regression only</li><li class="right" data-th="ได้ทั้ง classification และ regression">Both classification and regression</li><li data-th="Clustering เท่านั้น">Clustering only</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="สไลด์มีตัวอย่างทั้งสองแบบ: <b>“Play an outdoor sport?”</b> label เป็น Yes/No (classification) และ <b>“Predict a house price”</b> label เป็นตัวเลข (regression) โดยใช้การเปรียบเทียบมากกว่า/น้อยกว่าที่แต่ละ node · <b>อาจารย์ย้ำว่านี่คือข้อดีของมัน</b> · และจำประโยคเปิดของสไลด์ไว้: <b>classification → target เป็น categorical · regression → target เป็น numeric</b>">The deck shows both: <b>"Play an outdoor sport?"</b> with a Yes/No label (classification) and <b>"Predict a house price"</b> with a numeric label (regression), where nodes compare greater-than / less-than. <b>He stressed this is its advantage.</b> And remember the deck's opening line: <b>classification → categorical target; regression → numeric target</b>.</div></details>
+
+<details class="mcq"><summary data-n="15"><span class="qtext" data-th="ข้อมูลชุดหนึ่งมี 14 แถว เป็น Yes 7 No 7 · entropy เท่ากับเท่าไหร่">A dataset of 14 rows is 7 Yes and 7 No. What is its entropy?</span><ul class="opts"><li data-th="0">0</li><li data-th="0.5">0.5</li><li class="right" data-th="1">1</li><li data-th="0.94">0.94</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="<b>แบ่ง 50/50 พอดี = maximum mess = entropy 1</b> ตามที่สไลด์อธิบายด้วยถุงผลไม้ที่มีแอปเปิ้ล 5 ส้ม 5 — ไม่มีทางรู้เลยว่าจะล้วงได้อะไร · <b>0 คือ perfectly pure</b> ทุกตัวอยู่ category เดียวกัน · <b>0.94 คือค่าของตัวอย่าง PlayTennis จริง</b> ซึ่งเป็น 9 Yes / 5 No ไม่ใช่ 7/7 — เป็นตัวลวงที่ดี"><b>A perfect 50/50 split is maximum mess = entropy 1</b>, exactly the slide's bag of 5 apples and 5 oranges where you have no idea what you will pull out. <b>0 is perfectly pure</b>, everything in one category. <b>0.94 is the real PlayTennis figure</b>, which is 9 Yes / 5 No, not 7/7 — a good distractor.</div></details>
+
+<details class="mcq"><summary data-n="16"><span class="qtext" data-th="ใน Decision Tree เราเลือก feature มาเป็น <b>root</b> อย่างไร">How is the <b>root</b> feature of a Decision Tree chosen?</span><ul class="opts"><li data-th="เลือกตัวที่มี entropy สูงสุด">The one with the highest entropy</li><li class="right" data-th="เลือกตัวที่มี information gain สูงสุด">The one with the highest information gain</li><li data-th="เลือกตัวที่มี information gain ต่ำสุด">The one with the lowest information gain</li><li data-th="เลือกคอลัมน์แรกของ dataset">The first column in the dataset</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="<b>IG สูงสุด</b> เพราะ IG วัดว่าคำถามนี้<b>ลดความรกได้เท่าไหร่</b> ยิ่งมากยิ่งดี · ในตัวอย่าง PlayTennis <b>IG(Outlook) = 0.247</b> ชนะ Humidity ที่ 0.15 จึงได้เป็น root · <b>ระวัง:</b> entropy สูงไม่ใช่สิ่งที่ต้องการ — เราต้องการ<b>ลด</b> entropy ไม่ใช่เพิ่ม"><b>The highest IG</b>, because IG measures <b>how much a question reduces the messiness</b> — more is better. In PlayTennis, <b>IG(Outlook) = 0.247</b> beats Humidity's 0.15 and becomes the root. <b>Careful:</b> high entropy is not what you want — you are trying to <b>reduce</b> entropy, not raise it.</div></details>
+
+<details class="mcq"><summary data-n="17"><span class="qtext" data-th="ในตัวอย่าง PlayTennis ทำไมกิ่ง <b>Overcast</b> ถึงจบเป็น leaf ทันที">In PlayTennis, why does the <b>Overcast</b> branch become a leaf immediately?</span><ul class="opts"><li data-th="เพราะเป็นกิ่งที่มี data point น้อยที่สุด">Because it holds the fewest data points</li><li class="right" data-th="เพราะเป็น pure node — 4 Yes, 0 No ทำให้ entropy = 0">Because it is a pure node — 4 Yes, 0 No, so entropy = 0</li><li data-th="เพราะใช้ attribute ครบหมดแล้ว">Because every attribute has already been used</li><li data-th="เพราะถึง max depth ที่กำหนดไว้">Because the max depth was reached</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="<b>4 Yes, 0 No คือ pure ทันที → entropy = 0</b> → ไม่มีความรกเหลือให้ลด จึงไม่มีประโยชน์ที่จะถามต่อ · <b>pure node เป็น stopping condition ข้อแรก</b> ในสามข้อ อีกสองข้อคือ <b>max depth</b> และ <b>minimum samples</b> · ส่วนกิ่ง Sunny (2 Yes 3 No) และ Rain (3 Yes 2 No) ยังไม่ pure จึงต้องถามต่อด้วย Humidity และ Windy ตามลำดับ"><b>4 Yes and 0 No is pure at once → entropy = 0</b> → there is no mess left to reduce, so asking further gains nothing. <b>A pure node is the first of the three stopping conditions</b>; the others are <b>max depth</b> and <b>minimum samples</b>. Sunny (2 Yes, 3 No) and Rain (3 Yes, 2 No) are not pure, so they split again on Humidity and Windy.</div></details>
+
+<details class="mcq"><summary data-n="18"><span class="qtext" data-th="<b>K-means</b> อยู่ในกลุ่มการเรียนรู้ประเภทใด และเพราะอะไร">Which category of learning is <b>K-means</b>, and why?</span><ul class="opts"><li data-th="Supervised เพราะต้องระบุ k ล่วงหน้า">Supervised, because you must specify k in advance</li><li class="right" data-th="Unsupervised เพราะไม่มีการใช้ label">Unsupervised, because no label is used</li><li data-th="Supervised เพราะใช้ centroid เป็น target">Supervised, because the centroid acts as the target</li><li data-th="Reinforcement เพราะทำซ้ำหลายรอบจนนิ่ง">Reinforcement, because it repeats until it settles</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="<b>unsupervised เพราะไม่ใช้ label</b> — นั่นคือเกณฑ์เดียวที่ตัดสิน · <b>การที่ต้องระบุ k ล่วงหน้าไม่ได้ทำให้มันเป็น supervised</b> เพราะ k เป็น <b>hyperparameter</b> ไม่ใช่ label · และ <b>การทำซ้ำหลายรอบไม่ใช่ reinforcement</b> เพราะไม่มี reward · อาจารย์บอกตรงๆ ว่า <b>“อันนี้เป็นโจทย์ในข้อสอบ อาจจะถามว่า K-means อยู่ในกลุ่มประเภทอะไร”</b>"><b>Unsupervised, because no label is used</b> — that is the only criterion. <b>Having to specify k does not make it supervised</b>, because k is a <b>hyperparameter</b>, not a label. And <b>repeating until it settles is not reinforcement</b>, because there is no reward. He said outright: <b>"this is an exam question — I might ask which category K-means falls into."</b></div></details>
+
+<details class="mcq"><summary data-n="19"><span class="qtext" data-th="ทำไมรัน K-means สองครั้งกับข้อมูลชุดเดิม อาจได้ผลไม่เหมือนกัน">Why can two runs of K-means on the same data give different results?</span><ul class="opts"><li data-th="เพราะ Euclidean distance คำนวณแบบประมาณ">Because Euclidean distance is only approximate</li><li class="right" data-th="เพราะ centroid เริ่มต้นถูกสุ่มมา — มันเป็น non-deterministic algorithm">Because the initial centroids are chosen at random — it is a non-deterministic algorithm</li><li data-th="เพราะจำนวน cluster เปลี่ยนไปเองระหว่างรัน">Because the number of clusters changes during the run</li><li data-th="ไม่จริง — K-means ให้ผลเหมือนเดิมเสมอ">It cannot — K-means always gives the same result</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="สไลด์เขียนไว้ตรงๆ: <b>“running the algorithm several times on the same data could give different results”</b> และระบุสาเหตุว่า <b>“due to its random selection of data points as initial centroids”</b> · สไลด์ยังเตือนว่ามัน <b>sensitive to initial centroid placement</b> และอาจ <b>converge ไปหาคำตอบที่ไม่ดี</b> ได้ · ส่วน <b>k ไม่เปลี่ยนระหว่างรัน</b> เพราะเป็นค่าที่ user ตั้งไว้ตายตัว">The deck says it outright: <b>"running the algorithm several times on the same data could give different results"</b>, and names the cause — <b>"due to its random selection of data points as initial centroids"</b>. It also warns the method is <b>sensitive to initial centroid placement</b> and can <b>converge to a poor solution</b>. <b>k does not change during a run</b>; the user fixes it.</div></details>
+
+<details class="mcq"><summary data-n="20"><span class="qtext" data-th="<b>Elbow method</b> ใช้ทำอะไร และดูอะไร">What is the <b>elbow method</b> for, and what do you look at?</span><ul class="opts"><li data-th="เลือก feature ที่ดีที่สุด โดยดู information gain">Choosing the best feature, by looking at information gain</li><li class="right" data-th="เลือกจำนวน cluster k โดย plot WCSS เทียบกับ k แล้วหาจุดที่กราฟเริ่มราบ">Choosing the number of clusters k, by plotting WCSS against k and finding where the curve levels off</li><li data-th="เลือกจำนวน cluster k โดยหาจุดที่ WCSS สูงสุด">Choosing k, by finding where WCSS is highest</li><li data-th="ตรวจว่าโมเดล overfit หรือไม่">Checking whether a model has overfitted</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="ลอง <b>k = 1, 2, 3, …</b> ไปเรื่อยๆ แต่ละ k คำนวณ <b>WCSS</b> แล้ว plot · <b>เลือกจุดที่ WCSS เริ่มนิ่ง ความชันเริ่มราบ</b> ไม่ใช่จุดที่สูงสุด (WCSS จะลดลงเรื่อยๆ ตาม k อยู่แล้ว) · ตัวอย่างในสไลด์: <b>“3 at best or 4 if needed”</b> · <b>elbow แปลว่าข้อศอก</b> ตามรูปกราฟที่หักงอ · อีกวิธีคือ <b>Silhouette Score</b> ซึ่งสไลด์เอ่ยถึงแต่ยังไม่เรียน">Try <b>k = 1, 2, 3, …</b>, compute <b>WCSS</b> for each and plot it. <b>Take the point where WCSS starts to level off</b>, not where it is highest — WCSS falls with k regardless. The deck's example: <b>"3 at best or 4 if needed"</b>. <b>Elbow</b> refers to the bend in the curve. The alternative is the <b>Silhouette Score</b>, which the deck names but does not cover.</div></details>
+
+<details class="mcq"><summary data-n="21"><span class="qtext" data-th="ต้องการจัดกลุ่มข้อมูลที่เป็น <b>categorical ล้วน</b> เช่น city และ gender ควรใช้อะไร">To cluster data that is <b>entirely categorical</b> — city and gender, say — what should you use?</span><ul class="opts"><li data-th="K-means โดย encode เป็นตัวเลขด้วย one-hot ก่อน">K-means, after one-hot encoding to numbers</li><li class="right" data-th="K-modes ซึ่งวัดความต่างด้วยจำนวน mismatch">K-modes, which measures dissimilarity by counting mismatches</li><li data-th="K-prototypes เพราะรองรับทุกชนิดข้อมูล">K-prototypes, since it handles every data type</li><li data-th="Fuzzy C-means">Fuzzy C-means</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="สไลด์บอกตรงๆ ว่า <b>ถึงจะ encode ด้วย one-hot ตัว Euclidean distance ก็ยังหลอกได้</b> → ตัวเลือกแรกจึงผิด · <b>K-modes</b> ออกแบบมาสำหรับ categorical โดยเฉพาะ ใช้ <b>จำนวน mismatch</b> (คล้าย Hamming distance) และใช้ <b>mode</b> แทน mean · <b>K-prototypes ใช้เมื่อข้อมูล<em>ผสม</em>ตัวเลขกับ categorical</b> ไม่ใช่ categorical ล้วน จึงเป็นตัวลวงที่ดี · <b>Fuzzy C-means เป็นเรื่องของ hard/soft ไม่ใช่เรื่องชนิดข้อมูล</b>">The deck says outright that <b>even with one-hot encoding, Euclidean distance stays misleading</b> → the first option is wrong. <b>K-modes</b> is designed for categorical data, using <b>mismatch counts</b> (like Hamming distance) and the <b>mode</b> instead of the mean. <b>K-prototypes is for <em>mixed</em> numeric and categorical data</b>, not purely categorical — a good distractor. <b>Fuzzy C-means is about hard vs soft, not about data type.</b></div></details>
+
+<details class="mcq"><summary data-n="22"><span class="qtext" data-th="ข้อใดคือ <b>soft (fuzzy) clustering</b>">Which describes <b>soft (fuzzy) clustering</b>?</span><ul class="opts"><li data-th="หนึ่งจุดอยู่ได้แค่ cluster เดียว เช่น K-means">One point belongs to exactly one cluster, as in K-means</li><li class="right" data-th="หนึ่งจุดกระจายอยู่หลาย cluster ตาม weight เช่น Fuzzy C-means">One point is distributed among several clusters by weight, as in Fuzzy C-means</li><li data-th="จำนวน cluster เปลี่ยนได้ระหว่างรัน">The number of clusters can change during the run</li><li data-th="ใช้ mode แทน mean">It uses the mode instead of the mean</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="ตัวเลือกแรกคือ <b>hard clustering</b> ซึ่ง K-means เป็นตัวอย่าง · <b>soft/fuzzy</b> ให้หนึ่งจุดอยู่หลายกลุ่มตามระดับ เช่นอยู่กลุ่มนี้ 80% กลุ่มนั้น 20% · <b>ตัวอย่างแอปเปิ้ลของสไลด์:</b> แอปเปิ้ลจะแดง<em>หรือ</em>เขียว (hard) แต่จริงๆ มันแดง<em>และ</em>เขียวได้ (fuzzy) · ตัวเลือกสุดท้ายคือ <b>K-modes</b> ซึ่งเป็นคนละแกน · <b>ทำไมใช้ C ไม่ใช้ K:</b> C มาจาก class/category ความหมายเดียวกัน">The first option is <b>hard clustering</b>, of which K-means is the example. <b>Soft/fuzzy</b> lets one point belong to several groups by degree — 80% here, 20% there. <b>The deck's apple:</b> an apple is red <em>or</em> green (hard), but it can be red <em>and</em> green (fuzzy). The last option describes <b>K-modes</b>, a different axis. <b>Why C not K:</b> C stands for class/category — the same meaning.</div></details>
+
+<details class="mcq"><summary data-n="23"><span class="qtext" data-th="ทำไมต้อง <b>normalize</b> ก่อนทำ K-means">Why <b>normalize</b> before running K-means?</span><ul class="opts"><li data-th="เพื่อให้ algorithm ทำงานเร็วขึ้น">To make the algorithm run faster</li><li class="right" data-th="เพราะ feature ที่ scale ใหญ่กว่าจะครอบงำระยะทาง ทำให้โมเดลลำเอียง">Because a feature on a larger scale dominates the distance and makes the model lean</li><li data-th="เพื่อแปลง categorical ให้เป็นตัวเลข">To turn categorical values into numbers</li><li data-th="เพื่อกำจัด outlier">To remove outliers</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="machine learning หา <b>error</b> แล้ว<b>ยกกำลังสอง</b> — ใน <code>imports-85</code> ตัว price อยู่หลัก <b>5,000–40,005</b> ส่วน horsepower อยู่ <b>48–288</b> · ยกกำลังสองแล้ว price ไปหลักล้าน ส่วน horsepower ได้แค่หลักหมื่น → <b>ไม่แฟร์ โมเดลให้น้ำหนัก price มากเกินไป</b> · อาจารย์เชื่อมเข้าข้อสอบทันที: <b>“เป็น bias ในข้อสอบผมก็ถามนะ”</b> — <b>scale ที่ไม่เท่ากันนับเป็น data bias</b> · และใน Orange ให้ <b>normalize เฉพาะ feature ห้ามแตะ target</b>">ML computes an <b>error</b> and <b>squares it</b>. In <code>imports-85</code>, price runs <b>5,000–40,005</b> while horsepower runs <b>48–288</b>; squared, price reaches the millions and horsepower only the tens of thousands → <b>unfair, and the model over-weights price</b>. He tied it straight to the exam: <b>"that's bias, and I ask about bias on the paper"</b> — <b>unequal scales count as data bias</b>. And in Orange, <b>normalize the features only, never the target</b>.</div></details>
+
+<details class="mcq"><summary data-n="24"><span class="qtext" data-th="ข้อใดเป็น <b>descriptive</b> ทั้งคู่">Which pair are both <b>descriptive</b>?</span><ul class="opts"><li data-th="Classification และ regression">Classification and regression</li><li class="right" data-th="Clustering และ association rules">Clustering and association rules</li><li data-th="Regression และ clustering">Regression and clustering</li><li data-th="Classification และ association rules">Classification and association rules</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="<b>Predictive</b> = ทำนายค่าของตัวแปรหนึ่งจากตัวที่เหลือ → <b>classification และ regression</b> · <b>Descriptive</b> = หาความสัมพันธ์เพื่อเข้าใจโครงสร้างข้อมูล ไม่ได้ทำนาย → <b>clustering (K-means) และ association rules (Apriori)</b> รวมถึง anomaly detection และ visualization · อาจารย์บอกว่าจะถาม <b>“ความแตกต่างระหว่าง predictive กับ descriptive … ต้องอธิบายได้”</b>"><b>Predictive</b> = predicting one variable's value from the rest → <b>classification and regression</b>. <b>Descriptive</b> = finding relationships to understand the data's structure, without predicting → <b>clustering (K-means) and association rules (Apriori)</b>, along with anomaly detection and visualization. He said he asks about <b>"the difference between predictive and descriptive … you have to be able to explain it"</b>.</div></details>
+
+    </div>
+  </section>
+
+  <div class="panel">
+    <h3 data-th="ที่มาของหน้านี้">Where this came from</h3>
+    <p class="lede" data-th="สร้างจากสไลด์ 5 เซตของ อ.พรชัย มงคลนาม ประกบกับสิ่งที่พูดในคาบ · ทุกอย่างที่มาจาก transcript อย่างเดียวถูกทำเครื่องหมายไว้ในไฟล์โน้ตต้นทาง">Built from the five decks by Assoc. Prof. Dr. Pornchai Mongkolnam, cross-read against what was said in class. Anything drawn from the transcript alone is marked as such in the source notes.</p>
+    <div class="tbl-wrap">
+      <table class="g">
+        <tr><td>Intro to DS/AI</td><td data-th="<code>INT182_01_Intro-to-DS-Engineering-and-AI.pdf</code> + โน้ตคาบ 1–2"><code>INT182_01_Intro-to-DS-Engineering-and-AI.pdf</code> + the class 1–2 notes</td></tr>
+        <tr><td>EDA – Model Fitting</td><td data-th="<code>INT182_02_EDA-Model-Fitting.pdf</code> + โน้ตคาบ 3"><code>INT182_02_EDA-Model-Fitting.pdf</code> + the class 3 notes</td></tr>
+        <tr><td>Association Rules</td><td data-th="<code>Association rules.pdf</code> (19 หน้า) + โน้ตคาบ 4 + การทวนต้นคาบ 5"><code>Association rules.pdf</code> (19 slides) + the class 4 notes + the class 5 refill</td></tr>
+        <tr><td>Decision Trees</td><td data-th="<code>Decision Trees.pdf</code> (27 หน้า) + transcript คาบ 5"><code>Decision Trees.pdf</code> (27 slides) + the class 5 transcript</td></tr>
+        <tr><td>K-means</td><td data-th="<code>K-means clustering basics.pdf</code> (25 หน้า) + transcript คาบ 5"><code>K-means clustering basics.pdf</code> (25 slides) + the class 5 transcript</td></tr>
+        <tr><td data-th="รายละเอียดสอบ">The exam details</td><td data-th="<code>INT182_20260904.docx</code> — บันทึกคาบ 4 ก.ย. ยาว 3 ชม. 36 นาที · <b>ประกาศปากเปล่า ไม่ใช่เอกสารทางการ</b>"><code>INT182_20260904.docx</code> — the 3 h 36 min recording of 4 Sep. <b>Announced verbally, not an official document.</b></td></tr>
+      </table>
+    </div>
+    <p class="fnote" data-th="<b>หมายเหตุ:</b> transcript มาจาก ASR และเพี้ยนหนักหลายช่วง — จุดที่ไม่ชัดถูกทำเครื่องหมาย “ระวัง” ไว้ · ตัวอย่างที่แก้ให้แล้ว: ASR อ่านปีของ ID3 เป็น “2026” ซึ่งผิด สไลด์เขียน <b>Quinlan, 1986</b> และอาจารย์พูดต่อว่า “40 ปีที่แล้ว” ซึ่งตรงกัน"><b>A caution:</b> the transcript is ASR and badly mangled in places — the unclear points are flagged. One already corrected: the ASR reads ID3's year as "2026", which is wrong. The deck says <b>Quinlan, 1986</b>, and he adds "40 years ago", which matches.</p>
+  </div>
+
+</div>
+<div class="marker-tray">
+  <span class="cap" style="background:var(--accent)"></span>
+  <span class="cap" style="background:var(--blue)"></span>
+  <span class="cap" style="background:var(--rose)"></span>
+  <span class="cap" style="background:var(--amber)"></span>
+  <span class="cap" style="background:var(--green)"></span>
+</div>
+</div>
+
+<script>
+(function(){
+  var TKEY = 'int182wb-theme';
+  var tbtn = document.getElementById('themeToggle');
+  function applyTheme(t){
+    document.documentElement.setAttribute('data-theme', t);
+    if(tbtn){
+      tbtn.querySelector('.tt-light').classList.toggle('tt-on', t === 'light');
+      tbtn.querySelector('.tt-dark').classList.toggle('tt-on', t === 'dark');
+    }
+    try { localStorage.setItem(TKEY, t); } catch(e){}
+  }
+  var t0 = 'light';
+  try { var st = localStorage.getItem(TKEY); if(st === 'dark' || st === 'light'){ t0 = st; } } catch(e){}
+  applyTheme(t0);
+  if(tbtn){ tbtn.addEventListener('click', function(){
+    applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  }); }
+})();
+
+(function(){
+  var KEY = 'int182wb-lang';
+  var btn = document.getElementById('langToggle');
+  function swapOne(el, lang){
+    var tag = el.tagName.toLowerCase();
+    var prop = (tag === 'text' || tag === 'tspan') ? 'textContent' : 'innerHTML';
+    if(el.dataset.enCache === undefined){ el.dataset.enCache = el[prop]; }
+    var th = el.dataset.th;
+    if(th === undefined){ return; }
+    el[prop] = (lang === 'th') ? th : el.dataset.enCache;
+  }
+  function apply(lang){
+    document.documentElement.setAttribute('lang', lang);
+    document.documentElement.classList.toggle('lang-th', lang === 'th');
+    var nodes = document.querySelectorAll('[data-th]');
+    for(var i=0;i<nodes.length;i++){ swapOne(nodes[i], lang); }
+    if(btn){
+      btn.setAttribute('aria-pressed', lang === 'th' ? 'true' : 'false');
+      btn.classList.toggle('is-th', lang === 'th');
+    }
+    try { localStorage.setItem(KEY, lang); } catch(e){}
+  }
+  var cur = 'en';
+  try { var s = localStorage.getItem(KEY); if(s === 'th' || s === 'en'){ cur = s; } } catch(e){}
+  apply(cur);
+  if(btn){ btn.addEventListener('click', function(){
+    cur = (cur === 'th') ? 'en' : 'th';
+    apply(cur);
+  }); }
+})();
+
+(function(){
+  var all = function(){ return document.querySelectorAll('details.mcq'); };
+  var o = document.getElementById('qOpen'), c = document.getElementById('qClose');
+  if(o){ o.addEventListener('click', function(){ var n = all(); for(var i=0;i<n.length;i++){ n[i].open = true; } }); }
+  if(c){ c.addEventListener('click', function(){ var n = all(); for(var i=0;i<n.length;i++){ n[i].open = false; } }); }
+  var wasOpen = [];
+  window.addEventListener('beforeprint', function(){
+    var n = all(); wasOpen = [];
+    for(var i=0;i<n.length;i++){ wasOpen.push(n[i].open); n[i].open = true; }
+  });
+  window.addEventListener('afterprint', function(){
+    var n = all();
+    for(var i=0;i<n.length;i++){ n[i].open = wasOpen.length ? wasOpen[i] : false; }
+  });
+})();
+</script>
