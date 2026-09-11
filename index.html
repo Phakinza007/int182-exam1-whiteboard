@@ -1291,6 +1291,104 @@
       <figcaption data-th="ตัวอย่างที่สไลด์เรียกว่า <b>“one of the most famous decision tree examples (Quinlan, 1986)”</b> · เริ่มจาก entropy <b>0.94</b> ซึ่งเข้าใกล้ 1 แปลว่าข้อมูลยังไม่เป็นระเบียบเลย มีทั้ง Yes ทั้ง No ปนกัน · ลอง feature ทั้งสี่ (Outlook, Temperature, Humidity, Windy) แล้ว <b>Outlook ให้ IG สูงสุด 0.247 จึงเป็น root</b> · <b>กิ่ง Overcast pure ทันที (4 Yes 0 No) จึงจบเป็น leaf ไม่ต้องถามต่อ</b> — นี่คือ stopping condition ข้อแรก">The deck calls this <b>"one of the most famous decision tree examples (Quinlan, 1986)"</b>. It starts at entropy <b>0.94</b> — close to 1, so the data is not orderly at all, Yes and No thoroughly mixed. Trying all four features (Outlook, Temperature, Humidity, Windy), <b>Outlook gives the highest IG at 0.247 and becomes the root</b>. <b>The Overcast branch is pure at once (4 Yes, 0 No) so it becomes a leaf and asks nothing further</b> — the first stopping condition.</figcaption>
     </figure>
 
+    <div class="sub-h" data-th="ตาราง IG ครบทั้งสี่ feature — ตัวเลขจากสไลด์ต้นฉบับหน้า 12–15">The full IG table for all four features — the numbers from slides 12–15</div>
+    <div class="panel key">
+      <p class="lede" data-th="สี่หน้านี้ของสไลด์<b>เป็นรูปภาพ</b> จึงแกะข้อความไม่ออก ต้องเปิดดูด้วยตา · ข้างล่างคือตัวเลขทุกตัวที่สไลด์เดินให้ดู — <b>เริ่มจาก Entropy ของทั้งชุด = 0.940 เท่ากันทุกครั้ง</b> แล้วลบด้วย weighted average entropy ของแต่ละ feature">Those four slides are <b>images</b>, so the text does not extract and they have to be looked at. Below is every number the deck works through — <b>each one starts from the whole set's entropy of 0.940</b> and subtracts that feature's weighted average entropy.</p>
+      <div class="tbl-wrap">
+        <table class="g">
+          <thead><tr><th>Feature</th><th data-th="แตกเป็นกิ่ง (จำนวน · Yes · No · entropy)">Its branches (count · Yes · No · entropy)</th><th data-th="Weighted average">Weighted avg</th><th>IG</th></tr></thead>
+          <tr>
+            <td><b>Outlook</b></td>
+            <td data-th="<b>Sunny</b> 5 · 2 · 3 · <code>0.971</code><br><b>Overcast</b> 4 · 4 · 0 · <code>0.0</code> ← pure<br><b>Rain</b> 5 · 3 · 2 · <code>0.971</code>"><b>Sunny</b> 5 · 2 · 3 · <code>0.971</code><br><b>Overcast</b> 4 · 4 · 0 · <code>0.0</code> ← pure<br><b>Rain</b> 5 · 3 · 2 · <code>0.971</code></td>
+            <td><code>(5/14)(0.971) + (4/14)(0) + (5/14)(0.971)<br>= <b>0.693</b></code></td>
+            <td><code class="yes"><b>0.247</b></code><br><span class="yes" data-th="สูงสุด → เป็น root">highest → root</span></td>
+          </tr>
+          <tr>
+            <td><b>Humidity</b></td>
+            <td data-th="<b>High</b> 7 · 3 · 4 · <code>0.985</code><br><b>Normal</b> 7 · 6 · 1 · <code>0.592</code>"><b>High</b> 7 · 3 · 4 · <code>0.985</code><br><b>Normal</b> 7 · 6 · 1 · <code>0.592</code></td>
+            <td><code>(7/14)(0.985) + (7/14)(0.592)<br>= <b>0.788</b></code></td>
+            <td><code>0.152</code></td>
+          </tr>
+          <tr>
+            <td><b>Windy</b></td>
+            <td data-th="<b>False</b> 8 · 6 · 2 · <code>0.811</code><br><b>True</b> 6 · 3 · 3 · <code>1.0</code> ← 50/50"><b>False</b> 8 · 6 · 2 · <code>0.811</code><br><b>True</b> 6 · 3 · 3 · <code>1.0</code> ← 50/50</td>
+            <td><code>(8/14)(0.811) + (6/14)(1.0)<br>= <b>0.892</b></code></td>
+            <td><code>0.048</code></td>
+          </tr>
+          <tr>
+            <td><b>Temperature</b></td>
+            <td data-th="<b>Hot</b> 4 · 2 · 2 · <code>1.0</code> ← 50/50<br><b>Mild</b> 6 · 4 · 2 · <code>0.918</code><br><b>Cool</b> 4 · 3 · 1 · <code>0.811</code>"><b>Hot</b> 4 · 2 · 2 · <code>1.0</code> ← 50/50<br><b>Mild</b> 6 · 4 · 2 · <code>0.918</code><br><b>Cool</b> 4 · 3 · 1 · <code>0.811</code></td>
+            <td><code>(4/14)(1.0) + (6/14)(0.918) + (4/14)(0.811)<br>= <b>0.911</b></code></td>
+            <td><code class="no">0.029</code><br><span class="no" data-th="ต่ำสุด">lowest</span></td>
+          </tr>
+        </table>
+      </div>
+      <p class="fnote" data-th="<b>สองอย่างที่อ่านออกจากตารางนี้ทันที:</b> <b>(1)</b> กิ่งที่ <b>pure ได้ entropy 0 พอดี</b> (Overcast 4 Yes 0 No) และกิ่งที่ <b>50/50 ได้ 1.0 พอดี</b> (Windy=True 3/3 · Temp=Hot 2/2) — สองค่านี้เดาได้โดยไม่ต้องคำนวณเลย · <b>(2)</b> <b>weighted average entropy ยิ่งต่ำ IG ยิ่งสูง</b> เพราะ IG คือ 0.940 ลบมัน — Outlook ได้ weighted avg ต่ำสุด (0.693) จึงได้ IG สูงสุด"><b>Two things you can read straight off this table:</b> <b>(1)</b> a <b>pure branch is exactly entropy 0</b> (Overcast, 4 Yes 0 No) and a <b>50/50 branch is exactly 1.0</b> (Windy=True at 3/3, Temp=Hot at 2/2) — both can be written down without computing anything. <b>(2)</b> <b>the lower the weighted average entropy, the higher the IG</b>, since IG is just 0.940 minus it — Outlook has the lowest weighted average (0.693) and therefore the highest IG.</p>
+    </div>
+
+    <div class="sub-h" data-th="ชุดข้อมูล PlayTennis เต็ม 14 แถว — เผื่อข้อสอบให้คำนวณเอง">The full 14-row PlayTennis dataset — in case the paper asks you to compute</div>
+    <div class="tbl-wrap">
+      <table class="g">
+        <thead><tr><th>#</th><th>Outlook</th><th>Temp</th><th>Humidity</th><th>Windy</th><th data-th="เล่นไหม">Play?</th></tr></thead>
+        <tr><td>1</td><td>Sunny</td><td>Hot</td><td>High</td><td>FALSE</td><td><span class="no">No</span></td></tr>
+        <tr><td>2</td><td>Sunny</td><td>Hot</td><td>High</td><td>TRUE</td><td><span class="no">No</span></td></tr>
+        <tr><td>3</td><td>Overcast</td><td>Hot</td><td>High</td><td>FALSE</td><td><span class="yes">Yes</span></td></tr>
+        <tr><td>4</td><td>Rain</td><td>Mild</td><td>High</td><td>FALSE</td><td><span class="yes">Yes</span></td></tr>
+        <tr><td>5</td><td>Rain</td><td>Cool</td><td>Normal</td><td>FALSE</td><td><span class="yes">Yes</span></td></tr>
+        <tr><td>6</td><td>Rain</td><td>Cool</td><td>Normal</td><td>TRUE</td><td><span class="no">No</span></td></tr>
+        <tr><td>7</td><td>Overcast</td><td>Cool</td><td>Normal</td><td>TRUE</td><td><span class="yes">Yes</span></td></tr>
+        <tr><td>8</td><td>Sunny</td><td>Mild</td><td>High</td><td>FALSE</td><td><span class="no">No</span></td></tr>
+        <tr><td>9</td><td>Sunny</td><td>Cool</td><td>Normal</td><td>FALSE</td><td><span class="yes">Yes</span></td></tr>
+        <tr><td>10</td><td>Rain</td><td>Mild</td><td>Normal</td><td>FALSE</td><td><span class="yes">Yes</span></td></tr>
+        <tr><td>11</td><td>Sunny</td><td>Mild</td><td>Normal</td><td>TRUE</td><td><span class="yes">Yes</span></td></tr>
+        <tr><td>12</td><td>Overcast</td><td>Mild</td><td>High</td><td>TRUE</td><td><span class="yes">Yes</span></td></tr>
+        <tr><td>13</td><td>Overcast</td><td>Hot</td><td>Normal</td><td>FALSE</td><td><span class="yes">Yes</span></td></tr>
+        <tr><td>14</td><td>Rain</td><td>Mild</td><td>High</td><td>TRUE</td><td><span class="no">No</span></td></tr>
+      </table>
+    </div>
+    <p class="fnote" data-th="<b>9 Yes · 5 No จาก 14</b> → <code>Entropy = −(9/14)log₂(9/14) − (5/14)log₂(5/14) = 0.940</code> · <b>ทางลัดที่ควรจำ:</b> <b>Overcast ทั้งสี่แถว (3, 7, 12, 13) เป็น Yes หมด</b> — นั่นคือเหตุผลที่กิ่ง Overcast pure ทันทีและกลายเป็น leaf โดยไม่ต้องถามต่อ"><b>9 Yes and 5 No out of 14</b> → <code>Entropy = −(9/14)log₂(9/14) − (5/14)log₂(5/14) = 0.940</code>. <b>A shortcut worth remembering:</b> <b>all four Overcast rows (3, 7, 12, 13) are Yes</b> — which is exactly why the Overcast branch is pure at once and becomes a leaf without asking anything further.</p>
+
+    <div class="sub-h" data-th="เฉลยเต็มของแบบฝึกหัดไอศกรีม — สไลด์หน้า 27">The complete answer to the ice-cream exercise — slide 27</div>
+    <figure class="diagram">
+      <svg viewBox="0 0 880 300" role="img" aria-label="The complete ice cream decision tree from slide 27. Weather is the root. Rainy leads straight to a No leaf. Sunny asks HasMoney, giving Yes and No. Cloudy asks CravingLevel, where Low gives No and High or Medium gives Yes. DayOfWeek is never used anywhere in the tree.">
+        <rect x="368" y="20" width="144" height="34" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6"/>
+        <text x="440" y="42" text-anchor="middle" class="strong" font-size="13" fill="var(--accent)">Weather ?</text>
+        <path d="M400,54 L180,106" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>
+        <path d="M440,54 V106" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>
+        <path d="M480,54 L700,106" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>
+        <text x="258" y="74" text-anchor="middle" class="mono" font-size="11" fill="var(--rose)">Rainy</text>
+        <text x="452" y="86" text-anchor="start" class="mono" font-size="11" fill="var(--rose)">Sunny</text>
+        <text x="620" y="74" text-anchor="middle" class="mono" font-size="11" fill="var(--rose)">Cloudy</text>
+        <rect x="128" y="106" width="104" height="34" rx="8" fill="var(--red-soft)" stroke="var(--red)" stroke-width="1.6"/>
+        <text x="180" y="128" text-anchor="middle" class="strong" font-size="13" fill="var(--red)">No</text>
+        <text x="180" y="158" text-anchor="middle" class="lbl" font-size="10.5">a leaf at once</text>
+        <rect x="360" y="106" width="160" height="34" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6"/>
+        <text x="440" y="128" text-anchor="middle" class="strong" font-size="13" fill="var(--accent)">HasMoney ?</text>
+        <rect x="612" y="106" width="176" height="34" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6"/>
+        <text x="700" y="128" text-anchor="middle" class="strong" font-size="13" fill="var(--accent)">CravingLevel ?</text>
+        <path d="M400,140 L360,196" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>
+        <path d="M480,140 L520,196" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>
+        <text x="352" y="168" text-anchor="middle" class="mono" font-size="11" fill="var(--rose)">Yes</text>
+        <text x="530" y="168" text-anchor="middle" class="mono" font-size="11" fill="var(--rose)">No</text>
+        <path d="M660,140 L620,196" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>
+        <path d="M740,140 L790,196" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>
+        <text x="608" y="168" text-anchor="middle" class="mono" font-size="11" fill="var(--rose)">Low</text>
+        <text x="806" y="168" text-anchor="middle" class="mono" font-size="11" fill="var(--rose)">High / Medium</text>
+        <rect x="308" y="196" width="104" height="34" rx="8" fill="var(--green-soft)" stroke="var(--green)" stroke-width="1.6"/>
+        <text x="360" y="218" text-anchor="middle" class="strong" font-size="13" fill="var(--green)">Yes</text>
+        <rect x="468" y="196" width="104" height="34" rx="8" fill="var(--red-soft)" stroke="var(--red)" stroke-width="1.6"/>
+        <text x="520" y="218" text-anchor="middle" class="strong" font-size="13" fill="var(--red)">No</text>
+        <rect x="568" y="196" width="104" height="34" rx="8" fill="var(--red-soft)" stroke="var(--red)" stroke-width="1.6"/>
+        <text x="620" y="218" text-anchor="middle" class="strong" font-size="13" fill="var(--red)">No</text>
+        <rect x="738" y="196" width="104" height="34" rx="8" fill="var(--green-soft)" stroke="var(--green)" stroke-width="1.6"/>
+        <text x="790" y="218" text-anchor="middle" class="strong" font-size="13" fill="var(--green)">Yes</text>
+        <rect x="20" y="254" width="840" height="34" rx="8" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="1.3"/>
+        <text x="440" y="269" text-anchor="middle" font-size="11.5" fill="var(--amber)">DayOfWeek never appears anywhere in the finished tree — it was a feature in the data, but no split ever needed it.</text>
+        <text x="440" y="283" text-anchor="middle" font-size="11.5" fill="var(--amber)">A tree uses only the features that earn their place; the rest are simply left out.</text>
+      </svg>
+      <figcaption data-th="สไลด์เขียนเป็น pseudocode คู่กันไว้ด้วย: <code>If Weather == Rainy → Buy = No</code> · <code>Else if Weather == Sunny: If HasMoney == Yes → Buy = Yes, Else → Buy = No</code> · <code>Else if Weather == Cloudy: If CravingLevel == Low → Buy = No, Else → Buy = Yes</code> — <b>นี่คือหน้าตาของ “rule-based” ที่อาจารย์พูดถึง: ต้นไม้หนึ่งต้นแปลงเป็นชุด if–then ได้ตรงๆ</b>">The deck gives the pseudocode alongside: <code>If Weather == Rainy → Buy = No</code> · <code>Else if Weather == Sunny: If HasMoney == Yes → Buy = Yes, Else → Buy = No</code> · <code>Else if Weather == Cloudy: If CravingLevel == Low → Buy = No, Else → Buy = Yes</code> — <b>this is what "rule-based" looks like in practice: a tree converts straight into a set of if–then rules.</b></figcaption>
+    </figure>
+
     <div class="cards two">
       <div class="card">
         <h3 data-th="ขั้นตอน (ID3)">The steps (ID3)</h3>
@@ -1579,6 +1677,7 @@
           <tr><td class="wide" data-th="<b>หลัง normalize เป็น 0–1</b>"><b>After normalizing to 0–1</b></td><td><code>(0.633−0.217)² ≈ 0.174</code></td><td><code>(0.171−0.143)² ≈ 0.0008</code></td><td><span class="yes" data-th="สะท้อนความต่างจริง">reflects the real difference</span></td></tr>
         </table>
       </div>
+      <p class="fnote" data-th="<b>สไลด์ K-means หน้า 25 (Conclusion) สรุปด้วยตัวเลขของตัวเองแบบเดียวกัน:</b> <i>ก่อน normalize — “Distance based on raw numbers → <b>Income dominated</b>”</i> · <i>หลัง normalize — Age diff <code>(0.118 − 0.000)² ≈ 0.014</code> · Income diff <code>(0.032 − 0.000)² ≈ 0.001</code> → “<b>Now both contribute more fairly</b>”</i> · และปิดท้ายว่า <b>“This leads to more balanced and meaningful clusters”</b> — <b class='warn'>สังเกตว่าหลัง normalize ตัว age กลับมีส่วนร่วมมากกว่า income ซึ่งเป็นรูปแบบเดียวกับตัวอย่าง horsepower กับ price ข้างบนเป๊ะ</b>"><b>The K-means deck's own Conclusion, slide 25, makes the same point with its own numbers:</b> <i>before normalizing — "Distance based on raw numbers → <b>Income dominated</b>"</i>; <i>after — Age diff <code>(0.118 − 0.000)² ≈ 0.014</code>, Income diff <code>(0.032 − 0.000)² ≈ 0.001</code> → "<b>Now both contribute more fairly</b>"</i>, closing with <b>"This leads to more balanced and meaningful clusters"</b>. <b class="warn">Note that after normalizing, age contributes more than income — exactly the pattern the horsepower-versus-price example above shows.</b></p>
       <p class="fnote" data-th="<b>อ่านให้ดี:</b> ก่อน normalize ตัว price ครอบงำระยะทางไปเกือบทั้งหมด <b>ไม่ใช่เพราะรถสองคันต่างกันที่ราคามาก แต่เพราะหน่วยของราคามันใหญ่กว่าเฉยๆ</b> — ต่างกันพันบาทจากช่วง 35,005 บาท คือต่างกันแค่ <b>2.9%</b> ของช่วง ขณะที่ต่างกัน 100 hp จากช่วง 240 hp คือ <b>41.7%</b> ของช่วง · <b class='warn'>normalization ทำให้แต่ละ feature มีส่วนร่วมตามสัดส่วนของช่วงตัวเอง ซึ่งคือการเปรียบเทียบที่แฟร์</b> · <b>สูตร min-max:</b> <code>x′ = (x − min) ÷ (max − min)</code>"><b>Read that carefully:</b> before normalizing, price swallows almost the whole distance <b>not because the two cars differ greatly in price, but simply because its unit is larger</b> — 1,000 baht out of a 35,005 range is a difference of only <b>2.9%</b>, while 100 hp out of a 240 range is <b>41.7%</b>. <b class="warn">Normalization makes each feature contribute in proportion to its own spread, which is the fair comparison.</b> <b>The min-max formula:</b> <code>x′ = (x − min) ÷ (max − min)</code></p>
       <div class="traps" style="margin-top:12px;">
         <div class="trap">
