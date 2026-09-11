@@ -1254,39 +1254,69 @@
       <span class="wk-pill">SET 5</span>
       <h2 data-th="K-means Clustering">K-means Clustering</h2>
       <span class="band-date" data-th="คาบ 5">Class 5</span>
-      <span class="band-tag" data-th="<b>unsupervised</b> · <b>descriptive</b> · อาจารย์พูดตรงๆ ว่า <b>“อันนี้เป็นโจทย์ในข้อสอบ อาจจะถามว่า K-means อยู่ในกลุ่มประเภทอะไร”</b> และ <b>“ผมจะถามว่า parameter กับ hyperparameter ต่างกันอย่างไร”</b>"><b>Unsupervised</b> and <b>descriptive</b>. He said outright: <b>"this is an exam question — I might ask which category K-means falls into"</b> and <b>"I'm going to ask how a parameter and a hyperparameter differ"</b>.</span>
+      <span class="band-tag" data-th="<b>unsupervised</b> · <b>descriptive</b> · อาจารย์พูดตรงๆ ว่า <b>“อันนี้เป็นโจทย์ในข้อสอบ อาจจะถามว่า K-means อยู่ในกลุ่มประเภทอะไร”</b> และ <b>“ผมจะถามว่า parameter กับ hyperparameter ต่างกันอย่างไร”</b> — สองข้อนี้แทบการันตีว่าออก"><b>Unsupervised</b> and <b>descriptive</b>. He said outright: <b>"this is an exam question — I might ask which category K-means falls into"</b> and <b>"I'm going to ask how a parameter and a hyperparameter differ"</b>. Those two are near-guaranteed.</span>
     </div>
 
+    <div class="sub-h" data-th="1 · Clustering คืออะไร และต่างจาก Classification ยังไง">1 · What clustering is, and how it differs from classification</div>
+    <div class="panel">
+      <p class="lede" data-th="<b>Clustering</b> = จัดกลุ่ม data point ที่คล้ายกันไว้ด้วยกัน <b>โดยไม่รู้ label ล่วงหน้า</b> · เรียกอีกอย่างว่า <b>cluster analysis</b> · สไลด์เขียนว่า <i>“group similar data points together into clusters, <b>without prior knowledge of the group labels</b>”</i>"><b>Clustering</b> groups similar data points together <b>without prior knowledge of the labels</b> — also called <b>cluster analysis</b>. The deck: <i>"group similar data points together into clusters, <b>without prior knowledge of the group labels</b>"</i>.</p>
+      <div class="tbl-wrap">
+        <table class="g">
+          <thead><tr><th></th><th>Classification</th><th>Clustering</th></tr></thead>
+          <tr><td data-th="ประเภท">Type</td><td data-th="supervised">supervised</td><td data-th="<b>unsupervised</b>"><b>unsupervised</b></td></tr>
+          <tr><td data-th="ใช้ label ไหม">Uses labels?</td><td data-th="<b>ใช้</b> — ต้องมี y"><b>Yes</b> — there must be a y</td><td data-th="<b>ไม่ใช้</b> — นี่คือเหตุผลเดียวที่ทำให้มันเป็น unsupervised"><b>No</b> — this alone is why it is unsupervised</td></tr>
+          <tr><td data-th="วัดถูก/ผิดได้ไหม">Can you score it right or wrong?</td><td data-th="ได้ — เทียบกับ label ที่มีอยู่">Yes — against the labels you have</td><td data-th="<b>ไม่ได้</b> — “ไม่รู้ว่าถูก ไม่รู้ว่าผิด เอาแค่จัดกลุ่ม”"><b>No</b> — "you don't know what's right or wrong, you just group them"</td></tr>
+          <tr><td data-th="แล้ววัดอะไรแทน">What you judge instead</td><td data-th="accuracy และ metric อื่นๆ">accuracy and the other metrics</td><td data-th="<b>ดีหรือไม่ดี</b> — ดูตอนเอาไปใช้ว่าได้ผลไหม"><b>Whether it is good</b> — does it work when applied?</td></tr>
+          <tr><td data-th="ตัวอย่าง">Example</td><td data-th="Decision Tree (เล่น / ไม่เล่น)">Decision Tree (play / don't play)</td><td data-th="K-means (จัดกลุ่มลูกค้า)">K-means (segmenting customers)</td></tr>
+        </table>
+      </div>
+      <p class="fnote" data-th="<b>ตัวอย่างจริงที่อาจารย์ยก:</b> เราเป็นเจ้าของ product อยากรู้ว่าคนที่ซื้อของเราเป็นกลุ่มไหนบ้าง → เอา attribute ของแต่ละคนมา (อยู่ในเมือง/นอกเมือง, single, single mom, พ่อเลี้ยงเดี่ยว …) แล้วให้มันจัดกลุ่มให้ <b>โดยที่เราไม่รู้คำตอบว่าถูกหรือผิด</b> · แกย้ำว่า <b>“clustering กับ classification มันแยกกัน”</b>"><b>His real example:</b> you own a product and want to know what kinds of people buy it → feed in each person's attributes (in town / out of town, single, single mum, single dad …) and have them grouped, <b>without knowing whether the answer is right</b>. He was emphatic: <b>"clustering and classification are separate"</b>.</p>
+    </div>
+
+    <div class="sub-h" data-th="2 · K คืออะไร และทำไมถึงเป็น hyperparameter">2 · What K is, and why it is a hyperparameter</div>
+    <div class="cards two">
+      <div class="card">
+        <h3 data-th="K = จำนวนกลุ่มที่ต้องการ">K = the number of clusters you want</h3>
+        <ul>
+          <li data-th="สไลด์: <i>“The K in K-means is the number of clusters you want to find — <b>you choose K in advance</b>”</i>">The deck: <i>"The K in K-means is the number of clusters you want to find — <b>you choose K in advance</b>"</i>.</li>
+          <li data-th="<b>คนที่ระบุคือ user / data scientist</b> ไม่ใช่โมเดลเรียนรู้เอง → จึงเป็น <b>hyperparameter</b>"><b>The user / data scientist sets it</b>, not the model → so it is a <b>hyperparameter</b>.</li>
+          <li data-th="เทียบกับ <b>parameter</b> ซึ่งคือค่าที่ <b>algorithm ประมาณมาเองจากข้อมูล</b> เช่น weights, coefficients — ใน K-means ตัวที่เป็น parameter คือ <b>ตำแหน่งของ centroid</b> ซึ่งอัลกอริทึมหาเอง">Contrast a <b>parameter</b>, which the <b>algorithm estimates from the data</b> — weights, coefficients. In K-means the parameter is <b>where the centroids end up</b>, which the algorithm works out itself.</li>
+          <li data-th="<b>“มันไม่มีอะไรถูกไม่มีอะไรผิด”</b> — Iris จะจัด 3, 4 หรือ 5 กลุ่มก็ได้ ขึ้นกับว่าเอาไปใช้แล้วดีไหม"><b>"There's no right and no wrong"</b> — Iris can be cut into 3, 4 or 5 groups; what matters is whether it works in use.</li>
+        </ul>
+      </div>
+      <div class="card watch">
+        <h3 data-th="กับดักของข้อนี้">The trap in this one</h3>
+        <ul>
+          <li data-th="ช้อยส์จะล่อว่า <b>“supervised เพราะต้องระบุ k ล่วงหน้า”</b> — <b>ผิด</b> · การที่คนต้องตั้งค่าอะไรสักอย่างให้ <b>ไม่ได้แปลว่ามี label</b>">An option will tempt you with <b>"supervised, because you must specify k in advance"</b> — <b>wrong</b>. A person setting a value <b>is not the same as having labels</b>.</li>
+          <li data-th="อีกตัวลวง: <b>“reinforcement เพราะทำซ้ำหลายรอบจนนิ่ง”</b> — <b>ผิด</b> · reinforcement ต้องมี <b>reward</b> ซึ่ง K-means ไม่มี">Another: <b>"reinforcement, because it repeats until it settles"</b> — <b>wrong</b>. Reinforcement needs a <b>reward</b>, which K-means has none of.</li>
+          <li data-th="<b>เกณฑ์เดียวที่ตัดสินคือ: ใช้ label หรือเปล่า</b> · K-means ไม่ใช้ → <b>unsupervised</b> จบ"><b>The only criterion is whether labels are used.</b> K-means uses none → <b>unsupervised</b>. That is the whole answer.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sub-h" data-th="3 · Centroid และการวัดระยะ">3 · Centroid, and how distance is measured</div>
     <div class="fact-grid">
-      <div class="fact g">
-        <h3 data-th="Clustering ≠ Classification">Clustering ≠ Classification</h3>
-        <p data-th="<b>Clustering</b> = จัดกลุ่ม data point ที่คล้ายกันไว้ด้วยกัน <b>โดยไม่รู้ label ล่วงหน้า</b> · เรียกอีกอย่างว่า <b>cluster analysis</b>"><b>Clustering</b> groups similar data points <b>without prior knowledge of the labels</b>. Also called <b>cluster analysis</b>.</p>
-        <p data-th="<b>Classification เป็น supervised ใช้ label</b> · <b>Clustering เป็น unsupervised ไม่ใช้ label</b>"><b>Classification is supervised and uses labels. Clustering is unsupervised and does not.</b></p>
-        <p data-th="<b>clustering วัดถูก/ผิดไม่ได้</b> — “ไม่รู้ว่าถูก ไม่รู้ว่าผิด เอาแค่จัดกลุ่ม” · <b>วัดได้แค่ดีหรือไม่ดี</b> คือดูตอนเอาไปใช้ว่าได้ผลไหม"><b>You cannot score clustering right or wrong</b> — "you don't know what's right or wrong, you just group them". <b>You can only ask whether it is good</b>, by seeing whether it works when applied.</p>
-        <p class="fnote" data-th="ตัวอย่างการใช้จริง: เจ้าของ product อยากรู้ว่าคนที่ซื้อของเราเป็นกลุ่มไหนบ้าง เอา attribute ของแต่ละคนมา (อยู่ในเมือง/นอกเมือง, single, single mom …) แล้วให้มันจัดกลุ่มให้ <b>โดยที่เราไม่รู้คำตอบว่าถูกหรือผิด</b>">A real use: a product owner wants to know what kinds of people buy it, feeds in each person's attributes (in town / out of town, single, single mum …) and has them grouped — <b>without knowing whether the answer is right</b>.</p>
+      <div class="fact b">
+        <h3 data-th="Centroid">Centroid</h3>
+        <p data-th="<b>จุดศูนย์กลางของ cluster</b> · คำที่ความหมายใกล้กัน: <b>center</b>, <b>CG (center of gravity)</b>, <b>COM (center of mass)</b> จากวิชาฟิสิกส์"><b>A cluster's centre point.</b> Neighbouring words: <b>center</b>, <b>CG (center of gravity)</b>, <b>COM (center of mass)</b> from physics.</p>
+        <p data-th="<b>centroid ของสามเหลี่ยม = จุดตัดของเส้นมัธยฐาน</b> (ลากจากมุมไปยังจุดกึ่งกลางด้านตรงข้าม ทั้งสามเส้นตัดกันที่จุดเดียว) — โดยสมมติว่าวัตถุเป็นเนื้อเดียวกันหนาเท่ากัน"><b>A triangle's centroid is where its medians cross</b> (each drawn from a vertex to the midpoint of the opposite side; all three meet at one point) — assuming a uniform object of even thickness.</p>
+        <p class="fnote" data-th="<b>ใน K-means centroid หาง่ายกว่านั้นมาก: แค่เอา<b>ค่าเฉลี่ยของสมาชิกทุกตัว</b>ในกลุ่ม</b> — เฉลี่ยแกน x แยกกับเฉลี่ยแกน y · <b>นี่คือที่มาของคำว่า “mean” ใน K-means</b>"><b>In K-means a centroid is far simpler: it is just the mean of the cluster's members</b> — average the x's, average the y's. <b>That is where the "mean" in K-means comes from.</b></p>
+      </div>
+      <div class="fact">
+        <h3 data-th="Euclidean distance">Euclidean distance</h3>
+        <p data-th="สิ่งที่เรียนมาตั้งแต่มัธยม แค่ไม่ได้ตั้งชื่อให้ — มาจาก<b>ทฤษฎีบทพีทาโกรัส</b> <code>a² + b² = c²</code>">What you learned at school without anyone naming it — straight from <b>Pythagoras</b>, <code>a² + b² = c²</code>.</p>
+        <p data-th="<code>d = √[ (x₁−x₂)² + (y₁−y₂)² ]</code>"><code>d = √[ (x₁−x₂)² + (y₁−y₂)² ]</code></p>
+        <p data-th="ลองจริง: ระยะจาก <b>(8,8)</b> ถึง <b>(6.5, 6.75)</b> = <code>√[(1.5)² + (1.25)²] = √(2.25 + 1.5625) = √3.8125 ≈ 1.95</code>">Worked: from <b>(8,8)</b> to <b>(6.5, 6.75)</b> = <code>√[(1.5)² + (1.25)²] = √(2.25 + 1.5625) = √3.8125 ≈ 1.95</code></p>
       </div>
       <div class="fact a">
-        <h3 data-th="K เป็น hyperparameter">K is a hyperparameter</h3>
-        <p data-th="<b>K = จำนวน cluster ที่ต้องการ</b> และ <b>user เป็นคนเลือกเอง ล่วงหน้า</b>"><b>K = the number of clusters you want</b>, and <b>the user chooses it in advance</b>.</p>
-        <p data-th="คนที่ระบุคือ <b>user / data scientist</b> ไม่ใช่โมเดลเรียนรู้เอง → จึงเป็น <b>hyperparameter ไม่ใช่ parameter</b>">It is set by the <b>user / data scientist</b>, not learned by the model → so it is a <b>hyperparameter, not a parameter</b>.</p>
-        <p data-th="<b>“มันไม่มีอะไรถูกไม่มีอะไรผิด”</b> — Iris จะจัด 3 กลุ่ม 4 กลุ่ม 5 กลุ่มก็ได้ ขึ้นอยู่กับว่าเอาไปใช้แล้วดีไหม"><b>"There's no right and no wrong"</b> — Iris can be cut into 3, 4 or 5 groups. What matters is whether it works when applied.</p>
-      </div>
-      <div class="fact b">
-        <h3 data-th="Centroid และระยะทาง">Centroid and distance</h3>
-        <p data-th="<b>Centroid = จุดศูนย์กลางของ cluster</b> · คำที่เกี่ยวข้อง: <b>center</b> · <b>CG (center of gravity)</b> · <b>COM (center of mass)</b>"><b>A centroid is a cluster's centre point.</b> Related: <b>center</b>, <b>CG (center of gravity)</b>, <b>COM (center of mass)</b>.</p>
-        <p data-th="<b>Centroid ของสามเหลี่ยม = จุดตัดของเส้นมัธยฐาน (median)</b> — สไลด์มีรูปนี้"><b>The centroid of a triangle is the intersection of its medians</b> — the deck has this figure.</p>
-        <p data-th="วัดความคล้ายด้วย <b>ระยะทาง</b> — <b>ยิ่งใกล้ยิ่งเหมือน ยิ่งไกลยิ่งต่าง</b> · ใช้ <b>Euclidean distance</b> ซึ่งมาจาก<b>พีทาโกรัส</b>: <code>d = √[(x₁−x₂)² + (y₁−y₂)²]</code>">Similarity is measured by <b>distance</b> — <b>closer means more alike</b>. It uses <b>Euclidean distance</b>, straight from <b>Pythagoras</b>: <code>d = √[(x₁−x₂)² + (y₁−y₂)²]</code></p>
-        <p class="fnote" data-th="<b>WCSS = Within-Cluster Sum of Squares</b> — ผลรวมกำลังสองของระยะจากทุกจุดถึง centroid ของมัน · <b>ทำไมต้อง square:</b> ไม่ต้องหา square root ที่ช้า และเราต้องการแค่เปรียบเทียบว่าใกล้หรือไกล ไม่ต้องการตัวเลขที่ precise → <b>คำนวณเร็วมาก</b>"><b>WCSS = Within-Cluster Sum of Squares</b> — the squared distances from every point to its centroid, added up. <b>Why square:</b> it avoids a slow square root, and we only need to compare near from far, not a precise number → <b>very fast to compute</b>.</p>
-      </div>
-      <div class="fact r">
-        <h3 data-th="Normalization">Normalization</h3>
-        <p data-th="<b>ปัญหา: scale ต่างกัน</b> — อายุห่างกันมากสุด ~100 แต่รายได้ต่างกันได้เกือบล้าน · ใน <code>imports-85</code>: horsepower <b>48–288</b> แต่ price <b>5,000–40,005</b>"><b>The problem is unequal scales</b> — age spans about 100, income nearly a million. In <code>imports-85</code>: horsepower <b>48–288</b> but price <b>5,000–40,005</b>.</p>
-        <p data-th="machine learning ต้องหา <b>error</b> แล้ว<b>ยกกำลังสอง</b> — ตัวหลักหมื่นยกกำลังสองไปหลักล้าน ส่วนตัวหลักร้อยได้แค่หลักหมื่น → <b>ไม่แฟร์ โมเดลจะให้น้ำหนัก feature ที่ค่าเยอะเกินไป</b>">ML computes an <b>error</b> and <b>squares it</b> — a variable in the tens of thousands squares into the millions, one in the hundreds only into the tens of thousands → <b>unfair, and the model over-weights the large-valued feature</b>.</p>
-        <p data-th="<b>Normalization</b> บีบให้อยู่ระหว่าง <b>0 กับ 1</b> · <b>Standardization (Z-score)</b> ใช้ standard deviation"><b>Normalization</b> squeezes into <b>0 to 1</b>. <b>Standardization (Z-score)</b> uses the standard deviation.</p>
-        <p class="fnote" data-th="อาจารย์เชื่อมเข้ากับข้อสอบทันที: <b>“เป็น bias ในข้อสอบผมก็ถามนะ”</b> → <b>scale ที่ไม่เท่ากันนับเป็น data bias</b> · และใน Orange ให้ <b>normalize เฉพาะ feature ห้ามแตะ target</b>">He tied it straight to the exam: <b>"that's bias, and I ask about bias on the paper"</b> → <b>unequal scales count as data bias</b>. And in Orange, <b>normalize the features only, never the target</b>.</p>
+        <h3 data-th="ทำไมถึง square และไม่ต้องถอดราก">Why square, and why skip the root</h3>
+        <p data-th="เวลา<b>เทียบว่าจุดไหนใกล้กว่า</b> เราไม่จำเป็นต้องถอดรากเลย เพราะ <b>ถ้า d₁ &lt; d₂ แล้ว d₁² &lt; d₂² เสมอ</b> — ลำดับไม่เปลี่ยน">When <b>comparing which point is nearer</b> you never need the root, because <b>if d₁ &lt; d₂ then d₁² &lt; d₂² always</b> — the ordering is unchanged.</p>
+        <p data-th="อาจารย์อธิบายว่า <b>“เราไม่ต้องการตัวเลขที่ precise มาก ต้องการแค่เปรียบเทียบได้ว่าใกล้หรือไกล”</b> — เหมือนอยากรู้ว่าคนนี้สูงกว่าคนนั้น ไม่ได้อยากรู้ว่าสูงกว่ากี่เซนติเมตร">He put it as <b>"we don't need a precise number, only enough to compare near from far"</b> — like wanting to know that one person is taller than another, not by how many centimetres.</p>
+        <p class="fnote" data-th="<b>ผลคือคำนวณเร็วมาก</b> · และเป็นเหตุผลที่ <b>WCSS ใช้ “sum of squares” ไม่ใช่ “sum of distances”</b> — ในตารางข้างล่างเราจึงเทียบด้วย <code>d²</code> ตลอด"><b>The result is that it computes very fast</b> — and it is why <b>WCSS is a "sum of squares", not a sum of distances</b>. Every table below therefore compares <code>d²</code>.</p>
       </div>
     </div>
 
+    <div class="sub-h" data-th="4 · ขั้นตอนของอัลกอริทึม">4 · The algorithm</div>
     <figure class="diagram">
       <svg viewBox="0 0 880 260" role="img" aria-label="The K-means loop: choose k centroids at random, assign every point to its nearest centroid, recalculate each centroid as the average of its members, reassign, and repeat the last two steps until nothing moves or the iteration cap is reached.">
         <rect x="20" y="60" width="150" height="72" rx="10" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6"/>
@@ -1319,41 +1349,243 @@
         <text x="440" y="227" text-anchor="middle" font-size="11.5" fill="var(--amber)">Step 1 is random — so K-means is NON-DETERMINISTIC: the same data can give different results on different runs.</text>
         <text x="440" y="241" text-anchor="middle" font-size="11.5" fill="var(--amber)">It is also sensitive to the initial centroid placement, and can converge to a poor solution.</text>
       </svg>
-      <figcaption data-th="อาจารย์อธิบายเพิ่มว่า centroid รอบแรก <b>“มันอาจจะเพี้ยน”</b> เพราะพอมีสมาชิกจริงแล้ว บางจุดเอียงซ้ายบางจุดเอียงขวา ต้องคำนวณจุดกลางจริงๆ ใหม่ · พอ centroid ย้าย <b>จุดที่เคยเป็นสีฟ้าอาจกลายเป็นสีแดง</b>ในรอบถัดไป · <b>“มันย้ายไปย้ายมาจนกระทั่งมันนิ่ง ก็จบแค่นั้นเอง”</b> — <b>ไม่ใช่ทำรอบเดียวจบ</b> · และสไลด์ระบุด้วยว่า <b>K-means ไม่การันตีว่าแต่ละกลุ่มจะขนาดเท่ากัน</b> แต่หากลุ่มที่ <b>best separated</b>">He added that the first centroids <b>"may be off"</b> — with real members, some points lean left and some right, so the true middle must be recomputed. Once a centroid moves, <b>a point that was blue may turn red</b> next pass. <b>"It shifts back and forth until it settles, and that's the end of it"</b> — <b>not one round and done</b>. The deck also notes <b>K-means does not ensure equal-sized clusters</b>, but finds the ones that are <b>best separated</b>.</figcaption>
+      <figcaption data-th="<b>“มันย้ายไปย้ายมาจนกระทั่งมันนิ่ง ก็จบแค่นั้นเอง”</b> — <b>ไม่ใช่ทำรอบเดียวจบ</b> · centroid รอบแรก “อาจจะเพี้ยน” เพราะพอมีสมาชิกจริงแล้ว บางจุดเอียงซ้ายบางจุดเอียงขวา ต้องคำนวณจุดกลางจริงๆ ใหม่ · และพอ centroid ย้าย <b>จุดที่เคยอยู่กลุ่มหนึ่งอาจย้ายไปอีกกลุ่มในรอบถัดไป</b> — เดี๋ยวจะได้เห็นเหตุการณ์นี้จริงๆ ในตัวอย่างข้างล่าง"><b>"It shifts back and forth until it settles, and that's the end of it"</b> — <b>not one round and done</b>. The first centroids "may be off", because once there are real members some points lean left and some right, so the true middle must be recomputed. And once a centroid moves, <b>a point that was in one cluster may move to the other next round</b> — you will see exactly that happen in the example below.</figcaption>
     </figure>
 
-    <div class="cards">
+    <div class="sub-h" data-th="5 · ตัวอย่างเต็ม — เดินทีละรอบด้วยตัวเลขจริง">5 · A full worked example — round by round, with real numbers</div>
+    <div class="panel key">
+      <p class="lede" data-th="<b>ข้อมูล 6 จุด:</b> <code>P1(1,1) · P2(2,1) · P3(1,2) · P4(8,8) · P5(9,8) · P6(8,9)</code> · <b>k = 2</b> · <b>centroid เริ่มต้นสุ่มได้ c₁ = (1,1) และ c₂ = (1,2)</b> — สังเกตว่า<b>โชคร้าย เพราะสุ่มได้สองจุดที่อยู่ในกระจุกซ้ายทั้งคู่</b> เดี๋ยวมาดูว่าอัลกอริทึมแก้ตัวเองได้ไหม"><b>Six points:</b> <code>P1(1,1) · P2(2,1) · P3(1,2) · P4(8,8) · P5(9,8) · P6(8,9)</code> with <b>k = 2</b>. The random start gives <b>c₁ = (1,1) and c₂ = (1,2)</b> — note this is <b>an unlucky draw, since both landed inside the left-hand blob</b>. Let us see whether the algorithm can dig itself out.</p>
+
+      <div class="sub-h" style="margin-top:8px;" data-th="รอบ 1 — assign แต่ละจุดไปยัง centroid ที่ใกล้ที่สุด">Round 1 — assign every point to its nearest centroid</div>
+      <div class="tbl-wrap">
+        <table class="g">
+          <thead><tr><th data-th="จุด">Point</th><th>d² → c₁(1, 1)</th><th>d² → c₂(1, 2)</th><th data-th="ใกล้กว่า">Nearer</th></tr></thead>
+          <tr><td>P1 (1, 1)</td><td><code>0 + 0 = <b>0</b></code></td><td><code>0 + 1 = 1</code></td><td><span class="yes">c₁</span></td></tr>
+          <tr><td>P2 (2, 1)</td><td><code>1 + 0 = <b>1</b></code></td><td><code>1 + 1 = 2</code></td><td><span class="yes">c₁</span></td></tr>
+          <tr><td>P3 (1, 2)</td><td><code>0 + 1 = 1</code></td><td><code>0 + 0 = <b>0</b></code></td><td><span class="no">c₂</span></td></tr>
+          <tr><td>P4 (8, 8)</td><td><code>49 + 49 = 98</code></td><td><code>49 + 36 = <b>85</b></code></td><td><span class="no">c₂</span></td></tr>
+          <tr><td>P5 (9, 8)</td><td><code>64 + 49 = 113</code></td><td><code>64 + 36 = <b>100</b></code></td><td><span class="no">c₂</span></td></tr>
+          <tr><td>P6 (8, 9)</td><td><code>49 + 64 = 113</code></td><td><code>49 + 49 = <b>98</b></code></td><td><span class="no">c₂</span></td></tr>
+        </table>
+      </div>
+      <p class="fnote" data-th="<b>ผลรอบ 1:</b> กลุ่ม 1 = {P1, P2} · กลุ่ม 2 = {P3, P4, P5, P6} · <b class='warn'>ผลนี้ยังผิดอยู่ชัดๆ</b> — P3(1,2) อยู่กับกระจุกซ้ายแท้ๆ แต่โดนจับไปอยู่กับกระจุกขวา เพราะ centroid เริ่มต้นวางไม่ดี"><b>After round 1:</b> cluster 1 = {P1, P2}, cluster 2 = {P3, P4, P5, P6}. <b class="warn">That is plainly still wrong</b> — P3(1,2) belongs with the left blob but has been dragged in with the right one, purely because the starting centroids were badly placed.</p>
+
+      <div class="sub-h" data-th="รอบ 2 — คำนวณ centroid ใหม่ (เอาค่าเฉลี่ยของสมาชิก) แล้ว assign ใหม่">Round 2 — recompute each centroid as the mean of its members, then reassign</div>
+      <div class="tbl-wrap">
+        <table class="g">
+          <tr><td class="wide">c₁ <span data-th="ใหม่">new</span></td><td><code data-th="ค่าเฉลี่ยของ {P1, P2} = ( (1+2)/2 , (1+1)/2 ) = <b>(1.5, 1)</b>">mean of {P1, P2} = ( (1+2)/2 , (1+1)/2 ) = <b>(1.5, 1)</b></code></td></tr>
+          <tr><td class="wide">c₂ <span data-th="ใหม่">new</span></td><td><code data-th="ค่าเฉลี่ยของ {P3, P4, P5, P6} = ( (1+8+9+8)/4 , (2+8+8+9)/4 ) = ( 26/4 , 27/4 ) = <b>(6.5, 6.75)</b>">mean of {P3, P4, P5, P6} = ( (1+8+9+8)/4 , (2+8+8+9)/4 ) = ( 26/4 , 27/4 ) = <b>(6.5, 6.75)</b></code></td></tr>
+        </table>
+      </div>
+      <div class="tbl-wrap" style="margin-top:12px;">
+        <table class="g">
+          <thead><tr><th data-th="จุด">Point</th><th>d² → c₁(1.5, 1)</th><th>d² → c₂(6.5, 6.75)</th><th data-th="ใกล้กว่า">Nearer</th></tr></thead>
+          <tr><td>P1 (1, 1)</td><td><code>0.25 + 0 = <b>0.25</b></code></td><td><code>30.25 + 33.06 = 63.31</code></td><td><span class="yes">c₁</span></td></tr>
+          <tr><td>P2 (2, 1)</td><td><code>0.25 + 0 = <b>0.25</b></code></td><td><code>20.25 + 33.06 = 53.31</code></td><td><span class="yes">c₁</span></td></tr>
+          <tr><td>P3 (1, 2)</td><td><code>0.25 + 1 = <b>1.25</b></code></td><td><code>30.25 + 22.56 = 52.81</code></td><td><span class="yes">c₁ ←</span></td></tr>
+          <tr><td>P4 (8, 8)</td><td><code>42.25 + 49 = 91.25</code></td><td><code>2.25 + 1.56 = <b>3.81</b></code></td><td><span class="no">c₂</span></td></tr>
+          <tr><td>P5 (9, 8)</td><td><code>56.25 + 49 = 105.25</code></td><td><code>6.25 + 1.56 = <b>7.81</b></code></td><td><span class="no">c₂</span></td></tr>
+          <tr><td>P6 (8, 9)</td><td><code>42.25 + 64 = 106.25</code></td><td><code>2.25 + 5.06 = <b>7.31</b></code></td><td><span class="no">c₂</span></td></tr>
+        </table>
+      </div>
+      <p class="fnote" data-th="<b class='warn'>P3 ย้ายกลุ่ม!</b> จากกลุ่ม 2 กลับมากลุ่ม 1 — <b>นี่คือสิ่งที่อาจารย์อธิบายว่า “จุดที่เคยเป็นสีฟ้าอาจกลายเป็นสีแดง”</b> · เกิดขึ้นได้เพราะ centroid ขยับ ทำให้ระยะเปลี่ยน · <b>ผลรอบ 2:</b> กลุ่ม 1 = {P1, P2, P3} · กลุ่ม 2 = {P4, P5, P6} — ตอนนี้ถูกต้องแล้ว"><b class="warn">P3 has changed cluster!</b> From cluster 2 back to cluster 1 — <b>exactly what he described as "a point that was blue may turn red"</b>. It happens because the centroid moved and the distances changed. <b>After round 2:</b> cluster 1 = {P1, P2, P3}, cluster 2 = {P4, P5, P6} — now correct.</p>
+
+      <div class="sub-h" data-th="รอบ 3 — คำนวณ centroid ใหม่อีกครั้ง แล้วเช็คว่ามีอะไรขยับไหม">Round 3 — recompute once more, and check whether anything moves</div>
+      <div class="tbl-wrap">
+        <table class="g">
+          <tr><td class="wide">c₁ <span data-th="ใหม่">new</span></td><td><code data-th="ค่าเฉลี่ยของ {P1, P2, P3} = ( 4/3 , 4/3 ) ≈ <b>(1.33, 1.33)</b>">mean of {P1, P2, P3} = ( 4/3 , 4/3 ) ≈ <b>(1.33, 1.33)</b></code></td></tr>
+          <tr><td class="wide">c₂ <span data-th="ใหม่">new</span></td><td><code data-th="ค่าเฉลี่ยของ {P4, P5, P6} = ( 25/3 , 25/3 ) ≈ <b>(8.33, 8.33)</b>">mean of {P4, P5, P6} = ( 25/3 , 25/3 ) ≈ <b>(8.33, 8.33)</b></code></td></tr>
+        </table>
+      </div>
+      <p class="lede" style="margin-top:12px;" data-th="assign ใหม่แล้ว <b>ไม่มีจุดไหนย้ายเลย</b> — P1, P2, P3 ยังใกล้ c₁ และ P4, P5, P6 ยังใกล้ c₂ → <b class='warn'>centroid นิ่ง = converged = จบ</b>">Reassigning changes nothing — P1, P2, P3 are still nearest c₁ and P4, P5, P6 still nearest c₂ → <b class="warn">the centroids have settled: converged, and we stop</b>.</p>
+      <p class="fnote" data-th="<b>บทเรียนของตัวอย่างนี้:</b> centroid เริ่มต้นวางแย่มาก (อยู่ในกระจุกเดียวกันทั้งคู่) แต่ <b>อัลกอริทึมแก้ตัวเองได้ภายใน 2 รอบ</b> · <b class='warn'>แต่อย่าเข้าใจผิดว่ามันแก้ตัวเองได้เสมอ</b> — สไลด์เขียนไว้ชัดว่ามัน <i>“sensitive to initial centroid placement (<b>can converge to poor solutions</b>)”</i> · ในการใช้จริงจึงนิยม<b>รันหลายครั้งด้วย seed ต่างกันแล้วเลือกผลที่ WCSS ต่ำสุด</b>"><b>The lesson:</b> the starting centroids were badly placed — both inside one blob — yet <b>the algorithm repaired itself within two rounds</b>. <b class="warn">Do not conclude that it always can.</b> The deck states plainly that it is <i>"sensitive to initial centroid placement (<b>can converge to poor solutions</b>)"</i>. In practice people therefore <b>run it several times with different seeds and keep the result with the lowest WCSS</b>.</p>
+    </div>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 880 340" role="img" aria-label="Three snapshots of the worked example. Round one: both starting centroids sit inside the left-hand blob, so P3 is wrongly grouped with the far cluster. Round two: the centroids move to the means of their members and P3 switches back to the left cluster. Round three: the centroids settle at the centres of the two true blobs and nothing moves, so the algorithm stops.">
+        <rect x="40" y="30" width="220" height="220" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1"/>
+        <text x="150" y="22" text-anchor="middle" class="mono" font-size="11.5" fill="var(--rose)">ROUND 1 - random start</text>
+        <circle cx="62" cy="228" r="4.5" fill="var(--accent)"/>
+        <circle cx="84" cy="228" r="4.5" fill="var(--accent)"/>
+        <circle cx="62" cy="206" r="4.5" fill="var(--rose)"/>
+        <circle cx="216" cy="74" r="4.5" fill="var(--rose)"/>
+        <circle cx="238" cy="74" r="4.5" fill="var(--rose)"/>
+        <circle cx="216" cy="52" r="4.5" fill="var(--rose)"/>
+        <circle cx="62" cy="228" r="8.5" fill="none" stroke="var(--accent)" stroke-width="2.4"/>
+        <text x="75" y="247" class="mono" font-size="10.5" fill="var(--accent)">c₁</text>
+        <circle cx="62" cy="206" r="8.5" fill="none" stroke="var(--rose)" stroke-width="2.4"/>
+        <text x="75" y="193" class="mono" font-size="10.5" fill="var(--rose)">c₂</text>
+        <text x="150" y="272" text-anchor="middle" class="lbl" font-size="10.5">both centroids landed in the left blob</text>
+        <text x="150" y="286" text-anchor="middle" class="lbl" font-size="10.5" fill="var(--red)">so P3 is pulled into the far cluster</text>
+        <rect x="330" y="30" width="220" height="220" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1"/>
+        <text x="440" y="22" text-anchor="middle" class="mono" font-size="11.5" fill="var(--violet)">ROUND 2 - centroids move</text>
+        <circle cx="352" cy="228" r="4.5" fill="var(--accent)"/>
+        <circle cx="374" cy="228" r="4.5" fill="var(--accent)"/>
+        <circle cx="352" cy="206" r="4.5" fill="var(--accent)"/>
+        <circle cx="506" cy="74" r="4.5" fill="var(--rose)"/>
+        <circle cx="528" cy="74" r="4.5" fill="var(--rose)"/>
+        <circle cx="506" cy="52" r="4.5" fill="var(--rose)"/>
+        <circle cx="363.0" cy="228" r="8.5" fill="none" stroke="var(--accent)" stroke-width="2.4"/>
+        <text x="376.0" y="247" class="mono" font-size="10.5" fill="var(--accent)">c₁</text>
+        <circle cx="473.0" cy="101.5" r="8.5" fill="none" stroke="var(--rose)" stroke-width="2.4"/>
+        <text x="486.0" y="88.5" class="mono" font-size="10.5" fill="var(--rose)">c₂</text>
+        <text x="440" y="272" text-anchor="middle" class="lbl" font-size="10.5">c₂ is now the mean of its four members,</text>
+        <text x="440" y="286" text-anchor="middle" class="lbl" font-size="10.5" fill="var(--red)">so P3 switches back to the left cluster</text>
+        <rect x="620" y="30" width="220" height="220" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1"/>
+        <text x="730" y="22" text-anchor="middle" class="mono" font-size="11.5" fill="var(--green)">ROUND 3 - settled</text>
+        <circle cx="642" cy="228" r="4.5" fill="var(--accent)"/>
+        <circle cx="664" cy="228" r="4.5" fill="var(--accent)"/>
+        <circle cx="642" cy="206" r="4.5" fill="var(--accent)"/>
+        <circle cx="796" cy="74" r="4.5" fill="var(--rose)"/>
+        <circle cx="818" cy="74" r="4.5" fill="var(--rose)"/>
+        <circle cx="796" cy="52" r="4.5" fill="var(--rose)"/>
+        <circle cx="649.3" cy="220.7" r="8.5" fill="none" stroke="var(--accent)" stroke-width="2.4"/>
+        <text x="662.3" y="239.7" class="mono" font-size="10.5" fill="var(--accent)">c₁</text>
+        <circle cx="803.3" cy="66.7" r="8.5" fill="none" stroke="var(--rose)" stroke-width="2.4"/>
+        <text x="816.3" y="53.7" class="mono" font-size="10.5" fill="var(--rose)">c₂</text>
+        <text x="730" y="272" text-anchor="middle" class="lbl" font-size="10.5">each centroid sits at the centre of its blob</text>
+        <text x="730" y="286" text-anchor="middle" class="lbl" font-size="10.5" fill="var(--green)">nothing moves → converged → STOP</text>
+        <circle cx="60" cy="318" r="4.5" fill="var(--accent)"/>
+        <text x="74" y="322" class="lbl" font-size="10.5">a data point</text>
+        <circle cx="182" cy="318" r="8.5" fill="none" stroke="var(--ink-soft)" stroke-width="2.4"/>
+        <text x="198" y="322" class="lbl" font-size="10.5">a centroid - the ring sits on top of whatever is there</text>
+        <text x="566" y="322" class="lbl" font-size="10.5">colour = which cluster the point belongs to in that round</text>
+      </svg>
+      <figcaption data-th="ภาพเดียวกับตารางข้างบน · <b>วงแหวน</b> คือ centroid · <b>สี</b> คือกลุ่มที่จุดนั้นสังกัดอยู่ ณ รอบนั้น · สังเกต <b>P3 (จุดบนซ้ายของกระจุกซ้าย)</b> ที่รอบแรกเป็นสีชมพู แล้วรอบสองกลายเป็นสีเขียว — <b>จุดย้ายกลุ่มได้ระหว่างรอบ</b>">The same story as the tables. The <b>ring</b> is a centroid; the <b>colour</b> is which cluster a point belongs to in that round. Watch <b>P3, the upper point of the left blob</b>: rose in round 1, teal in round 2 — <b>points do change cluster between rounds</b>.</figcaption>
+    </figure>
+
+    <div class="sub-h" data-th="6 · WCSS — คำนวณจากตัวอย่างเดียวกัน">6 · WCSS — computed on that same example</div>
+    <div class="panel">
+      <p class="lede" data-th="<b>WCSS = Within-Cluster Sum of Squares</b> — เอา <code>d²</code> จาก<b>ทุกจุดถึง centroid ของกลุ่มตัวเอง</b> มาบวกกันให้หมด · สไลด์: <i>“K-means divides the data into k clusters by <b>minimizing the sum of the squared distances</b> of each record to the mean of its assigned cluster”</i>"><b>WCSS = Within-Cluster Sum of Squares</b> — add up <code>d²</code> from <b>every point to its own cluster's centroid</b>. The deck: <i>"K-means divides the data into k clusters by <b>minimizing the sum of the squared distances</b> of each record to the mean of its assigned cluster"</i>.</p>
+      <div class="tbl-wrap">
+        <table class="g">
+          <thead><tr><th data-th="กลุ่ม">Cluster</th><th data-th="จุด">Point</th><th>d² <span data-th="ถึง centroid ของตัวเอง">to its own centroid</span></th></tr></thead>
+          <tr><td data-th="กลุ่ม 1<br>c₁ ≈ (1.33, 1.33)">Cluster 1<br>c₁ ≈ (1.33, 1.33)</td><td>P1 (1,1)<br>P2 (2,1)<br>P3 (1,2)</td><td><code>(−1/3)² + (−1/3)² = 2/9 ≈ 0.22</code><br><code>(2/3)² + (−1/3)² = 5/9 ≈ 0.56</code><br><code>(−1/3)² + (2/3)² = 5/9 ≈ 0.56</code></td></tr>
+          <tr><td data-th="กลุ่ม 2<br>c₂ ≈ (8.33, 8.33)">Cluster 2<br>c₂ ≈ (8.33, 8.33)</td><td>P4 (8,8)<br>P5 (9,8)<br>P6 (8,9)</td><td><code>2/9 ≈ 0.22</code><br><code>5/9 ≈ 0.56</code><br><code>5/9 ≈ 0.56</code></td></tr>
+          <tr><td data-th="<b>รวม</b>"><b>Total</b></td><td></td><td><code><b>WCSS = 12/9 + 12/9 = 8/3 ≈ 2.67</b></code></td></tr>
+        </table>
+      </div>
+      <p class="fnote" data-th="<b>ยิ่ง WCSS น้อย ยิ่งแปลว่าแต่ละกลุ่มเกาะกันแน่น</b> · แต่ <b class='warn'>ห้ามใช้ WCSS ตัดสินว่า k ไหนดีที่สุดตรงๆ</b> เพราะ <b>WCSS ลดลงเรื่อยๆ เมื่อ k เพิ่ม</b> เสมอ — สุดขั้วคือ k = จำนวนจุดทั้งหมด จะได้ WCSS = 0 พอดี ซึ่งไร้ประโยชน์สิ้นเชิง · นั่นคือเหตุผลที่ต้องมี elbow method"><b>Lower WCSS means tighter clusters.</b> But <b class="warn">you cannot pick the best k from WCSS directly</b>, because <b>WCSS always falls as k rises</b> — at the extreme, k = the number of points gives WCSS = 0, which is completely useless. That is precisely why the elbow method exists.</p>
+    </div>
+
+    <div class="sub-h" data-th="7 · Elbow method — ด้วยตัวเลขจากตัวอย่างเดียวกัน">7 · The elbow method — using numbers from that same example</div>
+    <div class="panel">
+      <p class="lede" data-th="<b>วิธี:</b> ลอง <b>k = 1, 2, 3, …</b> ไปเรื่อยๆ · แต่ละ k คำนวณ <b>WCSS</b> → <b>plot WCSS เทียบกับ k</b> → <b>เลือกจุดที่กราฟเริ่มราบ</b> คือ “ข้อศอก”"><b>The method:</b> try <b>k = 1, 2, 3, …</b>; compute <b>WCSS</b> for each; <b>plot WCSS against k</b>; <b>take the point where the curve levels off</b> — the elbow.</p>
+      <div class="tbl-wrap">
+        <table class="g">
+          <thead><tr><th>k</th><th>WCSS</th><th data-th="ลดลงจากขั้นก่อน">Drop from the previous k</th><th data-th="อ่านว่า">Reading</th></tr></thead>
+          <tr><td>1</td><td><code>≈ 149.7</code></td><td>—</td><td data-th="ทุกจุดอยู่กลุ่มเดียว centroid อยู่กลางระหว่างสองกระจุก — ห่างจากทุกจุกมาก">everything in one cluster, the centroid stranded between the two blobs — far from everything</td></tr>
+          <tr><td>2</td><td><code>≈ 2.67</code></td><td><code class="yes"><b>−147.0</b></code></td><td data-th="<b>ลดลงมหาศาล</b> — นี่คือ k ที่สะท้อนโครงสร้างจริงของข้อมูล"><b>an enormous drop</b> — this is the k that matches the data's real structure</td></tr>
+          <tr><td>3</td><td><code>≈ 1.83</code></td><td><code>−0.84</code></td><td data-th="ลดลงนิดเดียว — แค่ไปผ่ากระจุกที่ดีอยู่แล้วให้แตกออก">barely anything — it is just splitting a blob that was already fine</td></tr>
+        </table>
+      </div>
+      <p class="lede" style="margin-top:12px;" data-th="<b>กราฟหักงอชัดเจนที่ k = 2</b> → <b>เลือก k = 2</b> · สังเกตว่าเราไม่ได้เลือก k = 3 ทั้งที่ WCSS ต่ำกว่า — เพราะ<b>สิ่งที่เรามองหาคือจุดที่ “การลดลงเริ่มไม่คุ้ม” ไม่ใช่จุดที่ WCSS ต่ำสุด</b>"><b>The curve bends sharply at k = 2</b> → <b>choose k = 2</b>. Note we did not choose k = 3 even though its WCSS is lower — because <b>what you are looking for is where the improvement stops being worth it, not where WCSS is smallest</b>.</p>
+      <p class="fnote" data-th="ตัวอย่างในสไลด์สรุปไว้ว่า <b>“a good number of clusters is 3 at best or 4 if needed”</b> · <b>elbow แปลว่าข้อศอก</b> ตามรูปกราฟที่หักงอ · อีกวิธีที่สไลด์เอ่ยถึงคือ <b>Silhouette Score</b> ซึ่งอาจารย์บอกว่า “ยังไม่ต้องเรียนตอนนี้” · <b>วิธีที่แย่กว่าคือ</b>เดาจาก domain knowledge ว่าน่าจะมีสัก 5 กลุ่ม — อาจารย์บอกเองว่า <b>“อันนี้ไม่ใช่คำตอบที่ดี มันเป็นการลองผิดลองถูก”</b>">The deck's own example concludes <b>"a good number of clusters is 3 at best or 4 if needed"</b>. <b>Elbow</b> refers to the bend in the curve. The deck also names the <b>Silhouette Score</b>, which he said is "not for now". <b>The weaker approach</b> is guessing from domain knowledge that there are about 5 groups — he said himself, <b>"that isn't a good answer, it's trial and error"</b>.</p>
+    </div>
+
+    <div class="sub-h" data-th="8 · ทำไม normalization ถึงจำเป็น — ดูด้วยตัวเลข">8 · Why normalization is necessary — shown with numbers</div>
+    <div class="panel hot">
+      <p class="lede" data-th="จาก dataset <code>imports-85</code> ที่ใช้ในคาบ: <b>horsepower อยู่ระหว่าง 48–288</b> · <b>price อยู่ระหว่าง 5,000–40,005</b> · ลองวัดระยะระหว่างรถสองคัน <b>A (hp 100, ราคา 10,000)</b> กับ <b>B (hp 200, ราคา 11,000)</b>">From the <code>imports-85</code> dataset used in class: <b>horsepower runs 48–288</b> and <b>price runs 5,000–40,005</b>. Take the distance between two cars, <b>A (hp 100, price 10,000)</b> and <b>B (hp 200, price 11,000)</b>.</p>
+      <div class="tbl-wrap">
+        <table class="g">
+          <thead><tr><th></th><th data-th="ส่วนของ horsepower">the horsepower part</th><th data-th="ส่วนของ price">the price part</th><th data-th="ใครครอบงำ">who dominates</th></tr></thead>
+          <tr><td class="wide" data-th="<b>ค่าดิบ</b> (ไม่ normalize)"><b>Raw values</b> (no normalizing)</td><td><code>(200−100)² = 10,000</code></td><td><code>(11,000−10,000)² = 1,000,000</code></td><td><span class="no" data-th="<b>price กิน 99%</b>"><b>price takes 99%</b></span></td></tr>
+          <tr><td class="wide" data-th="<b>หลัง normalize เป็น 0–1</b>"><b>After normalizing to 0–1</b></td><td><code>(0.633−0.217)² ≈ 0.174</code></td><td><code>(0.171−0.143)² ≈ 0.0008</code></td><td><span class="yes" data-th="สะท้อนความต่างจริง">reflects the real difference</span></td></tr>
+        </table>
+      </div>
+      <p class="fnote" data-th="<b>อ่านให้ดี:</b> ก่อน normalize ตัว price ครอบงำระยะทางไปเกือบทั้งหมด <b>ไม่ใช่เพราะรถสองคันต่างกันที่ราคามาก แต่เพราะหน่วยของราคามันใหญ่กว่าเฉยๆ</b> — ต่างกันพันบาทจากช่วง 35,005 บาท คือต่างกันแค่ <b>2.9%</b> ของช่วง ขณะที่ต่างกัน 100 hp จากช่วง 240 hp คือ <b>41.7%</b> ของช่วง · <b class='warn'>normalization ทำให้แต่ละ feature มีส่วนร่วมตามสัดส่วนของช่วงตัวเอง ซึ่งคือการเปรียบเทียบที่แฟร์</b> · <b>สูตร min-max:</b> <code>x′ = (x − min) ÷ (max − min)</code>"><b>Read that carefully:</b> before normalizing, price swallows almost the whole distance <b>not because the two cars differ greatly in price, but simply because its unit is larger</b> — 1,000 baht out of a 35,005 range is a difference of only <b>2.9%</b>, while 100 hp out of a 240 range is <b>41.7%</b>. <b class="warn">Normalization makes each feature contribute in proportion to its own spread, which is the fair comparison.</b> <b>The min-max formula:</b> <code>x′ = (x − min) ÷ (max − min)</code></p>
+      <div class="traps" style="margin-top:12px;">
+        <div class="trap">
+          <b data-th="เชื่อมเข้าข้อสอบ">The exam hook</b>
+          <span data-th="อาจารย์พูดต่อทันทีว่า <b>“เป็น bias ในข้อสอบผมก็ถามนะ bias มีอะไรบ้าง”</b> → <b>scale ที่ไม่เท่ากันนับเป็น data bias</b> เพราะโมเดล<b>เรียนรู้แบบลำเอียง</b>ไปหา feature ที่ค่าใหญ่">He went straight on to say <b>"that's bias, and I ask about bias on the paper — what kinds are there"</b> → <b>unequal scales count as data bias</b>, because the model <b>learns with a lean</b> towards the large-valued feature.</span>
+        </div>
+        <div class="trap">
+          <b data-th="normalize เฉพาะ feature">Normalize the features only</b>
+          <span data-th="ใน Orange ใช้ widget <b>Preprocess → Normalize</b> · <b class='warn'>ห้ามแตะ target</b> เพราะ target คือ output ไม่ใช่สิ่งที่เอามาวัดระยะ · เลือกเป็น <b>0–1</b> หรือ <b>standardization (Z-score)</b> ซึ่งใช้ standard deviation ก็ได้">In Orange use <b>Preprocess → Normalize</b>. <b class="warn">Never the target</b> — it is the output, not something distances are measured on. Choose <b>0–1</b>, or <b>standardization (Z-score)</b> which uses the standard deviation.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-h" data-th="9 · ถ้าข้อมูลไม่ใช่ตัวเลข — K-modes และ K-prototypes">9 · When the data is not numeric — K-modes and K-prototypes</div>
+    <div class="panel">
+      <p class="lede" data-th="สไลด์บอกตรงๆ ว่า K-means <i>“<b>not suitable for non-numerical (categorical) data</b>. Even if you encode categories numerically (like one-hot encoding), the <b>Euclidean distance may become misleading</b>”</i> — <b>เข้ารหัสเป็นตัวเลขแล้วก็ยังไม่ช่วย</b> เพราะระยะทางระหว่าง “นิวยอร์ก = 1” กับ “ชิคาโก = 2” ไม่ได้มีความหมายอะไรจริงๆ">The deck says outright that K-means is <i>"<b>not suitable for non-numerical (categorical) data</b>. Even if you encode categories numerically (like one-hot encoding), the <b>Euclidean distance may become misleading</b>"</i> — <b>encoding to numbers does not rescue it</b>, because the distance between "New York = 1" and "Chicago = 2" means nothing real.</p>
+      <div class="tbl-wrap">
+        <table class="g">
+          <thead><tr><th data-th="อัลกอริทึม">Algorithm</th><th data-th="ใช้กับ">For</th><th data-th="วัดความต่างด้วย">Measures dissimilarity by</th><th data-th="ใช้ค่ากลางแบบ">Its centre is a</th></tr></thead>
+          <tr><td><b>K-means</b></td><td data-th="numerical">numerical</td><td data-th="<b>Euclidean distance</b>"><b>Euclidean distance</b></td><td><b>mean</b></td></tr>
+          <tr><td><b>K-modes</b></td><td data-th="categorical / nominal">categorical / nominal</td><td data-th="<b>จำนวน mismatch</b> (คล้าย Hamming distance)"><b>the number of mismatches</b> (like Hamming distance)</td><td><b>mode</b></td></tr>
+          <tr><td><b>K-prototypes</b></td><td data-th="<b>ผสม</b> ตัวเลข + categorical"><b>mixed</b> numeric + categorical</td><td data-th="รวมสองอย่างเข้าด้วยกัน">the two combined</td><td><b>prototype</b></td></tr>
+        </table>
+      </div>
+
+      <div class="sub-h" style="margin-top:16px;" data-th="K-modes ทำงานยังไง — นับ mismatch">How K-modes works — count the mismatches</div>
+      <p class="lede" data-th="<b>เหมือนกัน = 0 · ต่างกัน = 1</b> แค่นั้น · ลองจริงกับลูกค้าสามคน:"><b>Same = 0, different = 1.</b> That is all. Try it on three customers:</p>
+      <div class="tbl-wrap">
+        <table class="g">
+          <thead><tr><th></th><th>city</th><th>gender</th><th>membership</th></tr></thead>
+          <tr><td>C1</td><td>New York</td><td>Female</td><td>Gold</td></tr>
+          <tr><td>C2</td><td>New York</td><td>Female</td><td>Silver</td></tr>
+          <tr><td>C3</td><td>Chicago</td><td>Male</td><td>Gold</td></tr>
+        </table>
+      </div>
+      <div class="tbl-wrap" style="margin-top:12px;">
+        <table class="g">
+          <thead><tr><th data-th="คู่">Pair</th><th data-th="นับทีละ attribute">Counted attribute by attribute</th><th data-th="mismatch รวม">Total mismatches</th></tr></thead>
+          <tr><td class="wide">C1 ↔ C2</td><td><code data-th="city เหมือน 0 · gender เหมือน 0 · membership ต่าง 1">city same 0 · gender same 0 · membership differs 1</code></td><td><code class="yes"><b>1</b></code></td></tr>
+          <tr><td class="wide">C1 ↔ C3</td><td><code data-th="city ต่าง 1 · gender ต่าง 1 · membership เหมือน 0">city differs 1 · gender differs 1 · membership same 0</code></td><td><code>2</code></td></tr>
+          <tr><td class="wide">C2 ↔ C3</td><td><code data-th="city ต่าง 1 · gender ต่าง 1 · membership ต่าง 1">city differs 1 · gender differs 1 · membership differs 1</code></td><td><code class="no">3</code></td></tr>
+        </table>
+      </div>
+      <p class="fnote" data-th="<b>mismatch ยิ่งน้อย ยิ่งใกล้กัน</b> → <b>C1 กับ C2 ใกล้กันที่สุด</b> ควรอยู่กลุ่มเดียวกัน · ส่วน C2 กับ C3 ต่างกันทุก attribute จึงไกลที่สุด · <b>และเพราะใช้ mode ไม่ใช่ mean</b> centroid ของกลุ่มจึงเป็น “ค่าที่พบบ่อยที่สุดในแต่ละคอลัมน์” ไม่ใช่ค่าเฉลี่ย — ซึ่งสมเหตุสมผล เพราะ “ค่าเฉลี่ยของ New York กับ Chicago” ไม่มีความหมาย"><b>Fewer mismatches means closer</b> → <b>C1 and C2 are the closest pair</b> and belong together. C2 and C3 differ on every attribute, so they are furthest apart. <b>And because it uses the mode rather than the mean</b>, a cluster's centre is "the most frequent value in each column", not an average — which is the only sensible choice, since "the average of New York and Chicago" means nothing.</p>
+
+      <div class="sub-h" style="margin-top:16px;" data-th="K-prototypes — รวมสองโลกเข้าด้วยกัน">K-prototypes — joining the two worlds</div>
+      <p class="lede" data-th="สไลด์: <i>“Each cluster center is called a <b>prototype</b> because it represents the ‘<b>typical</b>’ or most representative point of that cluster”</i> · สูตร cost ที่สไลด์ให้: <code>cost = (age₁ − age₂)² + (income₁ − income₂)² + (จำนวน mismatch)</code>">The deck: <i>"Each cluster center is called a <b>prototype</b> because it represents the '<b>typical</b>' or most representative point of that cluster"</i>. The cost function it gives: <code>cost = (age₁ − age₂)² + (income₁ − income₂)² + (number of mismatches)</code></p>
+      <div class="tbl-wrap">
+        <table class="g">
+          <tr><td class="wide" data-th="คนที่ 1">Person 1</td><td><code data-th="อายุ 25 · รายได้ 30,000 · เมือง NY · เพศ F">age 25 · income 30,000 · city NY · gender F</code></td></tr>
+          <tr><td class="wide" data-th="คนที่ 2">Person 2</td><td><code data-th="อายุ 30 · รายได้ 32,000 · เมือง NY · เพศ M">age 30 · income 32,000 · city NY · gender M</code></td></tr>
+          <tr><td class="wide"><b>cost</b></td><td><code>(25−30)² + (30,000−32,000)² + 1 = 25 + <b>4,000,000</b> + 1</code></td></tr>
+        </table>
+      </div>
+      <p class="fnote" data-th="<b class='warn'>สังเกตว่าส่วนของ income (4,000,000) กลบทุกอย่างจนหมด</b> — อายุที่ต่างกัน 5 ปี และเพศที่ต่างกัน แทบไม่มีผลต่อผลลัพธ์เลย · <b>นี่คือหัวข้อ 8 กลับมาหลอกหลอนอีกครั้ง: ถ้าไม่ normalize ก่อน K-prototypes ก็พังด้วยเหตุผลเดียวกัน</b> · ตัวเลขที่หน่วยใหญ่จะครอบงำทั้ง cost function"><b class="warn">Notice that the income term, 4,000,000, swamps everything else</b> — a five-year age gap and a difference in gender have essentially no effect on the result. <b>This is section 8 coming back to haunt you: without normalizing first, K-prototypes breaks for exactly the same reason.</b> The large-unit number dominates the whole cost function.</p>
+    </div>
+
+    <div class="sub-h" data-th="10 · Hard vs Soft clustering">10 · Hard vs soft clustering</div>
+    <div class="cards two">
       <div class="card">
-        <h3 data-th="เลือก k ยังไง — Elbow method">Choosing k — the elbow method</h3>
+        <h3 data-th="Hard clustering">Hard clustering</h3>
         <ul>
-          <li data-th="วิธีที่<b>ไม่ค่อยดี</b>: ใช้ความรู้เชิงสถิติ/domain เดาว่าน่าจะมีสัก 5 กลุ่ม · <b>อาจารย์บอกเองว่า “อันนี้ไม่ใช่คำตอบที่ดี มันเป็นการลองผิดลองถูก”</b>">The <b>weaker</b> way: guess from statistics or domain knowledge that there are about 5 groups. <b>He said himself: "that isn't a good answer, it's trial and error"</b>.</li>
-          <li data-th="<b>Elbow method:</b> ลอง <b>k = 1, 2, 3, …</b> ไปเรื่อยๆ (เช่นถึง 10)"><b>The elbow method:</b> try <b>k = 1, 2, 3, …</b> onwards (to 10, say).</li>
-          <li data-th="แต่ละ k คำนวณ <b>WCSS</b> (error รวมของทุก cluster) แล้ว <b>plot</b> เทียบกับ k">For each k compute <b>WCSS</b> (the errors of all clusters added together), then <b>plot</b> it against k.</li>
-          <li data-th="<b>เลือกจุดที่ error เริ่มนิ่ง — ความชันเริ่มราบ</b> นั่นคือ “ข้อศอก”"><b>Take the point where the error starts to flatten — where the slope goes level.</b> That is the elbow.</li>
-          <li data-th="ตัวอย่างในสไลด์: <b>“3 at best or 4 if needed”</b> · <b>elbow แปลว่าข้อศอก</b>">The deck's example: <b>"3 at best or 4 if needed"</b>. <b>Elbow means the joint of the arm.</b></li>
-          <li data-th="มีอีกวิธีคือ <b>Silhouette Score</b> — สไลด์เอ่ยถึง แต่อาจารย์บอก “ยังไม่ต้องเรียนตอนนี้”">There is also the <b>Silhouette Score</b> — the deck names it, but he said "not for now".</li>
+          <li data-th="หนึ่งจุด<b>อยู่ได้แค่ cluster เดียว</b> ต้องเลือกให้ขาด">A sample goes to <b>exactly one cluster</b> — it must be decided.</li>
+          <li data-th="<b>K-means เป็นแบบนี้</b> — ทุกตารางข้างบนตัดสินขาดว่าจุดไหนไปกลุ่มไหน"><b>K-means is this kind</b> — every table above assigns each point outright.</li>
+          <li data-th="ตัวอย่างของสไลด์: แอปเปิ้ลจะ<b>แดงหรือเขียว</b> อย่างใดอย่างหนึ่ง">The deck's example: an apple is <b>red or green</b>, one or the other.</li>
         </ul>
       </div>
       <div class="card">
-        <h3 data-th="K-modes และ K-prototypes">K-modes and K-prototypes</h3>
+        <h3 data-th="Soft / Fuzzy clustering">Soft / fuzzy clustering</h3>
         <ul>
-          <li data-th="<b>K-means ใช้กับ categorical ไม่ได้</b> — สไลด์บอกว่าถึงจะ encode เป็นตัวเลข (one-hot) <b>Euclidean distance ก็ยังหลอกได้</b>"><b>K-means is not suitable for categorical data</b> — the deck says even one-hot encoding leaves <b>Euclidean distance misleading</b>.</li>
-          <li data-th="<b>K-means</b> → numerical → <b>Euclidean distance</b> → ใช้ <b>mean</b>"><b>K-means</b> → numerical → <b>Euclidean distance</b> → uses the <b>mean</b>.</li>
-          <li data-th="<b>K-modes</b> → categorical → <b>นับจำนวน mismatch</b> (คล้าย <b>Hamming distance</b>) → ใช้ <b>mode</b>"><b>K-modes</b> → categorical → <b>counts mismatches</b> (like <b>Hamming distance</b>) → uses the <b>mode</b>.</li>
-          <li data-th="<b>เหมือนกัน = mismatch 0 · ต่างกัน = mismatch 1</b> · <b>mismatch ยิ่งน้อยยิ่งใกล้</b> · เช่น New York vs New York = 0 · New York vs Chicago = 1"><b>Same = mismatch 0, different = mismatch 1.</b> <b>Fewer mismatches means closer.</b> New York vs New York = 0; New York vs Chicago = 1.</li>
-          <li data-th="<b>K-prototypes</b> = ผสมทั้งสอง · center เรียกว่า <b>prototype</b> เพราะเป็นจุดที่ “typical” ที่สุดของกลุ่ม · <code>cost = (age₁−age₂)² + (income₁−income₂)² + (จำนวน mismatch)</code>"><b>K-prototypes</b> combines both. Its centre is a <b>prototype</b> because it is the most "typical" point of the cluster. <code>cost = (age₁−age₂)² + (income₁−income₂)² + (number of mismatches)</code></li>
+          <li data-th="หนึ่งจุด<b>กระจายอยู่หลาย cluster ตาม weight</b> — อยู่กลุ่มนี้ <b>80%</b> กลุ่มนั้น <b>20%</b> ได้">A sample is <b>distributed across several clusters by weight</b> — <b>80%</b> here, <b>20%</b> there.</li>
+          <li data-th="ตัวอย่างของสไลด์: แอปเปิ้ลลูกหนึ่ง<b>แดงและเขียวได้พร้อมกัน</b> คือแดงระดับหนึ่ง เขียวระดับหนึ่ง">The deck's example: an apple can be <b>red and green at once</b> — red to a degree, green to a degree.</li>
+          <li data-th="ตัวแทนคือ <b>Fuzzy C-means (FCM)</b>">The representative is <b>Fuzzy C-means (FCM)</b>.</li>
+          <li data-th="<b>ทำไมใช้ C ไม่ใช้ K:</b> <b>C มาจาก class / category</b> ก็คือจำนวน center นั่นแหละ — <b>ความหมายเดียวกับ K ไม่ต้องตกใจ</b>"><b>Why C and not K:</b> <b>C stands for class / category</b> — the number of centres. <b>The same meaning as K; nothing to be alarmed by.</b></li>
         </ul>
       </div>
-      <div class="card">
-        <h3 data-th="Hard vs Soft clustering">Hard vs soft clustering</h3>
-        <ul>
-          <li data-th="<b>Hard clustering</b> — หนึ่งจุด<b>อยู่ได้แค่ cluster เดียว</b> ต้องเลือก · ตัวอย่าง: <b>K-means</b>"><b>Hard clustering</b> — a sample goes to <b>exactly one cluster</b>. Example: <b>K-means</b>.</li>
-          <li data-th="<b>Fuzzy / soft clustering</b> — หนึ่งจุด<b>กระจายอยู่ได้หลาย cluster</b> ตาม weight · ตัวอย่าง: <b>Fuzzy C-means (FCM)</b>"><b>Fuzzy / soft clustering</b> — a sample is <b>distributed among several clusters</b> by weight. Example: <b>Fuzzy C-means (FCM)</b>.</li>
-          <li data-th="<b>ตัวอย่างแอปเปิ้ลของสไลด์:</b> แอปเปิ้ลลูกหนึ่งจะแดง<b>หรือ</b>เขียว (hard) — แต่จริงๆ มันแดง<b>และ</b>เขียวได้ (fuzzy) คือแดงระดับหนึ่ง เขียวระดับหนึ่ง"><b>The deck's apple:</b> an apple is red <b>or</b> green (hard) — but it can also be red <b>and</b> green (fuzzy), red to a degree and green to a degree.</li>
-          <li data-th="อาจารย์อธิบายว่าจุดหนึ่งอาจอยู่กลุ่มนี้ <b>80%</b> กลุ่มนั้น <b>20%</b>">He put it as a point being <b>80%</b> in one cluster and <b>20%</b> in another.</li>
-          <li data-th="<b>ทำไมใช้ C ไม่ใช้ K:</b> <b>C มาจาก class / category</b> ก็คือจำนวน center นั่นแหละ ความหมายเดียวกับ K"><b>Why C and not K:</b> <b>C stands for class / category</b> — the number of centres. Same meaning as K.</li>
-        </ul>
-      </div>
+    </div>
+
+    <div class="sub-h" data-th="11 · สรุปสำหรับห้องสอบ">11 · The short version for the exam room</div>
+    <div class="panel">
+      <ol class="cram-list" style="columns:1;">
+        <li data-th="<b>K-means = unsupervised</b> · เหตุผลเดียวที่ต้องตอบคือ <b>ไม่ใช้ label</b> — ไม่ใช่เพราะทำซ้ำหลายรอบ ไม่ใช่เพราะต้องตั้ง k"><b>K-means is unsupervised</b>, and the only reason to give is that it <b>uses no label</b> — not that it repeats, not that you set k.</li>
+        <li data-th="<b>K เป็น hyperparameter</b> (คนตั้ง) · <b>ตำแหน่ง centroid เป็น parameter</b> (อัลกอริทึมหาเอง)"><b>K is a hyperparameter</b> (a person sets it); <b>the centroid positions are parameters</b> (the algorithm finds them).</li>
+        <li data-th="<b>ลำดับ 5 ขั้น:</b> สุ่ม k centroid → assign จุดไปตัวที่ใกล้สุด → คำนวณ centroid ใหม่เป็นค่าเฉลี่ย → assign ใหม่ → <b>ทำซ้ำขั้น 3–4 จนไม่มีจุดไหนย้าย</b> หรือครบรอบสูงสุด"><b>The five steps:</b> pick k centroids at random → assign each point to the nearest → recompute each centroid as the mean → reassign → <b>repeat steps 3–4 until nothing moves</b>, or the iteration cap is hit.</li>
+        <li data-th="<b>จุดย้ายกลุ่มได้ระหว่างรอบ</b> และนั่นคือเรื่องปกติ ไม่ใช่ความผิดพลาด"><b>Points do change cluster between rounds</b>, and that is normal, not a mistake.</li>
+        <li data-th="<b>non-deterministic</b> — รันซ้ำกับข้อมูลเดิมได้ผลต่างกัน เพราะ<b>สุ่ม centroid เริ่มต้น</b> · และ <b>sensitive to initial placement</b> อาจ converge ไปหาคำตอบที่ไม่ดีได้"><b>Non-deterministic</b> — repeat runs on the same data can differ, because the <b>starting centroids are random</b>; it is <b>sensitive to initial placement</b> and can converge to a poor solution.</li>
+        <li data-th="<b>ไม่การันตีว่าแต่ละกลุ่มขนาดเท่ากัน</b> — สไลด์เขียนว่ามันหากลุ่มที่ <b>best separated</b> ไม่ใช่กลุ่มที่เท่ากัน"><b>It does not ensure equal-sized clusters</b> — the deck says it finds the ones that are <b>best separated</b>, not the ones that are equal.</li>
+        <li data-th="<b>Euclidean distance</b> = พีทาโกรัส · เทียบด้วย <code>d²</code> ได้เลยไม่ต้องถอดราก เพราะลำดับไม่เปลี่ยน"><b>Euclidean distance</b> = Pythagoras; compare with <code>d²</code> and skip the root, since the ordering does not change.</li>
+        <li data-th="<b>WCSS</b> = ผลรวม <code>d²</code> จากทุกจุดถึง centroid ของตัวเอง · <b>ลดลงเสมอเมื่อ k เพิ่ม</b> จึงใช้ตัดสิน k ตรงๆ ไม่ได้"><b>WCSS</b> = the sum of <code>d²</code> from every point to its own centroid. It <b>always falls as k rises</b>, so it cannot pick k on its own.</li>
+        <li data-th="<b>Elbow method</b> — plot WCSS เทียบกับ k แล้ว<b>เลือกจุดที่กราฟเริ่มราบ ไม่ใช่จุดที่ WCSS ต่ำสุด</b>"><b>The elbow method</b> — plot WCSS against k and <b>take where the curve levels off, not where WCSS is lowest</b>.</li>
+        <li data-th="<b>categorical ใช้ K-means ไม่ได้</b> ถึง encode แล้วก็ตาม → <b>K-modes</b> (นับ mismatch, ใช้ mode) · ผสมกัน → <b>K-prototypes</b>"><b>K-means cannot take categorical data</b>, encoded or not → <b>K-modes</b> (mismatch counts, the mode) · mixed → <b>K-prototypes</b>.</li>
+        <li data-th="<b>normalize เฉพาะ feature ห้ามแตะ target</b> · ไม่ normalize = โมเดลลำเอียงไปหา feature ที่หน่วยใหญ่ = <b>data bias</b>"><b>Normalize the features only, never the target.</b> Skipping it makes the model lean towards the large-unit feature — which is <b>data bias</b>.</li>
+      </ol>
     </div>
   </section>
   <!-- ============ THE ASK LIST ============ -->
