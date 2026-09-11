@@ -637,62 +637,274 @@
       <span class="wk-pill">SET 3</span>
       <h2 data-th="Association Rules — Market Basket Analysis">Association Rules — Market Basket Analysis</h2>
       <span class="band-date" data-th="คาบ 4 + ทวนต้นคาบ 5">Class 4 + the class 5 refill</span>
-      <span class="band-tag" data-th="เซตเดียวที่มี<b>สูตรออกสอบ</b> · เป็น <b>unsupervised</b> และ <b>descriptive</b> · เป็น <b>rule-based</b> เหมือน decision tree">The only set with <b>a formula on the paper</b>. It is <b>unsupervised</b> and <b>descriptive</b>, and <b>rule-based</b> like a decision tree.</span>
+      <span class="band-tag" data-th="<b>เซตเดียวที่มีสูตรออกสอบ</b> และเป็นเซตเดียวที่ต้อง<b>คำนวณด้วยมือ</b>ได้ · เป็น <b>unsupervised</b> และ <b>descriptive</b> · เป็น <b>rule-based</b> เหมือน decision tree · อาจารย์ย้ำสองรอบว่า <b>ต้องเขียนสูตร support กับ confidence ได้เอง ข้อสอบไม่ให้มา</b>"><b>The only set with a formula on the paper</b>, and the only one you may have to <b>compute by hand</b>. It is <b>unsupervised</b> and <b>descriptive</b>, and <b>rule-based</b> like a decision tree. He said twice: <b>you must be able to write the support and confidence formulas yourself — the paper will not supply them</b>.</span>
     </div>
 
-    <div class="panel">
-      <h3 data-th="สามสูตร">The three formulas</h3>
-      <p class="lede" data-th="อาจารย์ย้ำว่า <b>ต้องเขียน support กับ confidence ได้เอง ข้อสอบไม่ให้สูตรมา</b> ส่วน lift อ่านผ่านๆ พอ">He stressed that <b>you must be able to write support and confidence yourself — the paper will not supply them</b>. Lift can just be read through.</p>
+    <div class="sub-h" data-th="1 · กฎหน้าตาเป็นยังไง">1 · What a rule looks like</div>
+    <div class="fact-grid">
+      <div class="fact">
+        <h3 data-th="รูปแบบ if–then">The if–then form</h3>
+        <p data-th="<code>X → Y</code> อ่านว่า <b>“ถ้ามี X อยู่ ก็มีแนวโน้มว่าจะมี Y ด้วย”</b>"><code>X → Y</code> reads <b>"if X is present, Y is likely to be present too"</b>.</p>
+        <p data-th="<b>X</b> ฝั่งซ้าย = <b>antecedent</b> — เป็นเซตของ item ตั้งแต่หนึ่งตัวขึ้นไป"><b>X</b> on the left is the <b>antecedent</b> — a set of one or more items.</p>
+        <p data-th="<b>Y</b> ฝั่งขวา = <b>consequent</b> — เป็นเซตของ item ตั้งแต่หนึ่งตัวขึ้นไป"><b>Y</b> on the right is the <b>consequent</b> — a set of one or more items.</p>
+        <p data-th="<b>X กับ Y ต้อง disjoint</b> — ห้ามมี item ร่วมกันเลยแม้แต่ตัวเดียว"><b>X and Y must be disjoint</b> — they may not share a single item.</p>
+        <p class="fnote" data-th="รูปแบบที่เป็นไปได้ (สไลด์ 16): <code>A ∧ B → C</code> · <code>A ∧ C → B</code> · <code>B → A ∧ C</code> · เครื่องหมาย <b>∧ หรือ comma แปลว่า “และ”</b>">The shapes a rule can take (slide 16): <code>A ∧ B → C</code> · <code>A ∧ C → B</code> · <code>B → A ∧ C</code>. The symbol <b>∧, or a comma, means "and"</b>.</p>
+      </div>
+      <div class="fact r">
+        <h3 data-th="MBA และเรื่องเบียร์กับผ้าอ้อม">MBA, and the beer &amp; diapers story</h3>
+        <p data-th="<b>Market Basket Analysis (MBA)</b> = เทคนิค data mining ที่หาความสัมพันธ์ระหว่างสินค้าที่ถูกซื้อไปด้วยกันบ่อยๆ · จุดประสงค์คือ<b>ขุด pattern ที่ซ่อนอยู่</b>ออกมาจาก transactional data แล้วเขียนเป็น association rule"><b>Market Basket Analysis (MBA)</b> is the data mining technique for finding relationships between items frequently bought together — uncovering <b>hidden patterns</b> in transactional data and writing them as association rules.</p>
+        <p data-th="<b>ตัวช่วยจำของอาจารย์:</b> MBA ตัวย่อเดียวกับ Master of Business Administration ที่คนไทยเคยแห่กันเรียน · แต่ในวิชานี้แปลว่า <b>Market Basket Analysis</b>"><b>His memory hook:</b> MBA is the same acronym as the Master of Business Administration that everyone used to flock to. Here it means <b>Market Basket Analysis</b>.</p>
+        <p data-th="<b>เรื่องเบียร์กับผ้าอ้อม:</b> ข้อมูล transaction ในอเมริกาพบว่าผู้ชายที่มาซื้อของเย็นวันศุกร์แล้วซื้อ<b>เบียร์</b> มักซื้อ<b>ผ้าอ้อมเด็ก</b>ไปด้วย · อ่านได้ว่าเป็นพ่อบ้านที่มีลูกเล็ก แวะซื้อของให้ลูกพร้อมหยิบเบียร์ไปดูกีฬา · <b>เดิมทีทุกคนเดาว่าผ้าอ้อมคือของที่แม่ซื้อ</b> — นี่คือตัวอย่างคลาสสิกของ pattern ที่<b>ซ่อนอยู่และคาดไม่ถึงเลย</b> ซึ่งเป็นสิ่งที่ MBA มีไว้เพื่อขุดออกมา"><b>Beer &amp; diapers:</b> American transaction data showed that men shopping on a Friday evening who bought <b>beer</b> also tended to buy <b>baby diapers</b> — married men with small children, picking something up for the child while grabbing beer for the game. <b>The assumption had been that diapers were a mother's purchase.</b> It is the classic example of a pattern that is <b>hidden and completely unexpected</b>, which is exactly what MBA exists to dig up.</p>
+      </div>
+      <div class="fact b">
+        <h3 data-th="Transactional data">Transactional data</h3>
+        <p data-th="ข้อมูลที่เก็บจาก<b>เหตุการณ์เดียว</b> — ลักษณะสำคัญคือมันบันทึกรายละเอียดของ<b>การเกิดขึ้นครั้งหนึ่งครั้งเดียวที่เจาะจง</b>">Information recorded from an individual event — its key characteristic is capturing the details of <b>one specific, single occurrence</b>.</p>
+        <p data-th="ของจริงเก็บมากกว่านี้: ใครซื้อ ซื้ออะไร <b>จำนวนเท่าไหร่</b> จ่ายเท่าไหร่ <b>ที่ไหน และเวลาไหน</b>">Real data records more: who bought, what, <b>how many</b>, how much they paid, <b>where and at what time</b>.</p>
+        <p data-th="<b>timestamp สำคัญมาก</b> เพราะการทำ data mining กับข้อมูลปริมาณมหาศาลต้องแยกให้ออกว่าปีที่แล้ว เดือนที่แล้ว หรือสัปดาห์ที่แล้ว · ไม่มี timestamp ก็แยกไม่ได้"><b>The timestamp matters a great deal</b>, because mining large volumes has to separate last year from last month from last week. Without one there is no way to tell them apart.</p>
+        <p class="fnote" data-th="<b>แต่ในขอบเขตของ MBA เราไม่สนใจจำนวน</b> — สนใจแค่ว่าอะไรเกิดขึ้นพร้อมอะไร · เพราะแต่ละตะกร้าเก็บเป็น <b>set</b> จึง<b>ไม่มีของซ้ำ</b> (นม 3 กล่องก็นับเป็น Milk ครั้งเดียว) และ<b>ลำดับไม่สำคัญ</b>"><b>But within MBA we ignore quantities</b> — only what co-occurs with what. Because each basket is stored as a <b>set</b>, <b>items never repeat</b> (three cartons of milk still count as Milk once) and <b>order does not matter</b>.</p>
+      </div>
+      <div class="fact g">
+        <h3 data-th="Item · Itemset · Frequent itemset">Item · itemset · frequent itemset</h3>
+        <p data-th="<b>Item</b> = สินค้าหนึ่งประเภท — Milk, Bread, Butter, Eggs, Diapers"><b>An item</b> is one product type — Milk, Bread, Butter, Eggs, Diapers.</p>
+        <p data-th="<b>Itemset</b> = กลุ่มของ item ตั้งแต่หนึ่งตัวขึ้นไปที่ปรากฏด้วยกันใน transaction เดียว · <b>1-itemset</b> เช่น {Milk} · <b>2-itemset</b> เช่น {Milk, Bread} · <b>3-itemset</b> เช่น {Milk, Bread, Butter}"><b>An itemset</b> is one or more items appearing together in a single transaction — a <b>1-itemset</b> like {Milk}, a <b>2-itemset</b> like {Milk, Bread}, a <b>3-itemset</b> like {Milk, Bread, Butter}.</p>
+        <p data-th="<b>Frequent itemset</b> = itemset ที่มี support <b>มากกว่าหรือเท่ากับ minimum support threshold</b> ที่ผู้ใช้กำหนด"><b>A frequent itemset</b> is one whose support is <b>greater than or equal to the user-defined minimum support threshold</b>.</p>
+        <p class="fnote" data-th="<b>Frequency</b> คือจำนวนครั้งดิบๆ ยังไม่หารอะไร · <b>Support</b> คือ frequency นั้นหารด้วย N · <b>1-itemset สร้าง rule ไม่ได้</b> เพราะสินค้าประเภทเดียวไม่ได้บอกความสัมพันธ์กับอะไรเลย · ในทางปฏิบัติ <b>3–4 itemsets กำลังดี</b> เกิน 5 แล้วสับสน หา pattern ยาก และเลิกมีประโยชน์"><b>Frequency</b> is the raw count, not divided by anything. <b>Support</b> is that frequency divided by N. <b>A 1-itemset cannot produce a rule</b>, because a single product type says nothing about its relationship to anything. In practice <b>3–4 itemsets is about right</b>; past 5 it gets confusing, patterns are hard to find, and it stops being useful.</p>
+      </div>
+    </div>
+
+    <div class="sub-h" data-th="2 · สามสูตร — จำเวอร์ชัน frequency จะง่ายกว่า">2 · The three formulas — the frequency version is easier to recall</div>
+    <div class="panel hot">
+      <p class="lede" data-th="สไลด์ 7 เขียนทั้งสามสูตรใหม่ในรูป <b>frequency (จำนวนครั้งดิบ)</b> แทน support — สะดวกกว่าตอนคำนวณด้วยมือ เพราะ <b>N ตัดกันไปเอง</b> · อาจารย์แนะนำให้จำเวอร์ชันนี้ และจำ<b>สองตัวบนก่อน</b>">Slide 7 restates all three in terms of <b>frequency (raw counts)</b> rather than support — easier by hand, because <b>the N cancels</b>. He recommended memorising this version, and <b>the top two first</b>.</p>
       <div class="tbl-wrap">
         <table class="g">
-          <tr><td><b>Support(X)</b></td><td data-th="<code>= จำนวน transaction ที่มี X ÷ transaction ทั้งหมด</code> · ตอบว่า “ของชิ้นนี้ (หรือชุดนี้) เกิดขึ้นบ่อยแค่ไหน”"><code>= transactions containing X ÷ total transactions</code>. It answers "how often does this item, or this set, occur?"</td></tr>
-          <tr><td><b>Confidence(X→Y)</b></td><td data-th="<code>= Support(X,Y) ÷ Support(X)</code> · มาจาก conditional probability · ตอบว่า “เมื่อมี X ในตะกร้าแล้ว เรามั่นใจแค่ไหนว่าจะมี Y ด้วย”"><code>= Support(X,Y) ÷ Support(X)</code>, from conditional probability. It answers "given X is in the basket, how confident are we that Y is too?"</td></tr>
-          <tr><td><b>Lift(X→Y)</b></td><td data-th="<code>= Confidence(X→Y) ÷ Support(Y)</code> = <code>Support(X,Y) ÷ [Support(X) × Support(Y)]</code>"><code>= Confidence(X→Y) ÷ Support(Y)</code> = <code>Support(X,Y) ÷ [Support(X) × Support(Y)]</code></td></tr>
+          <thead><tr><th data-th="สูตร">Formula</th><th data-th="เขียนยังไง">How it is written</th><th data-th="ตอบคำถามว่า">It answers</th></tr></thead>
+          <tr><td><b>Support</b></td><td><code>Frequency(X, Y) ÷ N</code></td><td data-th="<b>“itemset นี้นิยมแค่ไหน”</b> · ค่าอยู่ระหว่าง <b>0% ถึง 100%</b> · อะไรที่ต่ำกว่า <b>minimum support threshold</b> ถือว่า infrequent และ<b>ถูกตัดทิ้ง</b>"><b>"How popular is this itemset?"</b> It ranges <b>0% to 100%</b>. Anything below the <b>minimum support threshold</b> is infrequent and <b>gets discarded</b>.</td></tr>
+          <tr><td><b>Confidence</b></td><td><code>Frequency(X, Y) ÷ Frequency(X)</code></td><td data-th="<b>“ถ้ามี X แล้ว มี Y ด้วยบ่อยแค่ไหน”</b> · <b>ตัวช่วยจำของอาจารย์:</b> confidence คือ <b>เงื่อนไข</b> — “ให้ X เกิดแล้ว Y จะเกิดไหม” ดังนั้น <b>X ต้องเกิดก่อน</b> X จึงเป็นตัวส่วน"><b>"Given X, how often is Y there too?"</b> <b>His hook:</b> confidence is a <b>condition</b> — "given X, will Y happen?" — so <b>X has to happen first</b>, which is why X is the denominator.</td></tr>
+          <tr><td><b>Lift</b></td><td><code>Support(X,Y) ÷ [Support(X) × Support(Y)]</code></td><td data-th="<b>“ความสัมพันธ์นี้แรงกว่าความบังเอิญไหม”</b> · เขียนได้อีกแบบว่า <code>Confidence(X→Y) ÷ Support(Y)</code> · ช่วงค่า <b>[0, +∞)</b>"><b>"Is this stronger than chance?"</b> Also written <code>Confidence(X→Y) ÷ Support(Y)</code>. Its range is <b>[0, +∞)</b>.</td></tr>
         </table>
       </div>
+      <p class="fnote" data-th="<b>ที่มาของ confidence:</b> มาจาก <b>conditional probability</b> ตรงๆ — <code>P(B|A) = P(A ∩ B) / P(A)</code> · <b>ขยายไปสาม item:</b> ถ้ากฎเปลี่ยนจาก X → Y เป็น X → Y ∧ Z ก็แค่<b>เติม Z ลงไปทุกที่ที่มี Y</b> เช่น <code>Confidence(A,B → C) = Support(A,B,C) ÷ Support(A,B)</code>"><b>Where confidence comes from:</b> straight from <b>conditional probability</b> — <code>P(B|A) = P(A ∩ B) / P(A)</code>. <b>Extending to three items:</b> going from X → Y to X → Y ∧ Z just means <b>adding Z everywhere Y appears</b>, e.g. <code>Confidence(A,B → C) = Support(A,B,C) ÷ Support(A,B)</code>.</p>
     </div>
 
-    <div class="cards">
+    <div class="sub-h" data-th="3 · Apriori — ทำไมถึงต้องตัดทิ้งตั้งแต่ต้น">3 · Apriori — why you must prune early</div>
+    <figure class="diagram">
+      <svg viewBox="0 0 880 260" role="img" aria-label="The Apriori pipeline: count the one-itemsets and discard anything below minimum support, pair only the survivors into two-itemsets and discard again, combine only those survivors into three-itemsets and discard again, stop when nothing passes, then generate rules from the surviving frequent itemsets and filter them by minimum confidence to leave the strong rules.">
+        <rect x="16" y="34" width="132" height="56" rx="9" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6"/>
+        <text x="82" y="58" text-anchor="middle" class="mono" font-size="11.5" fill="var(--accent)">1-itemsets</text>
+        <text x="82" y="76" text-anchor="middle" class="lbl" font-size="10.5">count support</text>
+        <rect x="196" y="34" width="132" height="56" rx="9" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6"/>
+        <text x="262" y="58" text-anchor="middle" class="mono" font-size="11.5" fill="var(--accent)">2-itemsets</text>
+        <text x="262" y="76" text-anchor="middle" class="lbl" font-size="10.5">pair the survivors</text>
+        <rect x="376" y="34" width="132" height="56" rx="9" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6"/>
+        <text x="442" y="58" text-anchor="middle" class="mono" font-size="11.5" fill="var(--accent)">3-itemsets</text>
+        <text x="442" y="76" text-anchor="middle" class="lbl" font-size="10.5">combine survivors</text>
+        <rect x="556" y="34" width="132" height="56" rx="9" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="1.6"/>
+        <text x="622" y="58" text-anchor="middle" class="mono" font-size="11.5">STOP</text>
+        <text x="622" y="76" text-anchor="middle" class="lbl" font-size="10.5">nothing passes</text>
+        <rect x="736" y="34" width="128" height="56" rx="9" fill="var(--green-soft)" stroke="var(--green)" stroke-width="1.6"/>
+        <text x="800" y="58" text-anchor="middle" class="mono" font-size="11.5" fill="var(--green)">strong rules</text>
+        <text x="800" y="76" text-anchor="middle" class="lbl" font-size="10.5">the answer</text>
+        <path d="M148,62 H192" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>
+        <path d="M328,62 H372" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>
+        <path d="M508,62 H552" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>
+        <path d="M688,62 H732" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>
+        <path d="M82,90 V132" fill="none" stroke="var(--red)" stroke-width="1.6" stroke-dasharray="4 4"/>
+        <path d="M262,90 V132" fill="none" stroke="var(--red)" stroke-width="1.6" stroke-dasharray="4 4"/>
+        <path d="M442,90 V132" fill="none" stroke="var(--red)" stroke-width="1.6" stroke-dasharray="4 4"/>
+        <rect x="22" y="132" width="120" height="30" rx="7" fill="var(--red-soft)" stroke="var(--red)" stroke-width="1.3"/>
+        <text x="82" y="152" text-anchor="middle" class="mono" font-size="10.5" fill="var(--red)">below min sup</text>
+        <rect x="202" y="132" width="120" height="30" rx="7" fill="var(--red-soft)" stroke="var(--red)" stroke-width="1.3"/>
+        <text x="262" y="152" text-anchor="middle" class="mono" font-size="10.5" fill="var(--red)">below min sup</text>
+        <rect x="382" y="132" width="120" height="30" rx="7" fill="var(--red-soft)" stroke="var(--red)" stroke-width="1.3"/>
+        <text x="442" y="152" text-anchor="middle" class="mono" font-size="10.5" fill="var(--red)">below min sup</text>
+        <text x="262" y="180" text-anchor="middle" class="lbl" font-size="10.5" fill="var(--red)">discarded, and never expanded again</text>
+        <path d="M622,90 V212 H800 V96" fill="none" stroke="var(--violet)" stroke-width="1.6"/>
+        <text x="440" y="232" text-anchor="middle" class="mono" font-size="11" fill="var(--violet)">generate every rule from each surviving frequent itemset,</text>
+        <text x="440" y="248" text-anchor="middle" class="mono" font-size="11" fill="var(--violet)">then keep only those passing MIN CONFIDENCE</text>
+      </svg>
+      <figcaption data-th="<b>Apriori</b> เสนอโดย <b>Rakesh Agrawal และ Ramakrishnan Srikant ปี 1994</b> · ชื่อ “Apriori” มีความหมายว่า <b>“สิ่งที่มาก่อน”</b> — อัลกอริทึมใช้สิ่งที่เรียนรู้จากรอบก่อนมาตัดสินใจว่ารอบถัดไปจะทำอะไร · <b>สังเกตว่า support ใช้กรอง itemset ส่วน confidence ใช้กรอง rule — คนละขั้นกัน</b>"><b>Apriori</b> was presented by <b>Rakesh Agrawal and Ramakrishnan Srikant in 1994</b>. The name carries the sense of <b>"what comes before"</b> — it uses what it learned on the previous pass to decide what to do on the next. <b>Note that support filters itemsets while confidence filters rules — two separate stages.</b></figcaption>
+    </figure>
+
+    <div class="cards two">
       <div class="card">
-        <h3 data-th="ศัพท์">Vocabulary</h3>
+        <h3 data-th="Apriori property — สองส่วน">The Apriori property — two parts</h3>
         <ul>
-          <li data-th="<b>Association rule</b> = กฎรูป <b>if–then</b> เขียนเป็น <code>X → Y</code> ที่ดึงมาจาก transaction data · เรียกอีกชื่อว่า <b>association mining</b>"><b>An association rule</b> is an <b>if–then</b> rule written <code>X → Y</code>, derived from transaction data. Also called <b>association mining</b>.</li>
-          <li data-th="<b>X</b> ทางซ้าย = <b>antecedent</b> (เงื่อนไข) · <b>Y</b> ทางขวา = <b>consequent</b> (ผล) · เครื่องหมาย <b>comma แปลว่า “และ”</b>"><b>X</b> on the left is the <b>antecedent</b>; <b>Y</b> on the right is the <b>consequent</b>. A <b>comma means "and"</b>.</li>
-          <li data-th="<b>MBA = Market Basket Analysis</b> — หาว่าอะไรถูกซื้อไปด้วยกัน · ตัวอย่างในตำนานคือ <b>beer &amp; diapers</b>"><b>MBA = Market Basket Analysis</b> — finding what gets bought together. The classic example is <b>beer &amp; diapers</b>.</li>
-          <li data-th="<b>Transactional data</b> บันทึกเหตุการณ์เดียว ควรมี timestamp — แต่ <b>MBA ไม่สนใจจำนวนและลำดับ</b>"><b>Transactional data</b> records one event and should carry a timestamp — but <b>MBA ignores quantities and order</b>.</li>
-          <li data-th="<b>Itemset</b> เป็นเซต จึง<b>ไม่มีตัวซ้ำและไม่มีลำดับ</b>"><b>An itemset</b> is a set, so it has <b>no duplicates and no order</b>.</li>
+          <li data-th="<b>ส่วนที่ 1:</b> ถ้า itemset หนึ่ง <b>frequent</b> → <b>subset ทุกตัวของมันต้อง frequent ด้วย</b> · ถ้า {Bread, Butter, Milk} ถูกซื้อด้วยกันบ่อย ก็ต้องแปลว่า {Bread, Butter}, {Butter, Milk}, {Bread, Milk}, {Bread}, {Butter}, {Milk} frequent หมด"><b>Part 1:</b> if an itemset is <b>frequent</b> → <b>all of its subsets must be frequent too</b>. If {Bread, Butter, Milk} is bought together often, then {Bread, Butter}, {Butter, Milk}, {Bread, Milk}, {Bread}, {Butter} and {Milk} must all be frequent.</li>
+          <li data-th="<b>ส่วนที่ 2 (contrapositive):</b> ถ้า itemset หนึ่ง <b>infrequent</b> → <b>superset ทุกตัวของมัน infrequent</b> · เจอว่า {Beer, Chips} ไม่ frequent ก็ <b>prune</b> ทุก itemset ที่ใหญ่กว่าซึ่งมีสองตัวนี้อยู่ได้ทันที"><b>Part 2 (the contrapositive):</b> if an itemset is <b>infrequent</b> → <b>all of its supersets are infrequent</b>. Find that {Beer, Chips} is not frequent, and you can <b>prune</b> every larger itemset containing it at once.</li>
+          <li data-th="อาจารย์โยงกลับไป Discrete Mathematics: ส่วนที่ 2 คือ <b>contrapositive</b> ของส่วนที่ 1 เป๊ะๆ — <code>p → q</code> สมมูลกับ <code>¬q → ¬p</code> · <b>แทบไม่มีอะไรใหม่ต้องจำ</b> ส่วนที่ 2 คือส่วนที่ 1 ที่สลับข้าง">He tied it back to Discrete Mathematics: part 2 is exactly the <b>contrapositive</b> of part 1 — <code>p → q</code> is equivalent to <code>¬q → ¬p</code>. <b>There is almost nothing new to memorise</b>; part 2 is part 1 with the sides swapped.</li>
         </ul>
       </div>
       <div class="card">
-        <h3 data-th="Apriori">Apriori</h3>
+        <h3 data-th="ทำไม prune ถึงจำเป็น">Why pruning is necessary</h3>
         <ul>
-          <li data-th="<b>ส่วนที่ 1:</b> ถ้า itemset หนึ่ง <b>frequent</b> → <b>subset ทุกตัวของมัน frequent</b>"><b>Part 1:</b> if an itemset is <b>frequent</b> → <b>all of its subsets are frequent</b>.</li>
-          <li data-th="<b>ส่วนที่ 2:</b> ถ้า itemset หนึ่ง <b>infrequent</b> → <b>superset ทุกตัวของมัน infrequent</b> (contrapositive ของข้อ 1)"><b>Part 2:</b> if an itemset is <b>infrequent</b> → <b>all of its supersets are infrequent</b> (the contrapositive of part 1).</li>
-          <li data-th="<b>ทำไมต้อง prune:</b> power set มีขนาด <b>2ⁿ</b> — สินค้าหลักพันชิ้นก็คำนวณไม่ไหว จึงต้องตัด infrequent itemset ทิ้งทันที"><b>Why pruning matters:</b> the power set has size <b>2ⁿ</b>. With thousands of products that is uncomputable, so infrequent itemsets are cut immediately.</li>
-          <li data-th="<b>ขั้นตอน:</b> 1-itemsets → ตัด → 2-itemsets → ตัด → 3-itemsets → ตัด → หยุดเมื่อไม่เหลืออะไรรอด"><b>The steps:</b> 1-itemsets → discard → 2-itemsets → discard → 3-itemsets → discard → stop when nothing survives.</li>
-          <li data-th="ในทางปฏิบัติ <b>3–4 itemsets กำลังดี</b> · เกิน 5 แล้ว pattern หายากและเลิกมีประโยชน์">In practice <b>3–4 itemsets is about right</b>; past 5 the patterns get hard to find and stop being useful.</li>
-        </ul>
-      </div>
-      <div class="card watch">
-        <h3 data-th="ระวังไว้">Watch out</h3>
-        <ul>
-          <li data-th="<b>1-itemset สร้าง rule ไม่ได้</b> — ต้องมีอย่างน้อย <b>2 items</b> เพราะแต่ละข้างของลูกศรต้องมีอย่างน้อย 1 ตัว antecedent ว่างหรือ consequent ว่างไม่ได้"><b>A 1-itemset cannot make a rule</b> — you need at least <b>2 items</b>, since each side of the arrow needs at least one. Neither side may be empty.</li>
-          <li data-th="<b>confidence ไม่สมมาตร</b> — <code>Confidence(X→Y) ≠ Confidence(Y→X)</code> เพราะตัวเศษเท่ากันแต่<b>ตัวส่วนต่างกัน</b>"><b>Confidence is not symmetric</b> — <code>Confidence(X→Y) ≠ Confidence(Y→X)</code>, because the numerators match but <b>the denominators do not</b>.</li>
-          <li data-th="<b>กับดัก confidence สูง:</b> ตัวอย่างในสไลด์ได้ confidence <b>100%</b> แต่ <b>lift = 1 พอดี</b> เพราะนมอยู่ในทุก transaction อยู่แล้ว → <b>ต้องดู lift ด้วยเสมอ</b>"><b>The high-confidence trap:</b> a slide example reaches <b>100% confidence</b> but a <b>lift of exactly 1</b>, because milk is in every transaction anyway → <b>always check lift too</b>.</li>
-          <li data-th="<b>อ่าน lift:</b> <b>&gt; 1</b> สัมพันธ์กันจริง · <b>= 1</b> เป็นอิสระต่อกัน · <b>&lt; 1</b> สัมพันธ์เชิงลบ · <b>สไลด์หน้า 6 พิมพ์ผิดตรงนี้</b>"><b>Reading lift:</b> <b>&gt; 1</b> a real association · <b>= 1</b> independent · <b>&lt; 1</b> a negative association. <b>Slide 6 mistypes this.</b></li>
-          <li data-th="<b>3-itemset สร้างได้ 6 rules</b> — 3 กฎที่ consequent มีตัวเดียว และ 3 กฎที่ consequent มีสองตัว · <b>ทุก item ต้องปรากฏ ห้ามขาด</b>"><b>A 3-itemset gives 6 rules</b> — three with a one-item consequent and three with a two-item consequent. <b>Every item must appear; none may be missing.</b></li>
+          <li data-th="ร้านจริงมีสินค้า<b>หลายพันประเภท</b>">A real shop stocks <b>thousands of product types</b>.</li>
+          <li data-th="ถ้ามี n ชนิด จำนวน subset ทั้งหมด (power set) คือ <code>2^n</code>">With n items, the total number of subsets (the power set) is <code>2^n</code>.</li>
+          <li data-th="n = 1,000 จะได้ <code>2^1000</code> ซึ่ง<b>คำนวณไม่ได้เลย</b>">With n = 1,000 that is <code>2^1000</code>, which is <b>simply not computable</b>.</li>
+          <li data-th="Apriori ใช้ส่วนที่ 2 มาตัด: <b>อะไรที่ไม่ frequent ถูกโยนทิ้งและไม่ถูกขยายต่ออีกเลย</b> ประหยัดการคำนวณมหาศาล">Apriori uses part 2 to cut it down: <b>anything not frequent is thrown away and never expanded</b>, saving an enormous amount of computation.</li>
+          <li data-th="<b>ลำดับ 5 ขั้น:</b> 1-itemsets → ตัด → 2-itemsets → ตัด → 3-itemsets → ตัด → หยุดเมื่อไม่เหลืออะไรผ่าน → เอา frequent itemsets ที่รอดมาสร้าง rule แล้วกรองด้วย confidence"><b>The five steps:</b> 1-itemsets → discard → 2-itemsets → discard → 3-itemsets → discard → stop when nothing passes → take the surviving frequent itemsets, generate rules, and filter by confidence.</li>
         </ul>
       </div>
     </div>
 
+    <div class="sub-h" data-th="4 · ตัวอย่างเต็ม A — 3 transactions (สไลด์ 8–15)">4 · Worked example A — 3 transactions (slides 8–15)</div>
     <div class="panel">
-      <h3 data-th="สองตัวอย่างที่ทำในคาบ">The two worked examples</h3>
+      <p class="lede" data-th="<b>ข้อมูล:</b> T1 {Milk, Bread, Butter} · T2 {Milk, Bread, Eggs} · T3 {Milk, Eggs} — <b>N = 3</b> · <b>เกณฑ์:</b> min support = <b>50%</b> (ต้องอยู่อย่างน้อย 2 ใน 3 transaction) และ min confidence = <b>75%</b>"><b>The data:</b> T1 {Milk, Bread, Butter} · T2 {Milk, Bread, Eggs} · T3 {Milk, Eggs} — <b>N = 3</b>. <b>The thresholds:</b> min support <b>50%</b> (so at least 2 of the 3) and min confidence <b>75%</b>.</p>
+
+      <div class="sub-h" style="margin-top:8px;" data-th="ขั้น 1a — นับ 1-itemsets">Step 1a — count the 1-itemsets</div>
       <div class="tbl-wrap">
         <table class="g">
-          <tr><td data-th="ตัวอย่างในสไลด์">The slide example</td><td data-th="min support <b>50%</b>, min confidence <b>75%</b> → strong rules ที่รอดคือ <b>{Bread}→{Milk}</b> และ <b>{Eggs}→{Milk}</b> ทั้งคู่ confidence <b>100%</b> — แต่ lift = 1 ทั้งคู่ ซึ่งคือบทเรียนสำคัญของตัวอย่างนี้">min sup <b>50%</b>, min conf <b>75%</b> → the surviving strong rules are <b>{Bread}→{Milk}</b> and <b>{Eggs}→{Milk}</b>, both at <b>100% confidence</b> — but both with lift 1, which is the lesson of the example.</td></tr>
-          <tr><td data-th="แบบฝึกหัด 5 transaction">The 5-transaction exercise</td><td data-th="min support <b>60%</b>, min confidence <b>80%</b> → เหลือ strong rule เดียวคือ <b>{Butter}→{Bread}</b> confidence <b>100%</b> lift <b>1.25</b>">min sup <b>60%</b>, min conf <b>80%</b> → one strong rule survives: <b>{Butter}→{Bread}</b>, confidence <b>100%</b>, lift <b>1.25</b>.</td></tr>
+          <thead><tr><th>1-itemset</th><th data-th="อยู่ใน">Appears in</th><th>Support</th><th data-th="ผล">Verdict</th></tr></thead>
+          <tr><td>{Milk}</td><td>T1, T2, T3</td><td><code>3/3 = 100%</code></td><td><span class="yes" data-th="frequent ✅">frequent ✅</span></td></tr>
+          <tr><td>{Bread}</td><td>T1, T2</td><td><code>2/3 = 67%</code></td><td><span class="yes" data-th="frequent ✅">frequent ✅</span></td></tr>
+          <tr><td>{Butter}</td><td>T1</td><td><code>1/3 = 33%</code></td><td><span class="no" data-th="ตัดทิ้ง ❌">discard ❌</span></td></tr>
+          <tr><td>{Eggs}</td><td>T2, T3</td><td><code>2/3 = 67%</code></td><td><span class="yes" data-th="frequent ✅">frequent ✅</span></td></tr>
         </table>
       </div>
+
+      <div class="sub-h" data-th="ขั้น 1b — นับ 2-itemsets (จับคู่เฉพาะตัวที่รอด)">Step 1b — count the 2-itemsets (pair only the survivors)</div>
+      <div class="tbl-wrap">
+        <table class="g">
+          <thead><tr><th>2-itemset</th><th data-th="อยู่ใน">Appears in</th><th>Support</th><th data-th="ผล">Verdict</th></tr></thead>
+          <tr><td>{Milk, Bread}</td><td>T1, T2</td><td><code>2/3 = 67%</code></td><td><span class="yes" data-th="frequent ✅">frequent ✅</span></td></tr>
+          <tr><td>{Milk, Eggs}</td><td>T2, T3</td><td><code>2/3 = 67%</code></td><td><span class="yes" data-th="frequent ✅">frequent ✅</span></td></tr>
+          <tr><td>{Bread, Eggs}</td><td>T2</td><td><code>1/3 = 33%</code></td><td><span class="no" data-th="ตัดทิ้ง ❌">discard ❌</span></td></tr>
+        </table>
+      </div>
+      <p class="fnote" data-th="<b>Butter หายไปแล้วตั้งแต่รอบก่อน จึงไม่ต้องนับคู่ไหนที่มี Butter เลย</b> — นั่นคือ Apriori property ส่วนที่ 2 กำลังทำงาน"><b>Butter is already gone, so no pair containing Butter needs counting at all</b> — that is the second Apriori property doing its job.</p>
+
+      <div class="sub-h" data-th="ขั้น 1c — หยุดตรงนี้">Step 1c — stop here</div>
+      <p class="lede" data-th="ต้องหยุดเพราะ<b>ไม่มี 3-itemset ไหนไปถึง 50% ได้</b> — {Milk, Bread, Eggs} อยู่ใน T2 ตัวเดียว คือ <code>1/3 = 33.33%</code> ต่ำกว่าเกณฑ์">We stop because <b>no 3-itemset can reach 50%</b> — {Milk, Bread, Eggs} appears in T2 only, i.e. <code>1/3 = 33.33%</code>, below the threshold.</p>
+
+      <div class="sub-h" data-th="ขั้น 2 — สร้าง rule แล้วกรองด้วย confidence 75%">Step 2 — generate the rules and filter at 75% confidence</div>
+      <div class="tbl-wrap">
+        <table class="g">
+          <thead><tr><th data-th="กฎ">Rule</th><th data-th="คำนวณ">Calculation</th><th>Confidence</th><th data-th="ผล">Verdict</th></tr></thead>
+          <tr><td class="wide">{Milk} → {Bread}</td><td><code>(2/3) / (3/3)</code></td><td><code>67%</code></td><td><span class="no" data-th="อ่อน ตัดทิ้ง ❌">weak, discard ❌</span></td></tr>
+          <tr><td class="wide">{Bread} → {Milk}</td><td><code>(2/3) / (2/3)</code></td><td><code>100%</code></td><td><span class="yes" data-th="strong rule ✅">strong rule ✅</span></td></tr>
+          <tr><td class="wide">{Milk} → {Eggs}</td><td><code>(2/3) / (3/3)</code></td><td><code>67%</code></td><td><span class="no" data-th="อ่อน ตัดทิ้ง ❌">weak, discard ❌</span></td></tr>
+          <tr><td class="wide">{Eggs} → {Milk}</td><td><code>(2/3) / (2/3)</code></td><td><code>100%</code></td><td><span class="yes" data-th="strong rule ✅">strong rule ✅</span></td></tr>
+        </table>
+      </div>
+      <p class="lede" style="margin-top:12px;" data-th="<b>คำตอบ: {Bread} → {Milk} และ {Eggs} → {Milk} ทั้งคู่ confidence 100%</b> · แปลว่าใครซื้อขนมปังก็ซื้อนมด้วย และใครซื้อไข่ก็ซื้อนมด้วย · เจ้าของร้านอาจเอานมไปวางใกล้ชั้นขนมปังและไข่เพื่อกระตุ้น <b>impulse purchase</b>"><b>The answer: {Bread} → {Milk} and {Eggs} → {Milk}, both at 100% confidence.</b> Whoever buys bread buys milk, and whoever buys eggs buys milk. A store owner might put the milk near the bread and eggs to encourage an <b>impulse purchase</b>.</p>
+    </div>
+
+    <div class="panel hot">
+      <h3 data-th="บทเรียนสำคัญที่สุดของตัวอย่างนี้ — อ่านด้วย lift">The most important lesson in this example — read it with lift</h3>
+      <p class="lede" data-th="ทั้งสองกฎได้ confidence <b>100%</b> ซึ่งดูดีมาก แต่พอคำนวณ lift:">Both rules hit <b>100% confidence</b>, which looks excellent. But compute the lift:</p>
+      <div class="tbl-wrap">
+        <table class="g">
+          <tr><td class="wide">Lift({Eggs} → {Milk})</td><td><code>Confidence ÷ Support({Milk}) = 100% ÷ 100% = <b>1</b></code></td></tr>
+          <tr><td class="wide">Lift({Bread} → {Milk})</td><td><code>100% ÷ 100% = <b>1</b></code></td></tr>
+        </table>
+      </div>
+      <p class="fnote" data-th="<b>lift = 1 พอดี แปลว่าไม่มีความสัมพันธ์กันเลย</b> · เหตุผล: ลูกค้าซื้อนมทุกครั้งที่ซื้อไข่ <b>ไม่ใช่เพราะไข่กับนมเกี่ยวกัน แต่เพราะเขาซื้อนมทุก transaction อยู่แล้ว</b> (Support({Milk}) = 100%) · <b>confidence สูงหลอกตาได้</b> · ถ้า support ของนมต่ำกว่านี้ (เช่น 50%) แล้ว lift ยังออกมามากกว่า 1 นั่นถึงจะแปลว่าเป็นความสัมพันธ์จริงที่ไม่ใช่ความบังเอิญ — <b>นี่คือเหตุผลว่าทำไม lift ถึงสำคัญ: support กับ confidence อย่างเดียวไม่พอ</b>"><b>A lift of exactly 1 means there is no association at all.</b> The reason: customers buy milk every time they buy eggs <b>not because eggs and milk are related, but because they buy milk in every transaction regardless</b> (Support({Milk}) = 100%). <b>High confidence can deceive.</b> Had milk's support been lower — say 50% — and the lift still come out above 1, that would indicate a genuinely non-coincidental relationship. <b>This is why lift matters: support and confidence alone are not enough.</b></p>
+    </div>
+
+    <div class="sub-h" data-th="5 · อ่านค่า lift">5 · Reading a lift value</div>
+    <div class="tbl-wrap">
+      <table class="g">
+        <thead><tr><th data-th="ค่า lift">Lift</th><th data-th="ความหมาย">Meaning</th></tr></thead>
+        <tr><td><b>Lift &gt; 1</b></td><td data-th="X และ Y เกิดร่วมกัน<b>บ่อยกว่า</b>ที่ควรจะเป็นถ้าทั้งคู่เป็นอิสระต่อกัน → <b>ความสัมพันธ์แข็งแรง</b>">X and Y occur together <b>more often</b> than expected if they were independent → <b>a strong association</b>.</td></tr>
+        <tr><td><b>Lift = 1</b></td><td data-th="X และ Y <b>เป็นอิสระต่อกัน</b> → <b>ไม่มีความสัมพันธ์เลย</b>">X and Y are <b>independent</b> → <b>no association at all</b>.</td></tr>
+        <tr><td><b>Lift &lt; 1</b></td><td data-th="สัมพันธ์กัน<b>เชิงลบ</b> — การมีอยู่ของตัวหนึ่ง<b>ลด</b>โอกาสของอีกตัว">A <b>negative</b> association — the presence of one <b>reduces</b> the likelihood of the other.</td></tr>
+      </table>
+    </div>
+    <div class="traps" style="margin-top:12px;">
+      <div class="trap">
+        <b data-th="สไลด์ 6 พิมพ์ผิด">Slide 6 has a typo</b>
+        <span data-th="bullet สุดท้ายของสไลด์ 6 เขียนว่า <b>“Lift &gt; 1: The items X and Y are negatively associated”</b> ซึ่ง<b>ขัดกับ bullet แรกของตัวเอง</b> · ที่ถูกต้องคือ <b>Lift &lt; 1</b> ตามตารางข้างบน · <b>ถ้าข้อสอบอ้างสไลด์หน้านี้ ให้ตอบตามตรรกะที่ถูก ไม่ใช่ตามที่พิมพ์ผิด</b>">Its last bullet reads <b>"Lift &gt; 1: The items X and Y are negatively associated"</b>, which <b>contradicts its own first bullet</b>. The correct statement is <b>Lift &lt; 1</b>, as in the table above. <b>If a question echoes that slide, answer the correct logic, not the typo.</b></span>
+      </div>
+      <div class="trap">
+        <b data-th="confidence ไม่สมมาตร — แต่ lift สมมาตร">Confidence is not symmetric — but lift is</b>
+        <span data-th="<code>Confidence(X→Y) ≠ Confidence(Y→X)</code> เพราะ<b>ตัวเศษเหมือนกันแต่ตัวส่วนต่างกัน</b> · <code>Support(Milk ∧ Bread)</code> กับ <code>Support(Bread ∧ Milk)</code> เป็นค่าเดียวกัน เพราะ “และ” สลับที่ได้ — แต่ <code>Support(Milk)</code> กับ <code>Support(Bread)</code> คนละค่า · <b>“ซื้อนมแล้วซื้อขนมปัง” ไม่ใช่ประโยคเดียวกับ “ซื้อขนมปังแล้วซื้อนม”</b> · ส่วน <b>lift สมมาตร</b> เพราะตัวส่วนเป็น Support(X) × Support(Y) ซึ่งสลับที่ได้"><code>Confidence(X→Y) ≠ Confidence(Y→X)</code> because <b>the numerators are identical but the denominators are not</b>. <code>Support(Milk ∧ Bread)</code> and <code>Support(Bread ∧ Milk)</code> are the same value, since "and" commutes — but <code>Support(Milk)</code> and <code>Support(Bread)</code> are different. <b>"Buying milk then bread" is not the same statement as "buying bread then milk".</b> <b>Lift, by contrast, is symmetric</b>, because its denominator is Support(X) × Support(Y), which commutes.</span>
+      </div>
+    </div>
+
+    <div class="sub-h" data-th="6 · สร้าง rule จาก 3-itemset — ได้ 6 กฎ">6 · Generating rules from a 3-itemset — six of them</div>
+    <div class="panel">
+      <p class="lede" data-th="<b>กฎเหล็ก:</b> union ของ antecedent กับ consequent ต้องเท่ากับ itemset นั้น<b>พอดี</b> และ<b>ทั้งสองข้างต้องไม่ว่าง</b> · แปลว่า <b>item ทุกตัวใน itemset ต้องปรากฏในกฎ</b> ไม่ข้างซ้ายก็ข้างขวา <b>ห้ามขาดตัวไหน</b> · ตัวอย่างจาก itemset <b>{Milk, Bread, Butter}</b>:"><b>The hard rule:</b> the union of antecedent and consequent must equal that itemset <b>exactly</b>, and <b>both sides must be non-empty</b>. So <b>every item in the itemset must appear in the rule</b>, on the left or the right, <b>with none missing</b>. From the itemset <b>{Milk, Bread, Butter}</b>:</p>
+      <div class="tbl-wrap">
+        <table class="g">
+          <thead><tr><th>#</th><th data-th="กฎ">Rule</th><th>Confidence</th></tr></thead>
+          <tr><td>1</td><td class="wide">{Milk, Bread} → {Butter}</td><td><code>Support(Milk,Bread,Butter) ÷ Support(Milk,Bread)</code></td></tr>
+          <tr><td>2</td><td class="wide">{Milk, Butter} → {Bread}</td><td><code>Support(Milk,Bread,Butter) ÷ Support(Milk,Butter)</code></td></tr>
+          <tr><td>3</td><td class="wide">{Bread, Butter} → {Milk}</td><td><code>Support(Milk,Bread,Butter) ÷ Support(Bread,Butter)</code></td></tr>
+          <tr><td>4</td><td class="wide">{Milk} → {Bread, Butter}</td><td><code>Support(Milk,Bread,Butter) ÷ Support(Milk)</code></td></tr>
+          <tr><td>5</td><td class="wide">{Bread} → {Milk, Butter}</td><td><code>Support(Milk,Bread,Butter) ÷ Support(Bread)</code></td></tr>
+          <tr><td>6</td><td class="wide">{Butter} → {Milk, Bread}</td><td><code>Support(Milk,Bread,Butter) ÷ Support(Butter)</code></td></tr>
+        </table>
+      </div>
+      <p class="fnote" data-th="<b>สังเกตว่าตัวเศษเหมือนกันหมดทั้งหกกฎ</b> — คือ support ของ 3-itemset เต็ม · <b>มีแต่ตัวส่วนที่เปลี่ยน</b> · <b>3 กฎแรก consequent มี item เดียว · 3 กฎหลัง consequent มีสอง item</b>"><b>Notice the numerator is identical in all six</b> — the support of the full 3-itemset. <b>Only the denominator changes.</b> <b>The first three have a one-item consequent; the last three have a two-item consequent.</b></p>
+      <div class="traps" style="margin-top:12px;">
+        <div class="trap">
+          <b data-th="ข้อผิดพลาดที่เจอบ่อย">The common mistake</b>
+          <span data-th="จาก 3-itemset {Milk, Bread, Butter} <b>เขียนกฎ {Milk} → {Bread} ไม่ได้</b> เพราะ <b>Butter หายไป</b> · กฎนั้นเป็นของ 2-itemset {Milk, Bread} ไม่ใช่ของ itemset นี้">From the 3-itemset {Milk, Bread, Butter} you <b>cannot write {Milk} → {Bread}</b>, because <b>Butter is missing</b>. That rule belongs to the 2-itemset {Milk, Bread}, not to this one.</span>
+        </div>
+        <div class="trap ok">
+          <b data-th="หยุดที่ 2-itemset ได้ไหม">May you stop at 2-itemsets?</b>
+          <span data-th="<b>ได้</b> · หยุดที่ 2-itemsets ถูกต้องสมบูรณ์แม้จะมี itemset ที่ใหญ่กว่าอยู่ — มันแค่แปลว่าคุณเลือกจะดึงเฉพาะความสัมพันธ์<b>แบบคู่ (pairwise)</b> · ถ้าต้องการชุดที่ซับซ้อนกว่านั้นค่อยไปต่อที่ 3-itemsets"><b>Yes.</b> Stopping at 2-itemsets is perfectly valid even when larger itemsets exist — it simply means you are choosing to extract only <b>pairwise</b> relationships. If you need more complex bundles, go on to the 3-itemsets.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-h" data-th="7 · ตัวอย่างเต็ม B — 5 transactions (แบบฝึกหัดสไลด์ 17 · น่าจะออกสอบที่สุด)">7 · Worked example B — 5 transactions (the slide 17 exercise · the likeliest exam question)</div>
+    <div class="panel key">
+      <p class="lede" data-th="<b>ข้อมูล:</b> T1 {Milk, Bread, Butter} · T2 {Milk, Diapers} · T3 {Bread, Butter, Diapers} · T4 {Milk, Bread, Butter} · T5 {Milk, Bread, Diapers} — <b>N = 5</b> · <b>เกณฑ์ที่อาจารย์ตั้งในคาบ:</b> min support = <b>60%</b> (อย่างน้อย 3 ใน 5) · min confidence = <b>80%</b> · <b>ข้อสอบจริงจะให้ threshold มาเสมอ ถ้าไม่ให้แปลว่าโจทย์ไม่ครบ</b>"><b>The data:</b> T1 {Milk, Bread, Butter} · T2 {Milk, Diapers} · T3 {Bread, Butter, Diapers} · T4 {Milk, Bread, Butter} · T5 {Milk, Bread, Diapers} — <b>N = 5</b>. <b>The thresholds he set in class:</b> min support <b>60%</b> (at least 3 of 5) and min confidence <b>80%</b>. <b>A real exam question always supplies the thresholds; if it does not, the question is incomplete.</b></p>
+
+      <div class="sub-h" style="margin-top:8px;" data-th="ขั้น 1a — 1-itemsets (60% = อย่างน้อย 3 ใน 5)">Step 1a — 1-itemsets (60% = at least 3 of 5)</div>
+      <div class="tbl-wrap">
+        <table class="g">
+          <thead><tr><th>1-itemset</th><th data-th="อยู่ใน">Appears in</th><th>Support</th><th data-th="ผล">Verdict</th></tr></thead>
+          <tr><td>{Milk}</td><td>T1, T2, T4, T5</td><td><code>4/5 = 80%</code></td><td><span class="yes" data-th="frequent ✅">frequent ✅</span></td></tr>
+          <tr><td>{Bread}</td><td>T1, T3, T4, T5</td><td><code>4/5 = 80%</code></td><td><span class="yes" data-th="frequent ✅">frequent ✅</span></td></tr>
+          <tr><td>{Butter}</td><td>T1, T3, T4</td><td><code>3/5 = 60%</code></td><td><span class="yes" data-th="frequent ✅ (พอดีเกณฑ์)">frequent ✅ (exactly at the threshold)</span></td></tr>
+          <tr><td>{Diapers}</td><td>T2, T3, T5</td><td><code>3/5 = 60%</code></td><td><span class="yes" data-th="frequent ✅ (พอดีเกณฑ์)">frequent ✅ (exactly at the threshold)</span></td></tr>
+        </table>
+      </div>
+      <p class="fnote" data-th="<b>รอดทั้งสี่ตัว</b> · สังเกตว่า <b>“มากกว่าหรือเท่ากับ” แปลว่า 60% พอดีก็ผ่าน</b> — ตรงนี้พลาดกันบ่อย"><b>All four survive.</b> Note that <b>"greater than or equal to" means exactly 60% passes</b> — an easy place to slip.</p>
+
+      <div class="sub-h" data-th="ขั้น 1b — 2-itemsets (จับคู่สี่ตัวที่รอด ได้ 6 คู่)">Step 1b — 2-itemsets (pairing the four survivors gives six candidates)</div>
+      <div class="tbl-wrap">
+        <table class="g">
+          <thead><tr><th>2-itemset</th><th data-th="อยู่ใน">Appears in</th><th>Support</th><th data-th="ผล">Verdict</th></tr></thead>
+          <tr><td>{Milk, Bread}</td><td>T1, T4, T5</td><td><code>3/5 = 60%</code></td><td><span class="yes" data-th="frequent ✅">frequent ✅</span></td></tr>
+          <tr><td>{Milk, Butter}</td><td>T1, T4</td><td><code>2/5 = 40%</code></td><td><span class="no" data-th="ตัดทิ้ง ❌">discard ❌</span></td></tr>
+          <tr><td>{Milk, Diapers}</td><td>T2, T5</td><td><code>2/5 = 40%</code></td><td><span class="no" data-th="ตัดทิ้ง ❌">discard ❌</span></td></tr>
+          <tr><td>{Bread, Butter}</td><td>T1, T3, T4</td><td><code>3/5 = 60%</code></td><td><span class="yes" data-th="frequent ✅">frequent ✅</span></td></tr>
+          <tr><td>{Bread, Diapers}</td><td>T3, T5</td><td><code>2/5 = 40%</code></td><td><span class="no" data-th="ตัดทิ้ง ❌">discard ❌</span></td></tr>
+          <tr><td>{Butter, Diapers}</td><td>T3</td><td><code>1/5 = 20%</code></td><td><span class="no" data-th="ตัดทิ้ง ❌">discard ❌</span></td></tr>
+        </table>
+      </div>
+
+      <div class="sub-h" data-th="ขั้น 1c — 3-itemsets และการ prune">Step 1c — 3-itemsets and pruning</div>
+      <p class="lede" data-th="ตัวเดียวที่สร้างได้จาก 2-itemset ที่รอดคือ <b>{Milk, Bread, Butter}</b> · แต่ <b>Apriori property ส่วนที่ 2 ตัดมันทิ้งทันทีโดยไม่ต้องนับเลย</b> เพราะ subset ของมันคือ <b>{Milk, Butter} มี support แค่ 40% ไม่ frequent</b> · (ถ้าดื้อนับดูจะได้ <code>2/5 = 40%</code> ยืนยันว่า prune ถูกต้อง) → <b>ไม่มี frequent 3-itemset เลย หยุดที่ 2-itemsets</b>">The only candidate buildable from the surviving 2-itemsets is <b>{Milk, Bread, Butter}</b> — and <b>the second Apriori property discards it immediately without any counting</b>, because its subset <b>{Milk, Butter} has only 40% support and is not frequent</b>. (Counting it anyway gives <code>2/5 = 40%</code>, confirming the prune was right.) → <b>there are no frequent 3-itemsets; we stop at the 2-itemsets</b>.</p>
+
+      <div class="sub-h" data-th="ขั้น 2 — สร้าง rule แล้วกรองด้วย confidence 80%">Step 2 — generate the rules and filter at 80% confidence</div>
+      <div class="tbl-wrap">
+        <table class="g">
+          <thead><tr><th data-th="กฎ">Rule</th><th data-th="คำนวณ">Calculation</th><th>Confidence</th><th data-th="ผล">Verdict</th></tr></thead>
+          <tr><td class="wide">{Milk} → {Bread}</td><td><code>60% / 80%</code></td><td><code>75%</code></td><td><span class="no" data-th="ไม่ผ่าน ❌">fails ❌</span></td></tr>
+          <tr><td class="wide">{Bread} → {Milk}</td><td><code>60% / 80%</code></td><td><code>75%</code></td><td><span class="no" data-th="ไม่ผ่าน ❌">fails ❌</span></td></tr>
+          <tr><td class="wide">{Bread} → {Butter}</td><td><code>60% / 80%</code></td><td><code>75%</code></td><td><span class="no" data-th="ไม่ผ่าน ❌">fails ❌</span></td></tr>
+          <tr><td class="wide">{Butter} → {Bread}</td><td><code>60% / 60%</code></td><td><code>100%</code></td><td><span class="yes" data-th="strong rule ✅">strong rule ✅</span></td></tr>
+        </table>
+      </div>
+      <p class="lede" style="margin-top:12px;" data-th="<b>คำตอบ: มีกฎเดียวที่ผ่าน คือ {Butter} → {Bread} ที่ confidence 100%</b>"><b>The answer: one rule passes — {Butter} → {Bread}, at 100% confidence.</b></p>
+      <p class="fnote" data-th="<b>สังเกตให้ดี:</b> {Bread} → {Butter} ได้ <b>75%</b> แต่ {Butter} → {Bread} ได้ <b>100%</b> ทั้งที่มาจาก itemset เดียวกัน — <b>นี่คือภาพชัดๆ ของความไม่สมมาตรของ confidence</b> · และ <b>Lift({Butter} → {Bread}) = 100% ÷ 80% = 1.25</b> ซึ่ง <b>&gt; 1</b> จึงเป็นความสัมพันธ์จริง ไม่ใช่ความบังเอิญ — ต่างจากตัวอย่าง A ที่ออกมาเท่ากับ 1 พอดี · (lift สมมาตร ดังนั้น Lift({Bread} → {Butter}) = 75% ÷ 60% = 1.25 เท่ากัน ทั้งที่ confidence ต่างกัน)"><b>Look closely:</b> {Bread} → {Butter} gives <b>75%</b> while {Butter} → {Bread} gives <b>100%</b>, from the very same itemset — <b>a clean illustration of the asymmetry of confidence</b>. And <b>Lift({Butter} → {Bread}) = 100% ÷ 80% = 1.25</b>, which is <b>&gt; 1</b>, so this is a genuine association rather than a coincidence — unlike example A, which came out at exactly 1. (Lift is symmetric, so Lift({Bread} → {Butter}) = 75% ÷ 60% = 1.25 as well, even though the confidences differ.)</p>
+    </div>
+
+    <div class="sub-h" data-th="8 · สูตรลัดเวลาเจอโจทย์ในห้องสอบ">8 · A recipe for attacking one of these in the exam</div>
+    <div class="panel">
+      <ol class="cram-list" style="columns:1;">
+        <li data-th="<b>เขียน N ก่อน</b> แล้ววงไว้ · แล้วเขียน <b>min support</b> กับ <b>min confidence</b> ที่โจทย์ให้มาไว้ข้างๆ · แปลง min support เป็น<b>จำนวนครั้ง</b>ทันที (60% ของ 5 = ต้องเจออย่างน้อย 3 ครั้ง) — จะได้ไม่ต้องคิดเป็นเปอร์เซ็นต์ซ้ำๆ"><b>Write N first</b> and circle it. Then write the given <b>min support</b> and <b>min confidence</b> beside it, and convert min support into <b>a count</b> straight away (60% of 5 = at least 3 occurrences) so you never recompute percentages.</li>
+        <li data-th="<b>นับ 1-itemsets ทุกตัว</b> โดยไล่ทีละ item ไม่ใช่ไล่ทีละ transaction · ขีดฆ่าตัวที่ไม่ผ่านทิ้งทันที">Count <b>every 1-itemset</b>, going item by item rather than transaction by transaction. Strike out anything that fails at once.</li>
+        <li data-th="<b>จับคู่เฉพาะตัวที่รอด</b> เป็น 2-itemsets · ถ้ามีตัวรอด k ตัว จะได้ <b>k(k−1)/2 คู่</b> (รอด 4 ตัว = 6 คู่)"><b>Pair only the survivors</b> into 2-itemsets. With k survivors you get <b>k(k−1)/2 pairs</b> (4 survivors = 6 pairs).</li>
+        <li data-th="<b>ก่อนจะนับ 3-itemset ให้เช็ค subset ก่อนเสมอ</b> — ถ้า subset ตัวใดตัวหนึ่งตายไปแล้ว <b>prune ทิ้งได้เลยโดยไม่ต้องนับ</b> · ตรงนี้คือที่ที่ Apriori property ประหยัดเวลาให้เรามากที่สุด"><b>Before counting any 3-itemset, check its subsets</b> — if one of them is already dead, <b>prune without counting</b>. This is where the Apriori property saves you the most time.</li>
+        <li data-th="<b>หยุดเมื่อไม่มี itemset ไหนผ่านเกณฑ์</b> แล้วค่อยขึ้นขั้นสร้าง rule">Stop <b>when no itemset passes</b>, then move to the rule stage.</li>
+        <li data-th="<b>สร้าง rule จาก frequent itemset ที่รอด ทีละ itemset</b> · 2-itemset ให้ <b>2 กฎ</b> · 3-itemset ให้ <b>6 กฎ</b> · อย่าลืมว่า <b>ทุก item ใน itemset นั้นต้องอยู่ในกฎครบ</b>"><b>Generate rules from each surviving frequent itemset, one itemset at a time.</b> A 2-itemset gives <b>2 rules</b>; a 3-itemset gives <b>6</b>. Remember that <b>every item of that itemset must appear in the rule</b>.</li>
+        <li data-th="<b>คำนวณ confidence ด้วยจำนวนครั้ง ไม่ต้องแปลงเป็น %</b> — <code>ความถี่ของทั้งชุด ÷ ความถี่ของฝั่งซ้าย</code> · N ตัดกันไปเองอยู่แล้ว"><b>Compute confidence with counts, not percentages</b> — <code>frequency of the whole set ÷ frequency of the left-hand side</code>. The N cancels anyway.</li>
+        <li data-th="<b>ถ้าโจทย์ถามถึง lift ด้วย</b> อย่าลืมว่า <b>confidence สูงแต่ lift = 1 คือกฎที่ไร้ประโยชน์</b> — เป็นประเด็นที่สไลด์ตั้งใจสอน"><b>If the question also asks about lift</b>, remember that <b>high confidence with a lift of 1 is a useless rule</b> — the point the slide is built to teach.</li>
+      </ol>
     </div>
   </section>
 
@@ -1047,7 +1259,7 @@
 
 <details class="mcq"><summary data-n="16"><span class="qtext" data-th="จาก <b>3-itemset</b> หนึ่งชุด สร้าง association rule ได้กี่กฎ">How many association rules can be generated from one <b>3-itemset</b>?</span><ul class="opts"><li data-th="4">4</li><li class="right" data-th="6">6</li><li data-th="8">8</li><li data-th="3">3</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="<b>6 กฎ</b> — 3 กฎที่ consequent มี item เดียว (เช่น <code>{A,B}→{C}</code>) และ 3 กฎที่ consequent มีสอง item (เช่น <code>{A}→{B,C}</code>) · <b>กฎเหล็ก: ทุก item ต้องปรากฏในกฎ ห้ามขาดตัวไหน</b> และแต่ละข้างของลูกศรต้องมีอย่างน้อย 1 ตัว"><b>Six</b> — three with a one-item consequent (e.g. <code>{A,B}→{C}</code>) and three with a two-item consequent (e.g. <code>{A}→{B,C}</code>). <b>The hard rule: every item must appear, none may be dropped</b>, and each side of the arrow needs at least one.</div></details>
 
-<details class="mcq"><summary data-n="17"><span class="qtext" data-th="ข้อใดคือ <b>Apriori property</b>">Which statement is the <b>Apriori property</b>?</span><ul class="opts"><li data-th="ถ้า itemset หนึ่ง frequent แล้ว superset ทุกตัวของมันก็ frequent">If an itemset is frequent, all of its supersets are frequent</li><li data-th="ทุก itemset ที่มีขนาดเท่ากันมี support เท่ากัน">All itemsets of the same size have the same support</li><li class="right" data-th="ถ้า itemset หนึ่ง infrequent แล้ว superset ทุกตัวของมันก็ infrequent">If an itemset is infrequent, all of its supersets are infrequent</li><li data-th="ถ้า itemset หนึ่ง infrequent แล้ว subset ทุกตัวของมันก็ infrequent">If an itemset is infrequent, all of its subsets are infrequent</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="มีสองส่วน: <b>(1) frequent → subset ทุกตัว frequent</b> และ <b>(2) infrequent → superset ทุกตัว infrequent</b> ซึ่งเป็น contrapositive ของข้อแรก · ส่วนที่สองคือสิ่งที่ทำให้ <b>prune ได้</b> — เพราะ power set มีขนาด <b>2ⁿ</b> ถ้าไม่ตัดทิ้งตั้งแต่ต้น สินค้าหลักพันชิ้นก็คำนวณไม่ไหว · ตัวเลือกอื่นเป็นการสลับ subset/superset ซึ่งผิด">There are two parts: <b>(1) frequent → all subsets frequent</b>, and <b>(2) infrequent → all supersets infrequent</b>, the contrapositive of the first. The second is what makes <b>pruning</b> possible — the power set has size <b>2ⁿ</b>, so without cutting early, thousands of products are uncomputable. The other options swap subset and superset.</div></details>
+<details class="mcq"><summary data-n="17"><span class="qtext" data-th="ข้อใดคือ <b>Apriori property</b>">Which statement is the <b>Apriori property</b>?</span><ul class="opts"><li data-th="ถ้า itemset หนึ่ง frequent แล้ว superset ทุกตัวของมันก็ frequent">If an itemset is frequent, all of its supersets are frequent</li><li data-th="ทุก itemset ที่มีขนาดเท่ากันมี support เท่ากัน">All itemsets of the same size have the same support</li><li class="right" data-th="ถ้า itemset หนึ่ง infrequent แล้ว superset ทุกตัวของมันก็ infrequent">If an itemset is infrequent, all of its supersets are infrequent</li><li data-th="ถ้า itemset หนึ่ง infrequent แล้ว subset ทุกตัวของมันก็ infrequent">If an itemset is infrequent, all of its subsets are infrequent</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="มีสองส่วน: <b>(1) frequent → subset ทุกตัว frequent</b> และ <b>(2) infrequent → superset ทุกตัว infrequent</b> ซึ่งเป็น contrapositive ของข้อแรก · ส่วนที่สองคือสิ่งที่ทำให้ <b>prune ได้</b> — เพราะ power set มีขนาด <code>2^n</code> ถ้าไม่ตัดทิ้งตั้งแต่ต้น สินค้าหลักพันชิ้นก็คำนวณไม่ไหว · ตัวเลือกอื่นเป็นการสลับ subset/superset ซึ่งผิด">There are two parts: <b>(1) frequent → all subsets frequent</b>, and <b>(2) infrequent → all supersets infrequent</b>, the contrapositive of the first. The second is what makes <b>pruning</b> possible — the power set has size <code>2^n</code>, so without cutting early, thousands of products are uncomputable. The other options swap subset and superset.</div></details>
 
 <details class="mcq"><summary data-n="18"><span class="qtext" data-th="Decision Tree ทำงานประเภทใดได้บ้าง">What kinds of task can a Decision Tree do?</span><ul class="opts"><li data-th="Regression เท่านั้น">Regression only</li><li class="right" data-th="ได้ทั้ง classification และ regression">Both classification and regression</li><li data-th="Clustering เท่านั้น">Clustering only</li><li data-th="Classification เท่านั้น">Classification only</li></ul><span class="tap" data-th="แตะเพื่อดูเฉลย">tap for the answer</span></summary><div class="why" data-th="สไลด์มีตัวอย่างทั้งสองแบบ: <b>“Play an outdoor sport?”</b> label เป็น Yes/No (classification) และ <b>“Predict a house price”</b> label เป็นตัวเลข (regression) โดยใช้การเปรียบเทียบมากกว่า/น้อยกว่าที่แต่ละ node · <b>อาจารย์ย้ำว่านี่คือข้อดีของมัน</b> · และจำประโยคเปิดของสไลด์ไว้: <b>classification → target เป็น categorical · regression → target เป็น numeric</b>">The deck shows both: <b>"Play an outdoor sport?"</b> with a Yes/No label (classification) and <b>"Predict a house price"</b> with a numeric label (regression), where nodes compare greater-than / less-than. <b>He stressed this is its advantage.</b> And remember the deck's opening line: <b>classification → categorical target; regression → numeric target</b>.</div></details>
 
