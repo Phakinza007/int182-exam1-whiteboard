@@ -246,6 +246,34 @@
   .gl dd b{color:var(--ink);}
   .gl dd .warn{color:var(--red);}
   .gl dd code{font-family:var(--font-mono); font-size:.93em; background:var(--surface); padding:1px 5px; border-radius:4px;}
+  /* hover glossary */
+  .tt{
+    border-bottom:1px dashed var(--line-strong); cursor:help;
+    text-underline-offset:3px; transition:border-color .12s, background .12s;
+    border-radius:2px;
+  }
+  .tt:hover, .tt.on{border-bottom-color:var(--accent); background:var(--accent-soft);}
+  #ttip{
+    position:fixed; z-index:60; max-width:min(380px, calc(100vw - 24px));
+    background:var(--surface); border:1.5px solid var(--accent); border-radius:10px;
+    padding:11px 13px 12px; box-shadow:0 6px 28px rgba(0,0,0,.22), 0 1px 3px rgba(0,0,0,.12);
+    font-size:12.6px; line-height:1.68; color:var(--ink-soft);
+    opacity:0; transform:translateY(3px); pointer-events:none; transition:opacity .12s, transform .12s;
+  }
+  #ttip.show{opacity:1; transform:translateY(0);}
+  #ttip .ttterm{
+    display:block; font-family:var(--font-mono); font-weight:700; font-size:11.8px;
+    color:var(--accent); margin-bottom:5px; letter-spacing:.01em;
+  }
+  #ttip b{color:var(--ink);}
+  #ttip .warn{color:var(--red);}
+  #ttip code{font-family:var(--font-mono); font-size:.93em; background:var(--surface-2); padding:1px 5px; border-radius:4px;}
+  .tt-hint{
+    display:inline-flex; align-items:center; gap:6px; margin-top:10px;
+    font-size:12px; color:var(--ink-faint); font-family:var(--font-mono);
+  }
+  .tt-hint i{width:34px; height:0; border-bottom:1px dashed var(--line-strong); display:inline-block;}
+  @media print{ .tt{border-bottom:none;} #ttip{display:none !important;} .tt-hint{display:none !important;} }
   .hide{display:none !important;}
 
   @media print{
@@ -339,6 +367,8 @@
   <div class="panel key" style="margin-bottom:16px;">
     <h3 data-th="คำศัพท์ที่จะออกสอบ — แยกเป็นหมวด">The exam vocabulary, sorted into groups</h3>
     <p class="lede" data-th="ข้อสอบเป็นปรนัย 50 ข้อ แปลว่า<b>ส่วนใหญ่คือการวัดคำศัพท์</b> · และอาจารย์เตือนเองว่าที่ยากคือ <b>“ช้อยส์มันใกล้เคียงกัน”</b> — ดังนั้นคำที่<b>อยู่หมวดเดียวกัน</b>คือคำที่จะถูกเอามาเป็นตัวลวงของกันและกัน · อ่านทีละหมวดแล้วถามตัวเองว่า <b>“ถ้าเอาสองคำนี้มาวางคู่กัน ฉันแยกออกไหม”</b>">The paper is 50 multiple-choice questions, which means <b>most of it is a vocabulary test</b> — and he warned that the hard part is that <b>"the options sit close together"</b>. So the words <b>inside one group</b> are the ones that will be used as each other's distractors. Read a group, then ask yourself: <b>"put any two of these side by side — can I still tell them apart?"</b></p>
+
+    <span class="tt-hint" data-th="<i></i> คำที่ขีดเส้นประไว้ในหน้านี้ เอาเมาส์ไปชี้ (หรือแตะบนมือถือ) แล้วคำอธิบายจะเด้งขึ้นมา"><i></i> Words underlined with a dashed line anywhere on this page show their definition on hover — or on tap, on a phone.</span>
 
     <div class="gloss">
 
@@ -1535,6 +1565,7 @@
       btn.classList.toggle('is-th', lang === 'th');
     }
     try { localStorage.setItem(KEY, lang); } catch(e){}
+    if(window.__linkTerms){ window.__linkTerms(); }
   }
   var cur = 'en';
   try { var s = localStorage.getItem(KEY); if(s === 'th' || s === 'en'){ cur = s; } } catch(e){}
@@ -1560,4 +1591,187 @@
     for(var i=0;i<n.length;i++){ n[i].open = wasOpen.length ? wasOpen[i] : false; }
   });
 })();
+
+/* ---------- hover glossary ----------
+   Definitions are read live out of the glossary DOM, so there is exactly one
+   source of truth and the tooltip follows the EN/TH toggle for free. */
+(function(){
+  // [phrase shown in the text, substring identifying the glossary <dt>]
+  var ALIASES = [
+    ['information gain','Information Gain'], ['entropy','Entropy'],
+    ['overfitting','Overfitting'], ['underfitting','Underfitting'],
+    ['hyperparameter','Hyperparameter'], ['model parameter','Model parameter'],
+    ['centroid','Centroid'], ['WCSS','WCSS'],
+    ['elbow method','Elbow method'], ['Euclidean distance','Euclidean distance'],
+    ['non-deterministic','Non-deterministic'],
+    ['K-modes','K-modes'], ['K-prototypes','K-modes'],
+    ['fuzzy c-means','Hard vs Soft'], ['hard clustering','Hard vs Soft'], ['soft clustering','Hard vs Soft'],
+    ['normalization','Normalization'], ['normalize','Normalization'],
+    ['standardization','Normalization'], ['preprocessing','Preprocessing'],
+    ['clustering','Clustering'], ['silhouette','Elbow method'],
+    ['support','Support'], ['confidence','Confidence'], ['lift','Lift'],
+    ['antecedent','Antecedent'], ['consequent','Antecedent'],
+    ['frequent itemset','Item / Itemset'], ['itemset','Item / Itemset'],
+    ['apriori property','Apriori property'], ['apriori','Apriori property'],
+    ['pruning','Pruning'], ['prune','Pruning'],
+    ['market basket analysis','MBA'], ['MBA','MBA'],
+    ['transactional data','Transactional data'],
+    ['frequency','Frequency vs Support'],
+    ['root node','Root / Decision / Leaf'], ['leaf node','Root / Decision / Leaf'],
+    ['decision node','Root / Decision / Leaf'], ['stopping condition','Stopping condition'],
+    ['rule-based','Rule-based'], ['random forest','Random Forest'],
+    ['KDD','KDD'], ['data mining','Data mining'], ['data warehouse','Data warehouse'],
+    ['data product','Data product'], ['actionable','Insight vs Actionable'], ['insight','Insight vs Actionable'],
+    ['OLTP','OLTP vs OLAP'], ['OLAP','OLTP vs OLAP'],
+    ['ETL','ETL'], ['AI winter','AI winter'],
+    ['structured','Structured vs Unstructured'], ['unstructured','Structured vs Unstructured'],
+    ['EDA','EDA'], ['box plot','Box plot'], ['scatter plot','Scatter plot'],
+    ['five-number summary','Five-number summary'], ['IQR','Q1 / Q2 / Q3'],
+    ['outlier','Fence / Outlier / Whisker'], ['whisker','Fence / Outlier / Whisker'],
+    ['fence','Fence / Outlier / Whisker'],
+    ['correlation','Correlation'], ['Pearson','Correlation'], ['Spearman','Correlation'],
+    ['skew','Skew'], ['median','Mean / Median / Mode'], ['mode','Mean / Median / Mode'],
+    ['univariate','Univariate'], ['bivariate','Univariate'], ['multivariate','Univariate'],
+    ['nominal','Nominal'], ['ordinal','Ordinal'], ['interval','Interval'],
+    ['ratio scale','Ratio'], ['true zero','True zero'],
+    ['supervised learning','Supervised learning'], ['unsupervised learning','Unsupervised learning'],
+    ['reinforcement learning','Reinforcement learning'],
+    ['predictive','Predictive vs Descriptive'], ['descriptive','Predictive vs Descriptive'],
+    ['classification','Classification'], ['regression','Regression'],
+    ['data bias','Data bias'], ['algorithmic bias','Data bias'], ['human bias','Data bias'],
+    ['noise','Noise'], ['validation','Noise'],
+    ['data fitting','Data fitting'], ['model fitting','Model fitting'], ['data modeling','Data modeling'],
+    ['generalization','Model fitting'], ['gradient descent','Model fitting'],
+    ['least squares','Data fitting'],
+    ['widget','Orange Data Mining'], ['Orange','Orange Data Mining'],
+    ['instance','Instance'], ['imputation','Data imputation'],
+    ['feature engineering','Feature engineering'], ['feature selection','Feature engineering'],
+    ['5 V','5 V'], ['4 A','4 A'],
+    ['Data Engineer','Data Engineer'], ['Data Scientist','Data Scientist']
+  ];
+  var MAX_PER_TERM = 3;
+  var tip = null, active = null, defs = [];
+
+  function buildDefs(){
+    defs = [];
+    var dts = document.querySelectorAll('.gl dt');
+    ALIASES.forEach(function(a){
+      for(var i=0;i<dts.length;i++){
+        if(dts[i].textContent.toLowerCase().indexOf(a[1].toLowerCase()) !== -1){
+          var dd = dts[i].nextElementSibling;
+          if(dd){ defs.push({re:a[0], term:dts[i].textContent.trim(), html:dd.innerHTML}); }
+          return;
+        }
+      }
+    });
+    // longest phrase first, so "information gain" wins over "gain"
+    defs.sort(function(x,y){ return y.re.length - x.re.length; });
+  }
+
+  function esc(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+  function unwrapAll(){
+    var n = document.querySelectorAll('span.tt');
+    for(var i=0;i<n.length;i++){
+      var el = n[i], p = el.parentNode;
+      p.replaceChild(document.createTextNode(el.textContent), el);
+      p.normalize();
+    }
+  }
+
+  var SKIP = /^(CODE|SCRIPT|STYLE|SVG|DT|H1|H2|H3|H4|BUTTON|TEXTAREA|INPUT)$/;
+  function walk(root, term, re, budget){
+    var it = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(n){
+        if(!n.nodeValue || n.nodeValue.length < 2) return NodeFilter.FILTER_REJECT;
+        for(var p = n.parentNode; p && p !== root; p = p.parentNode){
+          if(p.nodeType !== 1) continue;
+          if(SKIP.test(p.tagName)) return NodeFilter.FILTER_REJECT;
+          if(p.classList && (p.classList.contains('tt') || p.classList.contains('gloss'))) return NodeFilter.FILTER_REJECT;
+        }
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var hits = [], n;
+    while((n = it.nextNode())){ if(re.test(n.nodeValue)){ hits.push(n); } re.lastIndex = 0; }
+    for(var i=0;i<hits.length && budget.n < MAX_PER_TERM;i++){
+      var node = hits[i];
+      re.lastIndex = 0;
+      var m = re.exec(node.nodeValue);
+      if(!m) continue;
+      var after = node.splitText(m.index);
+      after.splitText(m[0].length);
+      var span = document.createElement('span');
+      span.className = 'tt';
+      span.setAttribute('data-term', term.term);
+      span.setAttribute('data-def', term.html);
+      span.textContent = after.nodeValue;
+      after.parentNode.replaceChild(span, after);
+      budget.n++;
+    }
+  }
+
+  function linkTerms(){
+    buildDefs();
+    unwrapAll();
+    var roots = document.querySelectorAll('.band, .cram');
+    defs.forEach(function(d){
+      var budget = {n:0};
+      var re = new RegExp('(?<![\\w-])' + esc(d.re) + '(?![\\w-])', 'gi');
+      for(var i=0;i<roots.length && budget.n < MAX_PER_TERM;i++){
+        try { walk(roots[i], d, re, budget); } catch(e){}
+      }
+    });
+  }
+
+  function ensureTip(){
+    if(tip) return tip;
+    tip = document.createElement('div');
+    tip.id = 'ttip';
+    document.body.appendChild(tip);
+    return tip;
+  }
+  function show(el){
+    var t = ensureTip();
+    t.innerHTML = '<span class="ttterm"></span><span class="ttbody"></span>';
+    t.querySelector('.ttterm').textContent = el.getAttribute('data-term');
+    t.querySelector('.ttbody').innerHTML = el.getAttribute('data-def');
+    t.classList.add('show');
+    var r = el.getBoundingClientRect(), tr = t.getBoundingClientRect();
+    var left = Math.min(Math.max(8, r.left), window.innerWidth - tr.width - 8);
+    var top = r.top - tr.height - 9;
+    if(top < 8){ top = r.bottom + 9; }
+    t.style.left = left + 'px';
+    t.style.top = top + 'px';
+    if(active) active.classList.remove('on');
+    active = el; el.classList.add('on');
+  }
+  function hide(){
+    if(tip) tip.classList.remove('show');
+    if(active){ active.classList.remove('on'); active = null; }
+  }
+
+  document.addEventListener('mouseover', function(e){
+    var el = e.target.closest && e.target.closest('span.tt');
+    if(el) show(el);
+  });
+  document.addEventListener('mouseout', function(e){
+    var el = e.target.closest && e.target.closest('span.tt');
+    if(el && !(e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('span.tt'))) hide();
+  });
+  document.addEventListener('click', function(e){
+    var el = e.target.closest && e.target.closest('span.tt');
+    if(el){ e.preventDefault(); (active === el) ? hide() : show(el); }
+    else { hide(); }
+  });
+  window.addEventListener('scroll', hide, {passive:true});
+  window.addEventListener('resize', hide);
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') hide(); });
+  window.addEventListener('beforeprint', function(){ hide(); unwrapAll(); });
+  window.addEventListener('afterprint', linkTerms);
+
+  window.__linkTerms = linkTerms;
+  linkTerms();
+})();
+
 </script>
